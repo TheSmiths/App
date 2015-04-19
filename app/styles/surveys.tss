@@ -111,9 +111,12 @@
 }
 
 ".or": {
-    top: 280,
+    top: 283,
     text: L('surveys.or'),
-    height: 10,
+    height: 30,
+    left: 15,
+    right: 15,
+    textAlign: 'center',
     font: {
         fontSize: 12,
         fontWeight: "normal"
@@ -122,7 +125,7 @@
 }
 
 "#viewGuide": {
-    top: 310,
+    top: 323,
     text: L('surveys.viewGuide')
 }
 

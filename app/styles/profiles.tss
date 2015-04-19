@@ -29,3 +29,49 @@
     },
     opacity: 1
 }
+
+".content": {
+    top: 60,
+    backgroundColor: '#F0F0F0'
+}
+
+"#emptyView": {
+    height: Ti.UI.SIZE,
+    top: 50,
+    bottom: 50,
+    left: 25,
+    right: 25,
+    layout: 'vertical'
+}
+
+".emptyProfileIcon": {
+    width: 80,
+    height: 80,
+    image: '/images/icons/profiles/emptyProfilesIcon.png'
+}
+
+".emptyProfileLabel": {
+    top: 20,
+    color: "#B9B9B9",
+    text: L('profiles.empty'),
+    height: Ti.UI.SIZE,
+    font: {
+        fontWeight: 'normal',
+        fontSize: 12
+    },
+    textAlign: 'center'
+}
+
+"#profilesTableView": {
+    visible: false,
+    top: 0,
+    backgroundColor: 'transparent'
+}
+
+"#profilesTableView[platform=ios]": {
+    separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE,
+}
+
+"#closeButton": {
+    visible: false
+}

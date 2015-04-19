@@ -109,7 +109,17 @@ function compassEventHandler (evt) {
  * @method doClickStartSurvey
  */
 function doClickStartSurvey () {
-    Alloy.createController('profiles/newProfile', { flow: 'survey'} );
+    Alloy.createCollection('Profile').fetch({
+        success: function(collection, response, options) {
+            if (collection.length === 0) {
+                Alloy.createController('profiles/newProfile', { flow: 'SURVEY'} );
+                return;
+            }
+
+            Alloy.createController('profiles', { flow: 'SURVEY'} );
+
+        }
+    });
 }
 
 /**

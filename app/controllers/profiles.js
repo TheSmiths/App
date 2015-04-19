@@ -5,6 +5,10 @@
  * @uses utils.log
  */
 var log = require('utils/log');
+var profiles = Alloy.createCollection('Profile');
+var shadowProfiles = [];
+
+var STATE = 'NONE';
 
 _.extend($, {
     /**
@@ -13,7 +17,18 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-
+        // Set state
+        STATE = config.flow || STATE;
+        if (STATE === 'SURVEY') {
+            $.menuButton.hide();
+            $.closeButton.show();
+            require('windowManager').openWinWithBack($.getView());
+        }
+        profiles.on('add', onAddProfile);
+        profiles.on('change', onChangeProfile);
+        profiles.on('remove', onRemoveProfile);
+        // Fetch data
+        fetchProfiles();
     },
 
     /**
@@ -21,8 +36,67 @@ _.extend($, {
      * function executed when closing window
      */
     destruct: function() {
+        profiles.off('add', onAddProfile);
+        profiles.off('change', onChangeProfile);
+        profiles.off('remove', onRemoveProfile);
     }
 });
+
+/**
+ * [closeWindow description]
+ * @param  {[type]} evt [description]
+ * @return {[type]}     [description]
+ */
+function closeWindow (evt) {
+    if (STATE === 'SURVEY') {
+        require('windowManager').closeWin({animated: true});
+    }
+}
+
+/**
+ * [onAddProfile description]
+ * @param  {[type]} model      [description]
+ * @param  {[type]} collection [description]
+ * @param  {[type]} options    [description]
+ * @return {[type]}            [description]
+ */
+function onAddProfile (model, collection, options) {
+    log.info('onAddProfile', model);
+    if (_.contains(shadowProfiles, model.get('id'))) {
+        return;
+    }
+
+    var guideDataRow = Alloy.createController('profiles/profileRow', {model: model, state: STATE}).getView();
+    $.profilesTableView.appendRow(guideDataRow);
+    shadowProfiles.push(model.get('id'));
+}
+
+/**
+ * [onChangeProfile description]
+ * @param  {[type]} model      [description]
+ * @param  {[type]} collection [description]
+ * @param  {[type]} options    [description]
+ * @return {[type]}            [description]
+ */
+function onChangeProfile (model, collection, options) {
+
+}
+
+/**
+ * [onRemoveProfile description]
+ * @param  {[type]} model      [description]
+ * @param  {[type]} collection [description]
+ * @param  {[type]} options    [description]
+ * @return {[type]}            [description]
+ */
+function onRemoveProfile (model, collection, options) {
+    if (collection.length === 0) {
+        $.profilesTableView.visible = false;
+        $.emptyView.visible = true;
+    }
+    $.profilesTableView.deleteRow(options.index);
+    shadowProfiles = _.reject(shadowProfiles, function (id) { return id === model.get('id'); } );
+}
 
 /**
  * @method doClickNewProfile
@@ -33,8 +107,7 @@ function doClickNewProfile (evt) {
     // Throttle the button press to prevent multiple clicks
     setNewProfileOpacity(0.4);
     _.delay(_.partial(setNewProfileOpacity, 1), 150);
-    console.log('Go time');
-    Alloy.createController('profiles/newProfile');
+    Alloy.createController('profiles/newProfile', { parent: $, flow: STATE });
 }
 
 /**
@@ -45,3 +118,42 @@ function doClickNewProfile (evt) {
 function setNewProfileOpacity (opacity) {
     $.newProfile.opacity = opacity;
 }
+
+/**
+ * [doClickProfilesTableView description]
+ * @param  {[type]} model [description]
+ * @return {[type]}       [description]
+ */
+function doClickProfilesTableView (model) {
+    if (STATE === 'SURVEY') {
+        Alloy.createController('surveys/windspeed', { state: 'PRESURVEY'} );
+        return;
+    }
+
+    profiles.get(model.rowData.modelId).destroy();
+}
+
+/**
+ * [fetchProfiles description]
+ * @return {[type]} [description]
+ */
+function fetchProfiles () {
+    profiles.fetch({
+        silent: false,
+        success: function(collection, response, options) {
+            log.info('[profiles] Retreived profiles', collection);
+            if (collection.length === 0) {
+                return;
+            }
+
+            $.emptyView.visible = false;
+            $.profilesTableView.visible = true;
+        },
+        error: function(collection, response, options) {
+            log.info('[profiles] Unable to retreive profiles', response);
+            // @todo Set error state
+        }
+    });
+}
+// Export fetchProfiles
+exports.fetchProfiles = fetchProfiles;

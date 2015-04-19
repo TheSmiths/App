@@ -1,20 +1,20 @@
 exports.definition = {
     config: {
         columns: {
-            "first_name": "",
-            "last_name": "",
-            "phone": "",
-            "email": ""
+            "name": "STRING",
+            "height": "INT",
+            "boat": "STRING",
+            "surveys": "INT",
         },
         defaults: {
-            "first_name": "",
-            "last_name": "",
-            "phone": "",
-            "email": ""
+            "name": "",
+            "height": 0,
+            "boat": "",
+            "surveys": 0,
         },
         adapter: {
             type: "properties",
-            collection_name: "user"
+            collection_name: "Profile"
         }
     },
     extendModel: function(Model) {

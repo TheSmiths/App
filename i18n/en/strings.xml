@@ -9,7 +9,7 @@
     <string name="surveys.currentSpeed">Speed:</string>
     <string name="surveys.currentTime">Time:</string>
     <string name="surveys.startSurvey">Start a new survey</string>
-    <string name="surveys.or">or</string>
+    <string name="surveys.or">Need some information or help getting started using the app? Read the guide.</string>
     <string name="surveys.viewGuide">View our guide</string>
     <!-- Cloud Cover -->
     <string name="surveys.cloudCover.subTitle">What is the current</string>
@@ -37,13 +37,17 @@
     <!-- Profiles -->
     <string name="profiles.title">Profiles</string>
     <string name="profiles.newProfile">New profile</string>
+    <string name="profiles.empty">There are currently no profiles, create a profile using the 'new profile' button.</string>
     <!-- New Profile -->
     <string name="profiles.newProfile.title">Create Spotter Account</string>
+    <string name="profiles.newProfile.spotterError">Please provide a spotter.</string>
     <string name="profiles.newProfile.close">Close</string>
     <string name="profiles.newProfile.spotter">Spotter</string>
     <string name="profiles.newProfile.platformHeight">Platform height</string>
     <string name="profiles.newProfile.save">Save</string>
-    <!-- Profiles -->
+    <!-- ProfileRow -->
+    <string name="profiles.profileRow.delete">Delete</string>
+    <!-- Guide -->
     <string name="guide.title">GUIDE</string>
     <string name="guide.back">back</string>
     <string name="guide.prepareForSurvey">Preparing for a survey</string>

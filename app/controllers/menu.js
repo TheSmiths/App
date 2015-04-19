@@ -52,7 +52,7 @@ function onClickSurveys (evt) {
  */
 function onClickProfiles (evt) {
     if (activeItem !== 'menuItemProfiles') {
-        var profiles = Alloy.createController('profiles').getView();
+        var profiles = Alloy.createController('profiles', { flow: 'NONE'}).getView();
         Alloy.Globals.navigationWindow.openWindow(profiles, {animated: false});
         Alloy.Globals.drawer.toggleLeftWindow();
         activateItem('menuItemProfiles');

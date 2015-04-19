@@ -1,5 +1,5 @@
 <Alloy>
-    <View class="closeButtonContainer" onClick="onClickCloseButton">
+    <View class="closeButtonContainer" id="closeButtonContainer" onClick="onClickCloseButton">
         <ImageView class="closeButton" />
     </View>
 </Alloy>

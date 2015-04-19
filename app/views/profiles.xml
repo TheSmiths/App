@@ -1,11 +1,21 @@
 <Alloy>
     <Window id="profiles">
         <View class="header">
-              <Require src="components/menuButton" id="menuButton" />
+            <Require src="components/menuButton" id="menuButton" />
+            <Require src="components/closeButton" id="closeButton" onClick="closeWindow" />
             <Label id="headerTitle" class="headerTitle" />
             <View class="rightNavButton" onClick="doClickNewProfile">
                 <Label id="newProfile" />
             </View>
+        </View>
+
+        <View class="content">
+            <View id="emptyView">
+                <ImageView class="emptyProfileIcon" />
+                <Label class="emptyProfileLabel" />
+            </View>
+
+            <TableView id="profilesTableView" onClick="doClickProfilesTableView" />
         </View>
     </Window>
 </Alloy>

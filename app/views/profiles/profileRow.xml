@@ -1,3 +1,9 @@
 <Alloy>
-
+    <TableViewRow id="profileRow">
+        <View class="profileContainer">
+            <Label id="user" />
+            <Label id="userInfo" />
+            <Label class="deleteUser" id="deleteUser" onClick="onClickDeleteUser" />
+        </View>
+    </TableViewRow>
 </Alloy>

@@ -4,7 +4,8 @@
             "colors": {
                 "defaultBlue": "#00cde3",
                 "mediumBlue": "#008a99",
-                "darkBlue": "006a76"
+                "darkBlue": "#006a76",
+                "error": "#ff3f42"
             },
             "header": {
                 "fontColor": "#fff",

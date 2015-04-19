@@ -8,6 +8,9 @@
         <ScrollView>
             <View class="formRow">
                 <Label class="spotterLabel" />
+                <View id="spotterErrorContainer">
+                    <Label class="spotterErrorLabel" />
+                </View>
                 <TextField id="spotter" class="input" />
             </View>
             <View class="formRow">

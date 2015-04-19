@@ -77,5 +77,16 @@ function setMenuIcon (evt) {
     menuManager.setStatus('closed');
 }
 
+/**
+ * [hide description]
+ * @return {[type]} [description]
+ */
+function hide () {
+    $.menuContainer.visible = false;
+}
+
+// Export fetchProfiles
+exports.hide = hide;
+
 
 

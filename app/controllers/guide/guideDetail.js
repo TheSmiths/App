@@ -1,14 +1,11 @@
 /**
  * Controller for the guide
  *
- * @class Controllers.guide.guideDetails
+ * @class Controllers.guide.guideDetail
  * @uses utils.log
  * @uses data.guide
  */
 var log = require('utils/log');
-
-// Data
-
 
 _.extend($, {
     /**
@@ -19,6 +16,10 @@ _.extend($, {
     construct: function(config) {
         var guideDetailsSourceData = require('data/guide').guideDetails[config.guideIndex];
         buildPage(guideDetailsSourceData);
+        // Open the window in dialog if the window is requested from other than the guide
+        if (config.dialog) {
+            $.getView().open({modal:true});
+        }
     },
 
     /**
@@ -28,7 +29,6 @@ _.extend($, {
     destruct: function() {
     }
 });
-
 
 /**
  * @method onClickBackButton
@@ -40,8 +40,7 @@ function onClickBackButton (evt) {
 
 /**
  * @method buildPage
- * @param  {[type]} guideDetailData [description]
- * @return {[type]}                 [description]
+ * @param  {Array} guideDetailData Array of objects containing the data of the guide details page
  */
 function buildPage (guideDetailData) {
     _.each(guideDetailData, function (content) {

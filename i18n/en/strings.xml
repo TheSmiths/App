@@ -12,7 +12,7 @@
     <string name="surveys.or">Need some information or help getting started using the app? Read the guide.</string>
     <string name="surveys.viewGuide">View our guide</string>
     <!-- Cloud Cover -->
-    <string name="surveys.cloudCover.subTitle">What is the current</string>
+    <string name="surveys.cloudCover.subTitle">What is the current cloud coverage</string>
     <string name="surveys.cloudCover.title">Cloud coverage</string>
     <!-- Survey -->
     <string name="surveys.survey.title">Survey</string>
@@ -26,7 +26,7 @@
     <string name="surveys.survey.preSurveyMessage">Start the survey once ready in order to start collecting data.</string>
     <string name="surveys.survey.started">Started on</string>
     <!-- Wind speed -->
-    <string name="surveys.windspeed.subTitle">What is the current</string>
+    <string name="surveys.windspeed.subTitle">Select the wind speed at this moment</string>
     <string name="surveys.windspeed.title">Wind Speed</string>
     <!-- Menu -->
     <string name="menu.surveys">Surveys</string>
@@ -38,6 +38,7 @@
     <string name="profiles.title">Profiles</string>
     <string name="profiles.newProfile">New profile</string>
     <string name="profiles.empty">There are currently no profiles, create a profile using the 'new profile' button.</string>
+    <string name="profiles.surveyTitle">Select your profile</string>
     <!-- New Profile -->
     <string name="profiles.newProfile.title">Create Spotter Account</string>
     <string name="profiles.newProfile.spotterError">Please provide a spotter.</string>

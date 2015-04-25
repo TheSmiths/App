@@ -22,6 +22,7 @@ _.extend($, {
         if (STATE === 'SURVEY') {
             $.menuButton.hide();
             $.closeButton.show();
+            $.headerTitle.text = L('profiles.surveyTitle');
             require('windowManager').openWinWithBack($.getView());
         }
         profiles.on('add', onAddProfile);

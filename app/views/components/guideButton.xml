@@ -1,0 +1,5 @@
+<Alloy>
+    <View class="guideButtonContainer" id="guideButtonContainer" onClick="onClickGuideButton">
+        <ImageView class="guideButton" />
+    </View>
+</Alloy>

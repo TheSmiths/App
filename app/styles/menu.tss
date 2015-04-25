@@ -48,7 +48,7 @@
 }
 
 "#menuIconGuide": {
-    image: '/images/navigation/guide.png'
+    image: '/images/navigation/menuGuide.png'
 }
 
 "#menuSettings": {

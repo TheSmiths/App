@@ -6,12 +6,22 @@
 
 ".headerTitle": {
     text: L('surveys.windspeed.title'),
-    top: 31,
-    left: 60,
+    top: 26,
     font: {
         fontWeight: 'bold',
     },
     color: Alloy.CFG.design.header.fontColor
+}
+
+".headerSubTitle": {
+    text: L('surveys.windspeed.subTitle'),
+    top: 42,
+    font: {
+        fontSize: 10,
+        fontWeight: 'bold'
+    },
+    color: Alloy.CFG.design.header.fontColor,
+    opacity: 0.6
 }
 
 ".content": {

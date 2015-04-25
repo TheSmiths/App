@@ -1,0 +1,13 @@
+".guideButtonContainer": {
+    top: 20,
+    right: 0,
+    width: 60,
+    height: 40
+}
+
+".guideButton": {
+    height: 17,
+    width: 17,
+    image: 'images/navigation/guide.png',
+    right: 10
+}

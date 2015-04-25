@@ -1,10 +1,14 @@
 <Alloy>
     <Window id="more">
          <View class="header">
-            <Label class="headerTitle" />
+            <Label class="headerTitle" id="headerTitle" />
             <Require src="components/backButton" id="backButton" onClick="onClickBackButton" />
         </View>
 
-        <ScrollView id="content" />
+        <ScrollView id="content">
+            <View id="contentContainer">
+                <View id="paddingContainer" />
+            </View>
+        </ScrollView>
     </Window>
 </Alloy>

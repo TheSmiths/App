@@ -1,13 +1,5 @@
-".header": {
-    height: 60,
-    backgroundColor: Alloy.CFG.design.header.backgroundColor,
-    top: 0
-}
-
 ".headerTitle": {
-    text: L('guide.title'),
     top: 30,
-    left: 60,
     font: {
         fontWeight: 'bold',
     },
@@ -37,20 +29,46 @@
 
 "#content": {
     top: 60,
-    layout: 'vertical'
+    backgroundColor: '#F0F0F0'
+}
+
+"#contentContainer": {
+    top: 5,
+    bottom: 5,
+    left: 5,
+    right: 5,
+    height: Ti.UI.SIZE,
+    backgroundColor: '#fff',
+
+}
+
+"#paddingContainer": {
+    top: 10,
+    bottom: 10,
+    height: Ti.UI.SIZE,
+        layout: 'vertical',
 }
 
 ".title": {
     font: {
         fontWeight: 'bold',
+        fontSize: 13
     },
-    left: 10,
+    left: 15,
     height: Ti.UI.SIZE,
     top: 10,
+     color: 'rgba(0,0,0,.8)',
     bottom: 10
 }
 
 ".paragraph": {
-    left: 10,
-    height: Ti.UI.SIZE
+    left: 15,
+    right: 15,
+    height: Ti.UI.SIZE,
+    font: {
+        fontWeight: 'normal',
+        fontSize: 11
+    },
+    color: 'rgba(0,0,0,.7)',
+    bottom: 10
 }

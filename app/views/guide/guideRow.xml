@@ -1,6 +1,8 @@
 <Alloy>
     <TableViewRow>
-        <Label id="label" />
-        <View class="divider" />
+        <View class="guideContainer">
+            <Label id="label" />
+            <ImageView class="icon" />
+        </View>
     </TableViewRow>
 </Alloy>

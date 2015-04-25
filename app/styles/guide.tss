@@ -1,9 +1,3 @@
-".header": {
-    height: 60,
-    backgroundColor: Alloy.CFG.design.header.backgroundColor,
-    top: 0
-}
-
 ".headerTitle": {
     text: L('guide.title'),
     top: 31,
@@ -16,7 +10,8 @@
 
 "#guideTableView": {
     height: Ti.UI.FILL,
-    top: 60
+    top: 60,
+    backgroundColor: '#F0F0F0'
 }
 
 "#guideTableView[platform=ios]": {

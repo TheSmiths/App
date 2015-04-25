@@ -13,11 +13,11 @@
             },
             "content": {
                 "defaultFont": {
-                    "fontSize": 14
+                    "fontSize": 12
                 },
                 "defaultFontBold": {
-                    "fontSize": 14,
-                    "fontWeight": "bold"
+                    "fontSize": 12,
+                    "fontWeight": "normal"
                 }
             }
         }

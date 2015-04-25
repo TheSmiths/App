@@ -8,26 +8,9 @@
         <ScrollView class="content">
             <View class="contentContainer">
                 <View class="contentRow">
-                    <Label class="title" id="projectTitle" />
-                    <Label class="paragraph" id="projectParagraph" />
-                    <Require src="components/button" id="contactProject" onClick="onClickContactProject" />
-                    <View class="divider" />
+                    <Label class="title" id="motivation" />
                 </View>
 
-                <View class="contentRow">
-                    <Label class="title" id="tocTitle" />
-                    <Label class="paragraph"  id="tocParagraph" />
-                    <Require src="components/button" id="visitTOC" onClick="onClickVisitTOC" />
-                    <View class="divider" />
-                </View>
-
-                <View class="contentRow">
-                    <Label class="title" id="teamTitle" />
-                    <Label class="paragraph" id="teamParagraph" />
-                    <ImageView id="appTeamPicture" />
-                    <Label class="paragraph" />
-                    <View class="divider" />
-                </View>
             </View>
         </ScrollView>
     </Window>

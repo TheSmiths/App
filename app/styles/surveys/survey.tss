@@ -13,7 +13,6 @@
 ".headerTitle": {
     text: L('surveys.survey.title'),
     top: 31,
-    left: 60,
     font: {
         fontWeight: 'bold',
     },

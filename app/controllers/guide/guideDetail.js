@@ -44,14 +44,18 @@ function onClickBackButton (evt) {
  * @return {[type]}                 [description]
  */
 function buildPage (guideDetailData) {
-
     _.each(guideDetailData, function (content) {
         var guideDetailType = _.keys(content);
+        if (guideDetailType[0] === 'heading') {
+            $.headerTitle.text = content[guideDetailType[0]];
+            return;
+        }
+
         var label = $.UI.create('Label', {
             text: content[guideDetailType[0]],
             classes: guideDetailType
         });
 
-        $.content.add(label);
+        $.paddingContainer.add(label);
     });
 }

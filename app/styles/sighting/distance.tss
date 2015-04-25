@@ -1,0 +1,36 @@
+".header": {
+    height: 60,
+    backgroundColor: Alloy.CFG.design.header.backgroundColor,
+    top: 0
+}
+
+".headerTitle": {
+    text: L('sighting.distance.title'),
+    top: 26,
+    font: {
+        fontWeight: 'bold',
+    },
+    color: Alloy.CFG.design.header.fontColor
+}
+
+".headerSubTitle": {
+    text: L('sighting.distance.subTitle'),
+    top: 42,
+    font: {
+        fontSize: 10,
+        fontWeight: 'bold'
+    },
+    color: Alloy.CFG.design.header.fontColor,
+    opacity: 0.6
+}
+
+".content": {
+    top: 60,
+    height: Ti.UI.SIZE
+}
+
+".gridContainer": {
+    top: 20,
+    bottom: 20,
+    height: Ti.UI.SIZE
+}

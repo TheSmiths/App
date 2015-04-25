@@ -3,6 +3,8 @@
  *
  * @class Controllers.surveys.survey
  * @uses utils.log
+ * @uses survey
+ * @uses alloy.moment
  */
 var log = require('utils/log');
 var survey = require('survey');
@@ -122,11 +124,22 @@ function updateViewState() {
     $.sightingContainer.height = Ti.UI.SIZE;
 }
 
+/**
+ * @method doClickAddSighting
+ * Handle `click` on addSighting, create sighting/material controller
+ * @param  {Object} evt
+ */
 function doClickAddSighting (evt) {
-
+    log.info('[surveys/survey] Started new sighting');
+    Alloy.createController('sighting/material');
 }
 
+/**
+ * [doClickFinishSurvey description]
+ * @param  {[type]} evt [description]
+ * @return {[type]}     [description]
+ */
 function doClickFinishSurvey (evt) {
-    
+    //@todo finish
 }
 

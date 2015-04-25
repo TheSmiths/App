@@ -1,13 +1,10 @@
 /**
- * Controller for surveys windspeed
+ * Controller for surveys sighting color
  *
- * @class Controllers.surveys.windspeed
+ * @class Controllers.sighting.color
  * @uses utils.log
  */
 var log = require('utils/log');
-
-// STATE PRESURVEY or POSTSURVEY
-var STATE = 'PRESURVEY';
 
 _.extend($, {
     /**
@@ -16,7 +13,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        $.grid.setData(require('data/windspeed'));
+        $.grid.setData(require('data/color'));
         require('windowManager').openWinWithBack($.getView());
     },
 
@@ -44,5 +41,5 @@ function onClickBackButton () {
  */
 function onClickGrid (evt) {
     log.info('[windspeed] Click on grid', evt);
-    Alloy.createController('surveys/cloudCover');
+    require('windowManager').closeWin({animated: true});
 }

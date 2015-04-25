@@ -1,13 +1,10 @@
 /**
- * Controller for surveys windspeed
+ * Controller for surveys sighting dimension
  *
- * @class Controllers.surveys.windspeed
+ * @class Controllers.sighting.dimension
  * @uses utils.log
  */
 var log = require('utils/log');
-
-// STATE PRESURVEY or POSTSURVEY
-var STATE = 'PRESURVEY';
 
 _.extend($, {
     /**
@@ -16,7 +13,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        $.grid.setData(require('data/windspeed'));
+        $.grid.setData(require('data/dimension'));
         require('windowManager').openWinWithBack($.getView());
     },
 
@@ -33,7 +30,7 @@ _.extend($, {
  * Handle `click` on backButton
  */
 function onClickBackButton () {
-    log.info('[windspeed] Close window');
+    log.info('[sighting/dimension] Close window');
     $.getView().close({animated: true});
 }
 
@@ -43,6 +40,6 @@ function onClickBackButton () {
  * @param  {Object} evt
  */
 function onClickGrid (evt) {
-    log.info('[windspeed] Click on grid', evt);
-    Alloy.createController('surveys/cloudCover');
+    log.info('[sighting/dimension] Click on grid', evt);
+    Alloy.createController('sighting/distance');
 }

@@ -50,7 +50,11 @@ var WM = module.exports = {
     },
 
     openWinInNewWindow: function(win, openProperties) {
-        
+        if (OS_IOS) {
+            WM.createNewNavWindow(win).open(openProperties);
+        } else {
+            win.open();
+        }
     },
 
     openWinWithBack: function(win, openProperties) {

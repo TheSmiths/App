@@ -8,6 +8,11 @@ if (args.gridComponentData) {
     $.icon.image = dataObject.icon;
     $.value.text = dataObject.valueLabel;
     $.caption.text = dataObject.captionLabel;
+    $.gridIconContainer.componentId = args.gridComponentData.id;
+    $.gridContainer.componentId = args.gridComponentData.id;
+    $.icon.componentId = args.gridComponentData.id;
+    $.value.componentId = args.gridComponentData.id;
+    $.caption.componentId = args.gridComponentData.id;
 }
 
 /**
@@ -16,5 +21,6 @@ if (args.gridComponentData) {
  * @return {[type]}     [description]
  */
 function onClickGrid (evt) {
-    $.trigger('click', dataObject);
+    console.log(evt);
+    $.trigger('click', evt);
 }

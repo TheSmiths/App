@@ -1,6 +1,6 @@
 <Alloy>
-    <View class="gridComponent">
-            <View class="gridIconContainer" onClick="onClickGrid">
+    <View class="gridComponent" id="gridContainer" onClick="onClickGrid">
+            <View class="gridIconContainer" id="gridIconContainer">
                 <ImageView id="icon" class="gridIcon" />
                 <Label id="value" class="gridValue" />
                 <Label id="caption" class="gridCaption" />

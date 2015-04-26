@@ -15,6 +15,7 @@ var startTime;
 var endTime;
 var timer;
 var active = false;
+var state = 'INACTIVE';
 
 _.extend($, {
     /**
@@ -23,6 +24,15 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        // Set state (e.g. started from active or inactive)
+        if (config.state) {
+            state = config.state;
+        }
+
+        // Check if we have an active survey, if so reactive clock
+        if (state === 'ACTIVE') {
+            startSurvey(survey.activeSurvey());
+        }
         //@todo do a check if we have a running survey, if so update the clock
         require('windowManager').openWinWithBack($.getView());
     },
@@ -54,20 +64,45 @@ function onClickCloseButton (evt) {
         if (evt.index === evt.source.cancel){
             return;
         }
+
+        // Stop survey, stop time, start index again, close this window.
         stopTime();
+        if (state === 'ACTIVE') {
+            Alloy.createController('index');
+        }
         require('windowManager').closeWin({animated: true});
     });
 
     dialog.show();
 }
 
+/**
+ * [doClickStartSurvey description]
+ * @param  {[type]} evt [description]
+ * @return {[type]}     [description]
+ */
 function doClickStartSurvey (evt) {
+    log.info('[survey] Clicked start survey');
+    startSurvey(survey.startSurvey());
+}
+
+/**
+ * [startSurvey description]
+ * @return {[type]} [description]
+ */
+function startSurvey(surveyTimeObject) {
     log.info('[survey] Started survey');
-    var surveyTimeObject = survey.startSurvey();
     startClock(surveyTimeObject);
     updateViewState('RUNNING');
 }
 
+
+
+/**
+ * [startClock description]
+ * @param  {[type]} surveyTimeObject [description]
+ * @return {[type]}                  [description]
+ */
 function startClock (surveyTimeObject) {
     startTime = surveyTimeObject.startTime;
     endTime = surveyTimeObject.endTime;
@@ -96,19 +131,28 @@ function updateTime () {
     timer = _.delay(updateTime, 50);
 }
 
+
 /**
- * [stopTime description]
- * @return {[type]} [description]
+ * @method stopSurvey
+ * Stop time and remove all reference to the survey
+ */
+function stopSurvey () {
+    stopTime();
+    survey.stopSurvey();
+}
+
+/**
+ * @method stopTime
+ * Set active to false, and clear survey clock
  */
 function stopTime () {
-    survey.stopSurvey();
     active = false;
     clearTimeout(timer);
 }
 
 /**
- * [updateViewState description]
- * @return {[type]} [description]
+ * @method updateViewState
+ * Update the view based on pre, post and active survey
  */
 function updateViewState() {
     // Remove presurvey item
@@ -135,7 +179,8 @@ function doClickAddSighting (evt) {
 }
 
 /**
- * [doClickFinishSurvey description]
+ * @method doClickFinishSurvey
+ * Handle `click`on doClickFinishSurvey, create sighting/material controller
  * @param  {[type]} evt [description]
  * @return {[type]}     [description]
  */

@@ -21,10 +21,12 @@
             <Require src="components/button" id="finishSurvey" onClick="doClickFinishSurvey" />
         </View>
 
-        <ScrollView class="content">
+        <View class="content">
             <View id="preSurvey">
                 <Label class="preSurveyMessage" />
             </View>
-        </ScrollView>
+
+            <TableView id="surveyTableView" onClick="doClickSurveyTableView" />
+        </View>
     </Window>
 </Alloy>

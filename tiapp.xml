@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.theoceancleanup.surveyapp</id>
     <name>TheOceanCleanup</name>
-    <version>0.2</version>
+    <version>0.4</version>
     <publisher>Harrie Pieters</publisher>
     <url>http://www.theoceancleanup.com</url>
     <description/>
@@ -9,8 +9,8 @@
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
-    <analytics>true</analytics>
-    <guid>12978bfa-ffbb-4466-94fe-a702ffa83688</guid>
+    <analytics>false</analytics>
+
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <plist>

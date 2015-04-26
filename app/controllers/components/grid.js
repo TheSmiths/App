@@ -37,7 +37,6 @@ function setData (data) {
 }
 
 function onClickGridComponent (evt) {
-    console.log('*&*&*&*&*', evt);
     $.trigger('click', evt);
 }
 

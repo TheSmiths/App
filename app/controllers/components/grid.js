@@ -1,10 +1,13 @@
 var args = arguments[0] || {};
 
-var rows = 0;
-
+/**
+ * @method setData
+ * Set data of the grid
+ * @param {Array} data Array of objects
+ */
 function setData (data) {
     if (data.length <= 0) {
-        log.info('[Grid] No data provided');
+        log.info('[Grid] No data provided, please provide grid data');
         return;
     }
 
@@ -36,8 +39,13 @@ function setData (data) {
 
 }
 
+/**
+ * @method onClickGridComponent
+ * @param  {Object} evt
+ */
 function onClickGridComponent (evt) {
     $.trigger('click', evt);
 }
 
+// Export set data
 exports.setData = setData;

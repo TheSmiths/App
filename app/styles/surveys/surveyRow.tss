@@ -1,0 +1,33 @@
+"TableViewRow": {
+    height: 50,
+    hasChild: false,
+    backgroundColor: 'transparent',
+    selectedBackgroundColor: '#fff'
+}
+
+".eventContainer": {
+    height: 50
+}
+
+".eventTimeContainer": {
+    width: 40,
+    left: 0,
+    height: 50
+}
+
+"#eventTime": {
+    // Update the font to reflect time update
+}
+
+".eventInformation": {
+    left: 40,
+    height: 50
+}
+
+"#eventInformationTitle": {
+
+}
+
+"#eventInformationMessage": {
+
+}

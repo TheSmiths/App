@@ -1,0 +1,14 @@
+<Alloy>
+    <TableViewRow id="eventRow">
+        <View class="eventContainer">
+            <View class="eventTimeContainer">
+                <Label id="eventTime" />
+            </View>
+
+            <View class="eventInformation">
+                <Label id="eventInformationTitle" />
+                <Label id="eventInformationMessage" />
+            </View>
+        </View>
+    </TableViewRow>
+</Alloy>

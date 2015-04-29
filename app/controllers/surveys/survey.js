@@ -91,9 +91,15 @@ function doClickStartSurvey (evt) {
  * @return {[type]} [description]
  */
 function startSurvey(surveyTimeObject) {
-    log.info('[survey] Started survey');
-    startClock(surveyTimeObject);
-    updateViewState('RUNNING');
+    log.info('[survey] Started survey', surveyTimeObject);
+    var currentTime = new Date().getTime();
+    if (currentTime < surveyTimeObject.endTime) {
+        startClock(surveyTimeObject);
+        updateViewState('RUNNING');
+        return;
+    }
+
+    updateViewState('FINISHED');
 }
 
 

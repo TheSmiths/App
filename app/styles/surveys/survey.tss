@@ -20,7 +20,7 @@
 }
 
 ".timerContainer": {
-    top: 55,
+    top: 48,
     height: Ti.UI.SIZE
 }
 
@@ -39,7 +39,7 @@
         fontSize: 11
     },
     color: '#fff',
-    top: 40,
+    top: 48,
     opacity: 0
 }
 
@@ -62,23 +62,39 @@
 
 "#startSurvey": {
     top: 0,
-    text: L('surveys.survey.startSurvey')
+    text: L('surveys.survey.startSurvey'),
+    textAlign: 'center'
 }
 
 "#addSighting": {
     top: 0,
-    text: L('surveys.survey.addSighting')
+    text: L('surveys.survey.addSighting'),
+    textAlign: 'center'
 }
 
 "#finishSurvey": {
     top: 0,
-    text: L('surveys.survey.finishSurvey')
+    text: L('surveys.survey.finishSurvey'),
+    textAlign: 'center'
 }
 
 ".content": {
     top: 210,
     height: 400,
     backgroundColor: '#F0F0F0'
+}
+
+
+// Tableview
+
+"#surveyTableView": {
+    visible: false,
+    top: 0,
+    backgroundColor: 'transparent'
+}
+
+"#surveyTableView[platform=ios]": {
+    separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE,
 }
 
 "#preSurvey": {
@@ -99,3 +115,4 @@
     },
     textAlign: 'center'
 }
+

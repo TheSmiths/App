@@ -13,5 +13,7 @@
         fontWeight: "normal"
     },
     color: '#078D9C',
-    left: 15
+    left: 15,
+    right: 15,
+    width: Ti.UI.FILL
 }

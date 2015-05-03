@@ -22,7 +22,7 @@
     <string name="surveys.survey.deleteSurveyCancel">Continue Survey</string>
     <string name="surveys.survey.startSurvey">Start Survey</string>
     <string name="surveys.survey.addSighting">New Sighting</string>
-    <string name="surveys.survey.finishSurvey">Close</string>
+    <string name="surveys.survey.finishSurvey">Finalize Survey</string>
     <string name="surveys.survey.preSurveyMessage">Start the survey once ready in order to start collecting data.</string>
     <string name="surveys.survey.started">Started on</string>
     <!-- Wind speed -->

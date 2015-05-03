@@ -16,7 +16,7 @@ _.extend($, {
     construct: function(config) {
         // Check if we have an active survey, if so open the app in active survey mode
         if (require('survey').activeSurvey()) {
-            Alloy.createController('surveys/survey', {state: 'ACTIVE'});
+            Alloy.createController('surveys/survey', {startedFromRoot: true});
             return;
         }
 

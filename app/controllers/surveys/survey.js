@@ -15,7 +15,8 @@ var startTime;
 var endTime;
 var timer;
 var active = false;
-var state = 'INACTIVE';
+var state = 'PREACTIVE';
+var startedFromRoot = false;
 
 _.extend($, {
     /**
@@ -25,15 +26,16 @@ _.extend($, {
      */
     construct: function(config) {
         // Set state (e.g. started from active or inactive)
-        if (config.state) {
-            state = config.state;
+        if (config.startedFromRoot) {
+            startedFromRoot = true;
+            state = 'ACTIVE';
         }
 
         // Check if we have an active survey, if so reactive clock
         if (state === 'ACTIVE') {
             startSurvey(survey.activeSurvey());
         }
-        //@todo do a check if we have a running survey, if so update the clock
+
         require('windowManager').openWinWithBack($.getView());
     },
 
@@ -67,9 +69,13 @@ function onClickCloseButton (evt) {
 
         // Stop survey, stop time, start index again, close this window.
         stopTime();
-        if (state === 'ACTIVE') {
+
+        require('survey').stopSurvey();
+
+        if (startedFromRoot) {
             Alloy.createController('index');
         }
+
         require('windowManager').closeWin({animated: true});
     });
 
@@ -77,29 +83,34 @@ function onClickCloseButton (evt) {
 }
 
 /**
- * [doClickStartSurvey description]
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @method doClickStartSurvey
+ * Handle `click` on startSurvey, call startSurvey function
+ * @param  {Object} evt
  */
 function doClickStartSurvey (evt) {
-    log.info('[survey] Clicked start survey');
+    log.info('[surveys/survey] Clicked start survey');
     startSurvey(survey.startSurvey());
 }
 
 /**
- * [startSurvey description]
- * @return {[type]} [description]
+ * @method startSurvey
  */
 function startSurvey(surveyTimeObject) {
-    log.info('[survey] Started survey', surveyTimeObject);
+    log.info('[surveys/survey] Started survey', surveyTimeObject);
+
+    startTime = surveyTimeObject.startTime;
+    endTime = surveyTimeObject.endTime;
+
     var currentTime = new Date().getTime();
+
     if (currentTime < surveyTimeObject.endTime) {
         startClock(surveyTimeObject);
-        updateViewState('RUNNING');
+        updateViewState('ACTIVE');
         return;
     }
 
-    updateViewState('FINISHED');
+    state = 'POSTACTIVE';
+    updateViewState('POSTACTIVE');
 }
 
 
@@ -110,8 +121,6 @@ function startSurvey(surveyTimeObject) {
  * @return {[type]}                  [description]
  */
 function startClock (surveyTimeObject) {
-    startTime = surveyTimeObject.startTime;
-    endTime = surveyTimeObject.endTime;
     active = true;
     updateTime();
 }
@@ -125,8 +134,18 @@ function updateTime () {
         return;
     }
 
-    log.info('Updating time');
+    log.info('[surveys/survey] Retreiving remainder');
     var remainder = endTime - new Date().getTime();
+
+    // Stop the clock once its done
+    if (remainder <= 0) {
+        state = 'POSTACTIVE';
+        updateViewState('POSTACTIVE');
+        $.surveyTimer.text = '00:00';
+        return;
+    }
+
+    log.info('[surveys/survey] Updating time');
     var remainingSeconds = remainder / 1000;
     var remainingMinutes = remainingSeconds / 60;
     var minutes = Math.floor(remainingMinutes);
@@ -160,18 +179,41 @@ function stopTime () {
  * @method updateViewState
  * Update the view based on pre, post and active survey
  */
-function updateViewState() {
-    // Remove presurvey item
-    $.preSurvey.hide();
-    // Add the text to indicate start
-    $.surveyStartTime.text = L('surveys.survey.started') + ' ' + moment(new Date(startTime)).format('MMMM Do [at] HH:mm');
-    $.surveyStartTime.opacity = 1; //@todo animate
-    // @todo: Show some kind of animator to show we have started
-    // Update button
-    $.startSurveyContainer.height = 0;
-    $.startSurveyContainer.visibile = false;
-    $.sightingContainer.visible = true;
-    $.sightingContainer.height = Ti.UI.SIZE;
+function updateViewState (state) {
+
+    var stateChange = {
+        'ACTIVE' : function changeStateToActive () {
+            $.preSurvey.hide();
+            // Add the text to indicate start
+            $.surveyStartTime.text = L('surveys.survey.started') + ' ' + moment(new Date(startTime)).format('MMMM Do [at] HH:mm');
+            $.surveyStartTime.opacity = 1; //@todo animate
+            // @todo: Show some kind of animator to show we have started
+            // Update button
+            $.startSurveyContainer.height = 0;
+            $.startSurveyContainer.visibile = false;
+            $.sightingContainer.visible = true;
+            $.sightingContainer.height = Ti.UI.SIZE;
+        },
+        'POSTACTIVE' : function changeStateToPostActive () {
+            $.preSurvey.hide();
+            // Remove sighting container
+            $.startSurveyContainer.height = 0;
+            $.startSurveyContainer.visibile = false;
+            $.sightingContainer.height = 0;
+            $.sightingContainer.visibile = false;
+            $.finishSurveyContainer.visible = true;
+            $.finishSurveyContainer.height = Ti.UI.SIZE;
+            // Correct time
+            $.surveyTimer.text = '00:00';
+            $.surveyStartTime.text = L('surveys.survey.started') + ' ' + moment(new Date(startTime)).format('MMMM Do [at] HH:mm');
+            $.surveyStartTime.opacity = 1;
+        }
+    }
+
+
+    if (_.contains(['PREACTIVE', 'ACTIVE', 'POSTACTIVE'], state)) {
+        stateChange[state]();
+    }
 }
 
 /**
@@ -181,7 +223,7 @@ function updateViewState() {
  */
 function doClickAddSighting (evt) {
     log.info('[surveys/survey] Started new sighting');
-    Alloy.createController('sighting/material');
+    Alloy.createController('sighting/material', { parent: $ });
 }
 
 /**
@@ -191,6 +233,12 @@ function doClickAddSighting (evt) {
  * @return {[type]}     [description]
  */
 function doClickFinishSurvey (evt) {
-    //@todo finish
+   log.info('[surveys/survey] Finished survey');
+   Alloy.createController('surveys/windspeed', { flow: 'POSTSURVEY' });
+}
+
+
+function renderSurveyTimeline () {
+    
 }
 

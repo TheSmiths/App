@@ -12,6 +12,11 @@ $.button.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', 
 if (args.text) {
     $.buttonLabel.text = args.text;
 }
+
+// Apply the text to the label
+if (args.textAlign) {
+    $.buttonLabel.textAlign = args.textAlign;
+}
 /**
  * @method doButtonClick
  * Execute the buttonClick debounce function, trigger click and perform basic animation

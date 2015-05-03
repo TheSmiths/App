@@ -16,18 +16,34 @@
 }
 
 "#eventTime": {
-    // Update the font to reflect time update
+    opacity: 0.5,
+    font: {
+        fontSize: 11
+    }
 }
 
 ".eventInformation": {
     left: 40,
-    height: 50
+    height: 50,
+    layout: 'vertical',
+    backgroundColor: '#fff'
 }
 
 "#eventInformationTitle": {
-
+    left: 10,
+    right: 10,
+    top: 8,
+    font: {
+        fontWeight: 'bold',
+        fontSize: 11
+    }
 }
 
 "#eventInformationMessage": {
-
+    left: 10,
+    right: 10,
+    bottom: 8,
+    font: {
+        fontSize: 11
+    }
 }

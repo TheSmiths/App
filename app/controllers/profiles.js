@@ -27,7 +27,6 @@ _.extend($, {
             require('windowManager').openWinWithBack($.getView());
         }
         profiles.on('add', onAddProfile);
-        profiles.on('change', onChangeProfile);
         profiles.on('remove', onRemoveProfile);
         // Fetch data
         fetchProfiles();
@@ -39,7 +38,6 @@ _.extend($, {
      */
     destruct: function() {
         profiles.off('add', onAddProfile);
-        profiles.off('change', onChangeProfile);
         profiles.off('remove', onRemoveProfile);
     }
 });
@@ -71,17 +69,6 @@ function onAddProfile (model, collection, options) {
     var guideDataRow = Alloy.createController('profiles/profileRow', {model: model, state: STATE}).getView();
     $.profilesTableView.appendRow(guideDataRow);
     shadowProfiles.push(model.get('id'));
-}
-
-/**
- * [onChangeProfile description]
- * @param  {[type]} model      [description]
- * @param  {[type]} collection [description]
- * @param  {[type]} options    [description]
- * @return {[type]}            [description]
- */
-function onChangeProfile (model, collection, options) {
-
 }
 
 /**

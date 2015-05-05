@@ -17,7 +17,7 @@ var topics = {
     'dimension': 0,
     'distance': 0,
     'color': 0
-}
+};
 
 
 /**

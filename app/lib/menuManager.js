@@ -9,25 +9,37 @@ var log = require('utils/log');
 var statusbar = require("com.apaladini.statusbar");
 
 // Intenals
-var menuState = 'closed';
+var menuState = 'CLOSED';
 
 var menuManager = module.exports = {
+    /**
+     * [updateStatus description]
+     * @return {[type]} [description]
+     */
     updateStatus: function () {
-        if (menuState === 'closed') {
+        if (menuState === 'CLOSED') {
             statusbar.hide();
-            menuState = 'open';
+            menuState = 'OPEN';
             return menuState;
         }
         statusbar.show();
-        menuState = 'closed';
+        menuState = 'CLOSED';
         return menuState;
     },
+    /**
+     * [getStatus description]
+     * @return {[type]} [description]
+     */
     getStatus: function () {
         return menuState;
     },
+    /**
+     * [setStatus description]
+     * @param {[type]} status [description]
+     */
     setStatus: function (status) {
         menuState = status;
-        if (status === 'closed') {
+        if (status === 'CLOSED') {
             statusbar.show();
             return;
         }

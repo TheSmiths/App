@@ -63,7 +63,7 @@ function setCloseIcon (evt) {
     $.menuIcon.image = '/images/navigation/menuIconClose.png';
     $.menuIcon.width = 15;
     $.menuIcon.height = 15;
-    menuManager.setStatus('open');
+    menuManager.setStatus('OPEN');
 }
 
 /**
@@ -74,7 +74,7 @@ function setMenuIcon (evt) {
     $.menuIcon.image = '/images/navigation/menuIcon.png';
     $.menuIcon.width = 19;
     $.menuIcon.height = 12;
-    menuManager.setStatus('closed');
+    menuManager.setStatus('CLOSED');
 }
 
 /**

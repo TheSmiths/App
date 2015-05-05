@@ -9,7 +9,7 @@
             <Label id="headerCurrentSpeed" />
             <Label class="headerCurrentTimeTitle" />
             <Label id="headerCurrentTime" />
-            <View class="compass" onClick="doClickCompass">
+            <View class="compass">
                 <ImageView class="compassBackground" />
                 <ImageView id="compassNeedle" />
             </View>

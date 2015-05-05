@@ -1,26 +1,43 @@
 var args = arguments[0] || {};
-var dataObject;
 
-if (args.gridComponentData) {
-    console.log('Generating component');
-    dataObject = args.gridComponentData;
 
-    $.icon.image = dataObject.icon;
-    $.value.text = dataObject.valueLabel;
-    $.caption.text = dataObject.captionLabel;
-    $.gridIconContainer.componentId = args.gridComponentData.id;
-    $.gridContainer.componentId = args.gridComponentData.id;
-    $.icon.componentId = args.gridComponentData.id;
-    $.value.componentId = args.gridComponentData.id;
-    $.caption.componentId = args.gridComponentData.id;
-}
+_.extend($, {
+    /**
+     * @constructor
+     * @method construct
+     * @param {Object} config Controller configuration
+     */
+    construct: function(config) {
+        var dataObject = config.gridComponentData;
+        // Set grid data on creation
+        if (!dataObject) {
+            return;
+        }
+
+        // Populate the view using the data
+        $.icon.image = dataObject.icon;
+        $.value.text = dataObject.valueLabel;
+        $.caption.text = dataObject.captionLabel;
+        $.gridIconContainer.componentId = dataObject.id;
+        $.gridContainer.componentId = dataObject.id;
+        $.icon.componentId = dataObject.id;
+        $.value.componentId = dataObject.id;
+        $.caption.componentId = dataObject.id;
+    },
+
+    /**
+     * @method destruct
+     * function executed when closing window
+     */
+    destruct: function() {
+    }
+});
 
 /**
- * [onClickGrid description]
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @method onClickGrid
+ * Proxy click on gridComponent
+ * @param  {Object} evt
  */
 function onClickGrid (evt) {
-    console.log(evt);
     $.trigger('click', evt);
 }

@@ -5,10 +5,11 @@
  * @uses utils.log
  */
 var log = require('utils/log');
+
+// Internals
 var profiles = Alloy.createCollection('Profile');
 var shadowProfiles = [];
-
-var STATE = 'NONE';
+var STATE = 'PROFILE';
 
 _.extend($, {
     /**
@@ -19,7 +20,7 @@ _.extend($, {
     construct: function(config) {
         // Set state
         STATE = config.flow || STATE;
-        if (STATE === 'SURVEY') {
+        if (STATE === 'PRESURVEY') {
             $.menuButton.hide();
             $.closeButton.show();
             $.headerTitle.text = L('profiles.surveyTitle');
@@ -44,18 +45,18 @@ _.extend($, {
 });
 
 /**
- * [closeWindow description]
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @method  closeWindow
+ * Close current window, only in survye mode
+ * @param  {Object} evt
  */
 function closeWindow (evt) {
-    if (STATE === 'SURVEY') {
+    if (STATE === 'PRESURVEY') {
         require('windowManager').closeWin({animated: true});
     }
 }
 
 /**
- * [onAddProfile description]
+ * @method  onAddProfile
  * @param  {[type]} model      [description]
  * @param  {[type]} collection [description]
  * @param  {[type]} options    [description]
@@ -121,17 +122,20 @@ function setNewProfileOpacity (opacity) {
 }
 
 /**
- * [doClickProfilesTableView description]
+ * @method doClickProfilesTableView
+ * Handle `click` on tableView
  * @param  {[type]} model [description]
  * @return {[type]}       [description]
  */
 function doClickProfilesTableView (model) {
-    if (STATE === 'SURVEY') {
-        Alloy.createController('surveys/windspeed', { state: 'PRESURVEY'} );
+    var profile = profiles.get(model.rowData.modelId);
+    // If state is selection continue flow
+    if (STATE === 'PRESURVEY') {
+        require('flow').saveProfile({'observerName': profile.get('name'), 'platformHeight': profile.get('height')});
         return;
     }
 
-    profiles.get(model.rowData.modelId).destroy();
+   profile.destroy();
 }
 
 /**

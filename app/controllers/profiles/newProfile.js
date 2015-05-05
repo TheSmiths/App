@@ -18,8 +18,9 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        if (config.flow === 'SURVEY') {
-            STATE = 'SURVEY';
+        // If flow is survey start as standalone navigation group
+        if (config.flow === 'PRESURVEY') {
+            STATE = 'PRESURVEY';
             require('windowManager').openWinWithBack($.getView());
             return;
         }
@@ -40,7 +41,7 @@ _.extend($, {
  * Close current window
  */
 function closeWindow (evt) {
-    if (STATE === 'SURVEY') {
+    if (STATE === 'PRESURVEY') {
         require('windowManager').closeWin({animated: true});
     }
 
@@ -78,22 +79,31 @@ function saveProfile (evt) {
         "name": spotterName,
         "height": platformHeight,
     });
+
     model.save();
 
-    if (STATE === 'SURVEY') {
-        //@todo: create a new survey model
-        Alloy.createController('surveys/windspeed', { state: 'PRESURVEY'} );
+    if (STATE === 'PRESURVEY') {
+        require('flow').saveProfile({'observerName': spotterName, 'platformHeight': platformHeight});
         return;
     }
+
+    // Fetch the updated list in order to visualise added profile
     args.parent && args.parent.fetchProfiles();
     $.getView().close();
 }
 
-
+/**
+ * @method hideError
+ * Set error container visibility to false, hiding the error
+ */
 function hideError () {
     $.spotterErrorContainer.visible = false;
 }
 
+/**
+ * @method showError
+ * Set error container visibility to true, showing the error
+ */
 function showError () {
     $.spotterErrorContainer.visible = true;
 }

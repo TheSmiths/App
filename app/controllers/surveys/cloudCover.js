@@ -16,6 +16,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        STATE = config.flow || STATE;
         $.grid.setData(require('data/cloudCover'));
         require('windowManager').openWinWithBack($.getView());
     },
@@ -38,10 +39,10 @@ function onClickBackButton () {
 
 /**
  * @method onClickGrid
- * Handle `click` on grid
+ * Handle `click` on cloudCover grid
  * @param  {Object} evt
  */
 function onClickGrid (evt) {
-    log.info('[cloudCover] Clicked on grid', evt);
-    Alloy.createController('surveys/survey');
+    log.info('[cloudCover] Clicked on grid', evt.source.componentId);
+    require('flow').saveCloudCover(STATE, {'cloudCover': evt.source.componentId});
 }

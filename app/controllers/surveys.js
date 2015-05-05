@@ -31,17 +31,18 @@ _.extend($, {
 });
 
 /**
- * [populateWindow description]
+ * @method populateWindow
  * @return {[type]} [description]
  */
 function populateWindow () {
     if (!Ti.Geolocation.locationServicesEnabled) {
-
+        log.error('[surveys] Please enable location services');
     }
 
+    // @TODO: Cleanup the current position code
     Ti.Geolocation.getCurrentPosition(function (e) {
         if (!e.success || e.error){
-           log.error(e.error);
+            log.error(e.error);
             return;
         }
 
@@ -69,13 +70,12 @@ function populateWindow () {
 
         $.headerCurrentSpeed.text = speedText;
         $.headerCurrentLocation.text = 'lng ' + longitude + ' lat ' +  latitude;
-
     });
 }
 
 /**
- * [updateTime description]
- * @return {[type]} [description]
+ * @method updateTime
+ * Update time in surveys
  */
 function updateTime () {
     $.headerCurrentTime.text = date.getCurrentTime();
@@ -83,9 +83,8 @@ function updateTime () {
 }
 
 /**
- * [compassHandler description]
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @method compassEventHandler
+ * @param  {Object} evt
  */
 function compassEventHandler (evt) {
     // Handle error state when trying to get compass values
@@ -106,41 +105,19 @@ function compassEventHandler (evt) {
 }
 
 /**
- * @method doClickStartSurvey
+ * @method doClickStartGuide
+ * Handle `click` on startSurvey button, create start survey controller
  */
 function doClickStartSurvey () {
-    Alloy.createCollection('Profile').fetch({
-        success: function(collection, response, options) {
-            if (collection.length === 0) {
-                Alloy.createController('profiles/newProfile', { flow: 'SURVEY'} );
-                return;
-            }
-
-            Alloy.createController('profiles', { flow: 'SURVEY'} );
-
-        }
-    });
+    require('flow').preSurvey();
 }
 
 /**
  * @method doClickStartGuide
- * Handle `click` on #StartGuide button, create guide controller
- * @return {[type]} [description]
+ * Handle `click` on startGuide button, create guide controller
  */
 function doClickStartGuide () {
     var guide = Alloy.createController('guide').getView();
     Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
     Alloy.Globals.menu.activateItem('menuItemGuide');
 }
-
-/**
- * Testing drawer menu
- */
-function doClickCompass () {
-    Alloy.Globals.drawer.toggleRightWindow();
-}
-
-
-
-
-

@@ -8,6 +8,7 @@
  */
 var log = require('utils/log');
 var survey = require('survey');
+var events = require('event');
 var moment = require('alloy/moment');
 
 // Internals
@@ -17,6 +18,9 @@ var timer;
 var active = false;
 var state = 'PREACTIVE';
 var startedFromRoot = false;
+
+// Collections
+var eventCollection = Alloy.createCollection('Event');
 
 _.extend($, {
     /**
@@ -28,12 +32,8 @@ _.extend($, {
         // Set state (e.g. started from active or inactive)
         if (config.startedFromRoot) {
             startedFromRoot = true;
+            activateSurvey(survey.activeSurvey());
             state = 'ACTIVE';
-        }
-
-        // Check if we have an active survey, if so reactive clock
-        if (state === 'ACTIVE') {
-            startSurvey(survey.activeSurvey());
         }
 
         require('windowManager').openWinWithBack($.getView());
@@ -89,19 +89,34 @@ function onClickCloseButton (evt) {
  */
 function doClickStartSurvey (evt) {
     log.info('[surveys/survey] Clicked start survey');
-    startSurvey(survey.startSurvey());
+
+    require('utils/location').getCurrentLatLng(function (err, currentLocation) {
+        if (err) {
+            alert('Unable to determine location, without location the survey is unable to continue');
+            return;
+        }
+        // Start survey
+        var surveyObject = survey.startSurvey();
+        var currentTime = new Date().getTime();
+
+        // Move location error to the library
+        events.saveSurveyEvent('startSurvey', {startingTime: currentTime, startLocation: currentLocation});
+        activateSurvey(surveyObject);
+    });
 }
 
 /**
  * @method startSurvey
  */
-function startSurvey(surveyTimeObject) {
-    log.info('[surveys/survey] Started survey', surveyTimeObject);
+function activateSurvey(surveyTimeObject) {
+    log.info('[surveys/survey] Activated survey', surveyTimeObject);
 
     startTime = surveyTimeObject.startTime;
     endTime = surveyTimeObject.endTime;
 
     var currentTime = new Date().getTime();
+
+    renderSurveyTimeline();
 
     if (currentTime < surveyTimeObject.endTime) {
         startClock(surveyTimeObject);
@@ -208,7 +223,7 @@ function updateViewState (state) {
             $.surveyStartTime.text = L('surveys.survey.started') + ' ' + moment(new Date(startTime)).format('MMMM Do [at] HH:mm');
             $.surveyStartTime.opacity = 1;
         }
-    }
+    };
 
 
     if (_.contains(['PREACTIVE', 'ACTIVE', 'POSTACTIVE'], state)) {
@@ -223,6 +238,7 @@ function updateViewState (state) {
  */
 function doClickAddSighting (evt) {
     log.info('[surveys/survey] Started new sighting');
+    //@todo move to flow library
     Alloy.createController('sighting/material', { parent: $ });
 }
 
@@ -234,11 +250,22 @@ function doClickAddSighting (evt) {
  */
 function doClickFinishSurvey (evt) {
    log.info('[surveys/survey] Finished survey');
+   //@todo move to flow library
    Alloy.createController('surveys/windspeed', { flow: 'POSTSURVEY' });
 }
 
 
 function renderSurveyTimeline () {
-    
+    var surveyId = survey.activeSurvey().surveyId;
+    eventCollection.fetch({
+        query: 'SELECT * from events where survey_id = "' + surveyId + '"',
+        success: function(collection, response, options) {
+            log.info('[surveys/survey] collection, response', response);
+        },
+        error: function(collection, response, options) {
+            log.info('[surveys/survey] collection, response', response);
+        }
+    });
+
 }
 

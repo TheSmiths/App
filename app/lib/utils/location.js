@@ -7,11 +7,11 @@ module.exports = {
         Ti.Geolocation.getCurrentPosition(function(evt) {
             if (!evt.success || evt.error) {
                 log.error('[utils/location] Unable to determine location!');
-                callback(true);
+                callback && callback(true);
                 return;
             }
 
-            callback(null, {
+            callback && callback(null, {
                 'longitude': evt.coords.longitude,
                 'latitude': evt.coords.latitude
             });

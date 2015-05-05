@@ -18,8 +18,8 @@ var eventObject = module.exports = {
 
         // Create activeEvent
         activeEvent = {
-            'type' : eventType,
-            'data' : eventData || {}
+            type : eventType,
+            data : eventData || {}
         };
     },
     /**
@@ -41,13 +41,20 @@ var eventObject = module.exports = {
      * @param  {Object]} eventData Data object containing the data
      */
     saveSurveyEvent: function (eventType, eventData) {
-        if (activeEvent.type !== eventType) {
+        if (activeEvent && activeEvent.type !== eventType) {
             return log.info('[lib/event] Unable to stop event if event has not started yet');
+        }
+        // Allow instant save
+        if (!activeEvent) {
+            eventObject.initSurveyEvent(eventType);
         }
         // Update the survey data if needed
         if (eventData) {
             eventObject.updateSurveyEventData(eventType, eventData);
         }
+        // Set timestamp
+        activeEvent.data.eventTime = new Date().getTime();
+        // Call save method
         eventObject.storeSurveyEvent(activeEvent.type, activeEvent.data);
         // Reset data for new event
         activeEvent = null;

@@ -21,6 +21,7 @@ var startedFromRoot = false;
 
 // Collections
 var eventCollection = Alloy.createCollection('Event');
+var shadowEvents = [];
 
 _.extend($, {
     /**
@@ -35,7 +36,7 @@ _.extend($, {
             activateSurvey(survey.activeSurvey());
             state = 'ACTIVE';
         }
-
+        // open window
         require('windowManager').openWinWithBack($.getView());
     },
 
@@ -44,8 +45,39 @@ _.extend($, {
      * function executed when closing window
      */
     destruct: function() {
+        Ti.App.removeEventListener('survey:updated', renderSurveyTimeline);
     }
 });
+
+/**
+ * @method  onAddProfile
+ * @param  {[type]} model      [description]
+ * @param  {[type]} collection [description]
+ * @param  {[type]} options    [description]
+ * @return {[type]}            [description]
+ */
+function onAddEvent (model) {
+    if (_.contains(shadowEvents, model.get('event_id'))) {
+        return;
+    }
+
+    console.log('Tracking onAddedEvent', model.attributes);
+
+    var eventDataView = Alloy.createController('surveys/surveyRow', {model: model}).getView();
+    $.surveyTableView.appendRow(eventDataView);
+    $.surveyTableView.height = Ti.UI.FILL;
+    shadowEvents.push(model.get('event_id'));
+}
+
+
+function onRemoveEvent () {
+
+}
+
+
+
+
+
 
 /**
  * @method onClickCloseButton
@@ -70,7 +102,7 @@ function onClickCloseButton (evt) {
         // Stop survey, stop time, start index again, close this window.
         stopTime();
 
-        require('survey').stopSurvey();
+        require('survey').destroySurvey();
 
         if (startedFromRoot) {
             Alloy.createController('index');
@@ -116,6 +148,7 @@ function activateSurvey(surveyTimeObject) {
 
     var currentTime = new Date().getTime();
 
+    Ti.App.addEventListener('survey:updated', renderSurveyTimeline);
     renderSurveyTimeline();
 
     if (currentTime < surveyTimeObject.endTime) {
@@ -126,6 +159,7 @@ function activateSurvey(surveyTimeObject) {
 
     state = 'POSTACTIVE';
     updateViewState('POSTACTIVE');
+    survey.stopSurvey();
 }
 
 
@@ -157,6 +191,7 @@ function updateTime () {
         state = 'POSTACTIVE';
         updateViewState('POSTACTIVE');
         $.surveyTimer.text = '00:00';
+        require('survey').stopSurvey();
         return;
     }
 
@@ -178,6 +213,7 @@ function updateTime () {
  */
 function stopSurvey () {
     stopTime();
+    Ti.App.removeEventListener('survey:updated', renderSurveyTimeline);
     survey.stopSurvey();
 }
 
@@ -208,6 +244,8 @@ function updateViewState (state) {
             $.startSurveyContainer.visibile = false;
             $.sightingContainer.visible = true;
             $.sightingContainer.height = Ti.UI.SIZE;
+            // Show events
+            $.surveyTableView.visible = true;
         },
         'POSTACTIVE' : function changeStateToPostActive () {
             $.preSurvey.hide();
@@ -222,6 +260,8 @@ function updateViewState (state) {
             $.surveyTimer.text = '00:00';
             $.surveyStartTime.text = L('surveys.survey.started') + ' ' + moment(new Date(startTime)).format('MMMM Do [at] HH:mm');
             $.surveyStartTime.opacity = 1;
+            // Show the events
+            $.surveyTableView.visible = true;
         }
     };
 
@@ -260,7 +300,8 @@ function renderSurveyTimeline () {
     eventCollection.fetch({
         query: 'SELECT * from events where survey_id = "' + surveyId + '"',
         success: function(collection, response, options) {
-            log.info('[surveys/survey] collection, response', response);
+            log.info('[surveys/survey] collection, response', collection);
+            eventCollection.each(onAddEvent);
         },
         error: function(collection, response, options) {
             log.info('[surveys/survey] collection, response', response);

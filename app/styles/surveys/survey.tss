@@ -80,7 +80,7 @@
 
 ".content": {
     top: 210,
-    height: 400,
+    height: Ti.UI.FILL,
     backgroundColor: '#F0F0F0'
 }
 
@@ -90,7 +90,8 @@
 "#surveyTableView": {
     visible: false,
     top: 0,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    height: Ti.UI.SIZE
 }
 
 "#surveyTableView[platform=ios]": {

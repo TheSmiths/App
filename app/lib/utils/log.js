@@ -1,3 +1,6 @@
+var Alloy = require('alloy'),
+    _ = Alloy._;
+
 module.exports = {
     debug: function logDebug () {
         Ti.API.debug(stringify(arguments));

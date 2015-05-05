@@ -2,17 +2,21 @@
     height: 50,
     hasChild: false,
     backgroundColor: 'transparent',
-    selectedBackgroundColor: '#fff'
+    selectedBackgroundColor: '#fff',
+    borderColor: 'red'
 }
 
 ".eventContainer": {
-    height: 50
+    top: 5,
+    height: 40,
+    bottom: 5,
+    right: 5
 }
 
 ".eventTimeContainer": {
     width: 40,
     left: 0,
-    height: 50
+    height: 40
 }
 
 "#eventTime": {
@@ -24,7 +28,8 @@
 
 ".eventInformation": {
     left: 40,
-    height: 50,
+    height: 40,
+    top: 0,
     layout: 'vertical',
     backgroundColor: '#fff'
 }
@@ -32,7 +37,7 @@
 "#eventInformationTitle": {
     left: 10,
     right: 10,
-    top: 8,
+    top: 6,
     font: {
         fontWeight: 'bold',
         fontSize: 11
@@ -42,7 +47,6 @@
 "#eventInformationMessage": {
     left: 10,
     right: 10,
-    bottom: 8,
     font: {
         fontSize: 11
     }

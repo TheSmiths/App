@@ -3,7 +3,8 @@ var distanceData = module.exports = [
         id: 0,
         icon: '/images/icons/material/plastic.png',
         valueLabel: '0 - 10',
-        captionLabel: 'Meter'
+        captionLabel: 'Meter',
+        type: 'large'
     },
     {
         id: 1,

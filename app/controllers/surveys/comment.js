@@ -1,10 +1,8 @@
 /**
- * Controller for surveys sighting distance
+ * Controller for surveys comments
  *
- * @class Controllers.sighting.distance
+ * @class Controllers.surveys.comment
  * @uses utils.log
- * @uses event
- * @uses flow
  */
 var log = require('utils/log');
 
@@ -15,7 +13,6 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        $.grid.setData(require('data/distance'));
         require('windowManager').openWinWithBack($.getView());
     },
 
@@ -32,32 +29,27 @@ _.extend($, {
  * Handle `click` on backButton
  */
 function onClickBackButton () {
-    log.info('[sighting/distance] Close window');
     $.getView().close({animated: true});
 }
 
+
 /**
- * @method onClickGrid
- * Handle `click` on grid
- * @param  {Object} evt
+ * @method doClickPostComment
+ * Handle `click` on post comment button, storing the comment and final event.
  */
-function onClickGrid (evt) {
-    log.info('[sighting/distance] Click on grid', evt);
-    var distance = evt.source.componentId;
-    // Get current time
-    var sightingEndTime = new Date().getTime();
+function doClickPostComment () {
+    var comment = $.comment.value.trim();
+    var endTime = new Date().getTime();
     // Request location from system
     require('utils/location').getCurrentLatLng(function (error, locationObject) {
         var dataObject = {};
         // Add time to object
-        dataObject.distance = distance;
-        dataObject.endTime = sightingEndTime;
+        dataObject.comment = comment;
+        dataObject.endTime = endTime;
         dataObject.endLocation = locationObject;
         // Track event
-        require('event').saveSurveyEvent('sighting', dataObject);
-        // Update the flow
-        Ti.App.fireEvent('survey:updated');
-        // Continue flow
-        require('flow').distance();
+        require('event').saveSurveyEvent('finishSurvey', dataObject);
+        // Update the flo
+        require('flow').comment();
     });
 }

@@ -57,11 +57,12 @@ _.extend($, {
  * @return {[type]}            [description]
  */
 function onAddEvent (model) {
+    // Filter out duplicates
     if (_.contains(shadowEvents, model.get('event_id'))) {
         return;
     }
 
-    console.log('Tracking onAddedEvent', model.attributes);
+    log.info('[surveys/survey] Tracking onAddedEvent', model.attributes);
 
     var eventDataView = Alloy.createController('surveys/surveyRow', {model: model}).getView();
     $.surveyTableView.appendRow(eventDataView);
@@ -73,11 +74,6 @@ function onAddEvent (model) {
 function onRemoveEvent () {
 
 }
-
-
-
-
-
 
 /**
  * @method onClickCloseButton
@@ -124,6 +120,7 @@ function doClickStartSurvey (evt) {
 
     require('utils/location').getCurrentLatLng(function (err, currentLocation) {
         if (err) {
+            log.error('[surveys/survey] Unable to determine location, without location the survey is unable to continue');
             alert('Unable to determine location, without location the survey is unable to continue');
             return;
         }
@@ -231,7 +228,6 @@ function stopTime () {
  * Update the view based on pre, post and active survey
  */
 function updateViewState (state) {
-
     var stateChange = {
         'ACTIVE' : function changeStateToActive () {
             $.preSurvey.hide();
@@ -278,23 +274,35 @@ function updateViewState (state) {
  */
 function doClickAddSighting (evt) {
     log.info('[surveys/survey] Started new sighting');
-    //@todo move to flow library
-    Alloy.createController('sighting/material', { parent: $ });
+        // Get current time
+    var sightingStartTime = new Date().getTime();
+    // Request location from system
+    require('utils/location').getCurrentLatLng(function (error, locationObject) {
+        var dataObject = {};
+        // Add time to object
+        dataObject.startTime = sightingStartTime;
+        dataObject.startLocation = locationObject;
+        // Track event
+        events.initSurveyEvent('sighting', dataObject);
+        require('flow').sighting();
+    });
 }
 
 /**
  * @method doClickFinishSurvey
  * Handle `click`on doClickFinishSurvey, create sighting/material controller
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @param  {Object} evt
  */
 function doClickFinishSurvey (evt) {
-   log.info('[surveys/survey] Finished survey');
-   //@todo move to flow library
-   Alloy.createController('surveys/windspeed', { flow: 'POSTSURVEY' });
+    events.initSurveyEvent('finishedSurvey');
+    log.info('[surveys/survey] Finished survey');
+    require('flow').postSurvey(startedFromRoot);
 }
 
-
+/**
+ * @renderSurveyTimeline
+ * Fetch all events from survey, and call render function
+ */
 function renderSurveyTimeline () {
     var surveyId = survey.activeSurvey().surveyId;
     eventCollection.fetch({
@@ -307,6 +315,4 @@ function renderSurveyTimeline () {
             log.info('[surveys/survey] collection, response', response);
         }
     });
-
 }
-

@@ -44,6 +44,7 @@ var eventObject = module.exports = {
         if (activeEvent && activeEvent.type !== eventType) {
             return log.info('[lib/event] Unable to stop event if event has not started yet');
         }
+        log.info('[lib/event] Saving ', eventType, eventData);
         // Allow instant save
         if (!activeEvent) {
             eventObject.initSurveyEvent(eventType);

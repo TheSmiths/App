@@ -25,9 +25,16 @@
     <string name="surveys.survey.finishSurvey">Finalize Survey</string>
     <string name="surveys.survey.preSurveyMessage">Start the survey once ready in order to start collecting data.</string>
     <string name="surveys.survey.started">Started on</string>
+    <!-- Survey - Events -->
+    <string name="surveys.survey.event.trackTitle">Tracked location</string>
+    <string name="surveys.survey.event.sightingTitle">Added sighting</string>
     <!-- Wind speed -->
     <string name="surveys.windspeed.subTitle">Select the wind speed at this moment</string>
     <string name="surveys.windspeed.title">Wind Speed</string>
+    <!-- Comment -->
+    <string name="surveys.comment.subTitle">Feel free to share</string>
+    <string name="surveys.comment.title">Comment</string>
+    <string name="surveys.comment.postComment">Post comment</string>
     <!-- Menu -->
     <string name="menu.surveys">Surveys</string>
     <string name="menu.profiles">Profiles</string>
@@ -91,7 +98,4 @@
 
     <string name="sighting.distance.title">Distance</string>
     <string name="sighting.distance.subTitle">Select distance from boat</string>
-
-    <string name="sighting.color.title">Color</string>
-    <string name="sighting.color.subTitle">Select color of debris</string>
 </resources>

@@ -3,6 +3,8 @@
  *
  * @class Controllers.sighting.material
  * @uses utils.log
+ * @uses event
+ * @uses flow
  */
 var log = require('utils/log');
 
@@ -13,7 +15,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        $.grid.setData(require('data/material'));
+         $.grid.setData(require('data/material'));
         require('windowManager').openWinInNewWindow($.getView());
     },
 
@@ -41,5 +43,7 @@ function closeWindow (evt) {
  */
 function onClickGrid (evt) {
     log.info('[sighting/material] Clicked on grid', evt.source, evt);
-    Alloy.createController('sighting/category', { material: evt.source.componentId});
+    var material = evt.source.componentId;
+    require('event').updateSurveyEventData('sighting', {material: material});
+    require('flow').material(material);
 }

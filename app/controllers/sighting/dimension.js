@@ -3,6 +3,8 @@
  *
  * @class Controllers.sighting.dimension
  * @uses utils.log
+ * @uses event
+ * @uses flow
  */
 var log = require('utils/log');
 
@@ -41,5 +43,9 @@ function onClickBackButton () {
  */
 function onClickGrid (evt) {
     log.info('[sighting/dimension] Click on grid', evt);
-    Alloy.createController('sighting/distance');
+    // Save data
+    var dimension = evt.source.componentId;
+    require('event').updateSurveyEventData('sighting', { dimension: dimension});
+    // Continue flow
+    require('flow').dimension();
 }

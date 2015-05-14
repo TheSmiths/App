@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.theoceancleanup.surveyapp</id>
     <name>TheOceanCleanup</name>
-    <version>0.4</version>
+    <version>0.5</version>
     <publisher>Harrie Pieters</publisher>
     <url>http://www.theoceancleanup.com</url>
     <description/>
@@ -10,7 +10,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>false</analytics>
-
+    <guid>12978bfa-ffbb-4466-94fe-a702ffa83688</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <plist>
@@ -40,6 +40,10 @@
                 <string>
                     In Order to record start and ending vessel positions as well as debree we require gps access.
                 </string>
+                <key>UIBackgroundModes</key>
+                <array>
+                    <string>location</string>
+                </array>
             </dict>
         </plist>
     </ios>

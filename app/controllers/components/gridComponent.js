@@ -14,6 +14,11 @@ _.extend($, {
             return;
         }
 
+        if (dataObject.type === 'large'){
+            $.gridContainer.width = Ti.UI.FILL;
+            $.gridIconContainer.width = 280;
+        }
+
         // Populate the view using the data
         $.icon.image = dataObject.icon;
         $.value.text = dataObject.valueLabel;

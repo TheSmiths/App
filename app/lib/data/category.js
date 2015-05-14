@@ -134,4 +134,11 @@ var categoryData = module.exports = [
             valueLabel: 'Other'
         }
     ],
+    [
+        {
+            id: 0,
+            icon: '/images/icons/default.png',
+            valueLabel: 'Other'
+        }
+    ],
 ];

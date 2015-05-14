@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="color">
+    <Window id="cloudCover">
         <View class="header">
             <Require src="components/backButton" id="backButton" onClick="onClickBackButton" />
             <Label id="headerTitle" class="headerTitle" />
@@ -8,8 +8,9 @@
         </View>
 
         <ScrollView class="content">
-            <View class="gridContainer">
-                <Require id="grid" src="components/grid" onClick="onClickGrid" />
+            <View class="commentContainer">
+                <TextArea id="comment" />
+                <Require src="components/button" id="postComment" onClick="doClickPostComment" />
             </View>
         </ScrollView>
     </Window>

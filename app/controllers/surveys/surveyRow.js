@@ -47,9 +47,9 @@ function displayStartSurvey (eventData, surveyData) {
  * @param  {Object} surveyData
  */
 function displayTrack (eventData, surveyData) {
-    $.eventTime.text = '0'; //always 0
-    $.eventInformationTitle.text = 'Tracked Survey';
-    $.eventInformationMessage.text = '... Need to fix this';
+    $.eventTime.text = ((eventData.eventTime - surveyData.startTime) / 60000).toFixed(1) ;
+    $.eventInformationTitle.text = L('surveys.survey.event.trackTitle');
+    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.longitude.toString());
 }
 
 /**
@@ -59,7 +59,10 @@ function displayTrack (eventData, surveyData) {
  * @param  {Object} surveyData
  */
 function displaySighting (eventData, surveyData) {
-
+    $.eventTime.text = ((eventData.eventTime - surveyData.startTime) / 60000).toFixed(1) ;
+    $.eventInformationTitle.text = L('surveys.survey.event.sightingTitle');
+    var totalTime = ((eventData.endTime - eventData.startTime) / 1000).toFixed(2);
+    $.eventInformationMessage.text = 'Data: ' + eventData.material + ', ' + eventData.category + ', ' + eventData.dimension + ', ' + eventData.distance + '. Time: ' + totalTime + ' sec';
 }
 
 /**
@@ -70,4 +73,14 @@ function displaySighting (eventData, surveyData) {
  */
 function displayFinishSurvey (eventData, surveyData) {
 
+}
+
+/**
+ * @method readableCoordinates
+ * Convert lat/lng to readable string that fits into the stream
+ * @param  {String} coordinates Lat / Lng String from system
+ * @return {String} coordinates Readable coordinates string
+ */
+function readableCoordinates (coordinates) {
+    return coordinates.substring(0, coordinates.length - 10);
 }

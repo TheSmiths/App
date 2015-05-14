@@ -93,7 +93,6 @@ var surveyTimer = module.exports = {
     /**
      * @method onResumed
      * Start tracking again once we are back
-     * @return {[type]} [description]
      */
     onResumed: function () {
         timing = true;

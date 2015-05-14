@@ -13,8 +13,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        //log.info('Checking config', config);
-        console.log('********', config.material)
+        //Get category based on material
         $.grid.setData(require('data/category')[config.material]);
         require('windowManager').openWinWithBack($.getView());
     },
@@ -32,7 +31,7 @@ _.extend($, {
  * Handle `click` on backButton
  */
 function onClickBackButton () {
-    log.info('[windspeed] Close window');
+    log.info('[sighting/category] Close window');
     $.getView().close({animated: true});
 }
 
@@ -42,6 +41,8 @@ function onClickBackButton () {
  * @param  {Object} evt
  */
 function onClickGrid (evt) {
-    log.info('[windspeed] Click on grid', evt);
-    Alloy.createController('sighting/dimension');
+    log.info('[sighting/category] Click on grid', evt);
+    var category = evt.source.componentId;
+    require('event').updateSurveyEventData('sighting', { category: category});
+    require('flow').category();
 }

@@ -180,7 +180,7 @@ function updateTime () {
         return;
     }
 
-    log.info('[surveys/survey] Retreiving remainder');
+    //log.info('[surveys/survey] Retreiving remainder');
     var remainder = endTime - new Date().getTime();
 
     // Stop the clock once its done
@@ -192,7 +192,7 @@ function updateTime () {
         return;
     }
 
-    log.info('[surveys/survey] Updating time');
+    //log.info('[surveys/survey] Updating time');
     var remainingSeconds = remainder / 1000;
     var remainingMinutes = remainingSeconds / 60;
     var minutes = Math.floor(remainingMinutes);
@@ -294,7 +294,7 @@ function doClickAddSighting (evt) {
  * @param  {Object} evt
  */
 function doClickFinishSurvey (evt) {
-    events.initSurveyEvent('finishedSurvey');
+    events.initSurveyEvent('finishSurvey');
     log.info('[surveys/survey] Finished survey');
     require('flow').postSurvey(startedFromRoot);
 }
@@ -308,8 +308,11 @@ function renderSurveyTimeline () {
     eventCollection.fetch({
         query: 'SELECT * from events where survey_id = "' + surveyId + '"',
         success: function(collection, response, options) {
-            log.info('[surveys/survey] collection, response', collection);
             eventCollection.each(onAddEvent);
+
+            _.defer(function () {
+                $.surveyTableView.scrollToIndex(eventCollection.length - 1, {animated: true, animationStyle: Titanium.UI.iPhone.RowAnimationStyle.BOTTOM,  position: Titanium.UI.iPhone.TableViewScrollPosition.BOTTOM});
+            });
         },
         error: function(collection, response, options) {
             log.info('[surveys/survey] collection, response', response);

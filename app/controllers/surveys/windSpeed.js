@@ -37,9 +37,6 @@ _.extend($, {
  */
 function onClickBackButton () {
     log.info('[windspeed] Close window');
-    if (STATE === 'POSTSURVEY') {
-        return require('windowManager').closeWin({animated: true});
-    }
     $.getView().close({animated: true});
 }
 

@@ -116,12 +116,14 @@ var flowLibrary = module.exports = {
      * [comment description]
      * @return {[type]} [description]
      */
-    comment: function (startedFromRoot) {
-        //require('survey').destroySurvey();
+    comment: function () {
+        require('survey').destroySurvey();
+
+        require('windowManager').closeWin({animated: true});
+
         if (startedFromRoot) {
             Alloy.createController('index');
         }
-        require('windowManager').closeWin({animated: true});
     }
 };
 

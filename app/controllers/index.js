@@ -23,6 +23,7 @@ _.extend($, {
         Alloy.Globals.drawer = $.drawer;
         Alloy.Globals.navigationWindow = $.navigationWindow;
         Alloy.Globals.menu = $.menu;
+
         $.drawer.open();
 
         $.drawer.addEventListener('windowDidOpen', function (evt) {

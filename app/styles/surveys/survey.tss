@@ -25,7 +25,7 @@
 }
 
 ".timer": {
-    text: '60:00',
+    text: '2:00',
     font: {
         fontWeight: 'bold',
         fontSize: 40

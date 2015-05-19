@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="comment">
+    <Window id="done">
         <View class="header">
             <Require src="components/backButton" id="backButton" onClick="onClickBackButton" />
             <Label id="headerTitle" class="headerTitle" />
@@ -8,9 +8,10 @@
         </View>
 
         <ScrollView class="content">
-            <View class="commentContainer">
-                <TextArea id="commentTextArea" />
-                <Require src="components/button" id="postComment" onClick="doClickPostComment" />
+            <View class="contentContainer">
+                <Label class="title" />
+                <Label class="paragraph" />
+                <Require src="components/button" id="doneButton" onClick="doClickDone" />
             </View>
         </ScrollView>
     </Window>

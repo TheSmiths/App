@@ -35,6 +35,14 @@
     <string name="surveys.comment.subTitle">Feel free to share</string>
     <string name="surveys.comment.title">Comment</string>
     <string name="surveys.comment.postComment">Post comment</string>
+    <!-- Wind speed -->
+    <string name="surveys.done.subTitle">Successfully saved survey</string>
+    <string name="surveys.done.title">Saved survey</string>
+    <string name="surveys.done.paragraphTitle">Successfully saved survey</string>
+    <string name="surveys.done.paragraph">Thank you very much for participating in helping the ocean cleanup. Make sure you remember to upload your results once you have an interent connection!</string>
+    <string name="surveys.done.continue">Back to overview</string>
+    <!-- Local notification -->
+    <string name="survey.notification.body">Survey is done! Continue to finalize.</string>
     <!-- Menu -->
     <string name="menu.surveys">Surveys</string>
     <string name="menu.profiles">Profiles</string>

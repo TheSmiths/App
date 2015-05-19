@@ -38,7 +38,7 @@ function onClickBackButton () {
  * Handle `click` on post comment button, storing the comment and final event.
  */
 function doClickPostComment () {
-    var comment = $.comment.value.trim();
+    var comment = $.commentTextArea.value.trim();
     var endTime = new Date().getTime();
     // Request location from system
     require('utils/location').getCurrentLatLng(function (error, locationObject) {

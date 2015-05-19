@@ -19,6 +19,10 @@ var active = false;
 var state = 'PREACTIVE';
 var startedFromRoot = false;
 
+// constants
+var TRACKLOCATIONTIME = 90;
+var TRACKTIMEINTERVAL = 30;
+
 // Collections
 var eventCollection = Alloy.createCollection('Event');
 var shadowEvents = [];
@@ -50,11 +54,9 @@ _.extend($, {
 });
 
 /**
- * @method  onAddProfile
- * @param  {[type]} model      [description]
- * @param  {[type]} collection [description]
- * @param  {[type]} options    [description]
- * @return {[type]}            [description]
+ * @method onAddProfile
+ * Add event model to survyeTableView
+ * @param  {Object} model
  */
 function onAddEvent (model) {
     // Filter out duplicates
@@ -68,11 +70,6 @@ function onAddEvent (model) {
     $.surveyTableView.appendRow(eventDataView);
     $.surveyTableView.height = Ti.UI.FILL;
     shadowEvents.push(model.get('event_id'));
-}
-
-
-function onRemoveEvent () {
-
 }
 
 /**
@@ -188,12 +185,18 @@ function updateTime () {
         state = 'POSTACTIVE';
         updateViewState('POSTACTIVE');
         $.surveyTimer.text = '00:00';
-        require('survey').stopSurvey();
+        survey.stopSurvey();
+        Ti.Media.vibrate();
         return;
     }
 
-    //log.info('[surveys/survey] Updating time');
     var remainingSeconds = remainder / 1000;
+    // Track location
+    if (remainingSeconds < TRACKLOCATIONTIME && TRACKLOCATIONTIME > 0) {
+        survey.trackLocation();
+        TRACKLOCATIONTIME = TRACKLOCATIONTIME - TRACKTIMEINTERVAL;
+    }
+
     var remainingMinutes = remainingSeconds / 60;
     var minutes = Math.floor(remainingMinutes);
     var seconds = Math.floor(remainingSeconds - minutes * 60);
@@ -311,7 +314,7 @@ function renderSurveyTimeline () {
             eventCollection.each(onAddEvent);
 
             _.defer(function () {
-                $.surveyTableView.scrollToIndex(eventCollection.length - 1, {animated: true, animationStyle: Titanium.UI.iPhone.RowAnimationStyle.BOTTOM,  position: Titanium.UI.iPhone.TableViewScrollPosition.BOTTOM});
+                $.surveyTableView.scrollToIndex(eventCollection.length - 1, {animated: true, animationStyle: Titanium.UI.iPhone.RowAnimationStyle.TOP,  position: Titanium.UI.iPhone.TableViewScrollPosition.TOP});
             });
         },
         error: function(collection, response, options) {

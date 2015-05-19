@@ -61,6 +61,15 @@ var eventObject = module.exports = {
         activeEvent = null;
     },
     /**
+     * @method destroySurveyEvent
+     *
+     * @param  {[type]} eventType [description]
+     * @return {[type]}           [description]
+     */
+    destroySurveyEvent: function (eventType) {
+        activeEvent = null;
+    },
+    /**
      * @method saveSurveyEvent
      * @param  {String} eventType Type of event [startSurvey, track, sighting, endSurvey]
      * @param  {Object]} eventData Data object containing the data

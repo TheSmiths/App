@@ -118,7 +118,10 @@ var flowLibrary = module.exports = {
      */
     comment: function () {
         require('survey').destroySurvey();
+        Alloy.createController('surveys/done');
+    },
 
+    done: function () {
         require('windowManager').closeWin({animated: true});
 
         if (startedFromRoot) {

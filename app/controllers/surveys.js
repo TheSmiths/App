@@ -39,6 +39,16 @@ function populateWindow () {
         log.error('[surveys] Please enable location services');
     }
 
+    if (Ti.Platform.name == "iPhone OS" && parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
+        Ti.App.iOS.registerUserNotificationSettings({
+            types: [
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND,
+                Ti.App.iOS.USER_NOTIFICATION_TYPE_BADGE
+            ]
+        });
+    }
+
     // @TODO: Cleanup the current position code
     Ti.Geolocation.getCurrentPosition(function (e) {
         if (!e.success || e.error){

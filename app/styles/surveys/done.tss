@@ -5,7 +5,7 @@
 }
 
 ".headerTitle": {
-    text: L('surveys.comment.title'),
+    text: L('surveys.done.title'),
     top: 26,
     font: {
         fontWeight: 'bold',
@@ -14,7 +14,7 @@
 }
 
 ".headerSubTitle": {
-    text: L('surveys.comment.subTitle'),
+    text: L('surveys.done.subTitle'),
     top: 42,
     font: {
         fontSize: 10,
@@ -29,26 +29,37 @@
     height: Ti.UI.SIZE,
 }
 
-".commentContainer": {
+".contentContainer": {
     left: 15,
     right: 15,
-    top: 20,
-    layout: 'vertical',
-    height: Ti.UI.SIZE,
+    layout: 'vertical'
 }
 
-"#commentTextArea": {
-    top: 0,
-    backgroundColor: '#EAEAEA',
-    paddingLeft: 10,
-    width: '100%',
-    height: 200
+".title": {
+    top: 20,
+    text: L('surveys.done.paragraphTitle'),
+    font: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    left: 0
 }
 
-"#postComment": {
+".paragraph": {
+    text: L('surveys.done.paragraph'),
+    font: {
+        fontSize: 12,
+    },
+    top: 10
+}
+
+"#doneButton": {
     top: 20,
-    text: L('surveys.comment.postComment'),
+    text: L('surveys.done.continue'),
     textAlign: 'center',
     left: 0,
     right: 0
 }
+
+
+

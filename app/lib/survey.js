@@ -7,6 +7,7 @@ var events = require('event');
 // Internals
 var timer;
 var timing = false;
+var localNotification;
 
 var surveyTimer = module.exports = {
     startSurvey: function () {
@@ -18,6 +19,8 @@ var surveyTimer = module.exports = {
         Ti.App.Properties.setObject('app-survey', surveyObject);
         log.info('[lib/survey] StartSurvey at time', surveyObject);
         surveyTimer.startTrackingService();
+        // Set a local notification
+        setLocalNotification(endTime);
         return surveyObject;
     },
     /**
@@ -48,6 +51,10 @@ var surveyTimer = module.exports = {
         surveyTimer.stopSurvey();
         // Remove reference to the survey
         Ti.App.Properties.removeProperty('app-survey');
+        // Remove any left over events
+        require('event').destroySurveyEvent();
+        // Remove notification
+        cancelLocalNotification();
     },
 
     /**
@@ -55,47 +62,52 @@ var surveyTimer = module.exports = {
      * Start running an interval gps tracker to add the gps coordinates to the survey
      */
     startTrackingService: function () {
-        Ti.App.addEventListener('resumed', surveyTimer.onResumed);
-        Ti.App.addEventListener('paused', surveyTimer.onPaused);
         log.info('[lib/survey] Start running the background service');
         if (OS_IOS) {
             Ti.App.iOS.registerBackgroundService({url: 'iosTrack.js'});
         }
         timing = true;
-        surveyTimer.trackLocation();
     },
 
     trackLocation: function () {
-        timer = setTimeout(function () {
-            // Kill function if needed (if clearTimout failed for some reason)
-            if (!timing) {
-                return;
-            }
-            // Store current GPS coordinates
-            var location = require('utils/location').getCurrentLatLng(function (err, locationData) {
-                events.saveSurveyEvent('track', locationData);
-                // Call function again
-                surveyTimer.trackLocation();
-                // Let the survey view know there is an update
-                Ti.App.fireEvent('survey:updated');
-            });
-        }, 30000);
+        // Kill function if needed (if clearTimout failed for some reason)
+        if (!timing) {
+            return;
+        }
+        // Store current GPS coordinates
+        var location = require('utils/location').getCurrentLatLng(function (err, locationData) {
+            events.saveSurveyEvent('track', locationData);
+            // Let the survey view know there is an update
+            Ti.App.fireEvent('survey:updated');
+        });
     },
 
     stopTrackLocation: function () {
         timing = false;
-        clearTimeout(timer);
-    },
-
-    onPaused: function () {
-        surveyTimer.stopTrackLocation();
-    },
-    /**
-     * @method onResumed
-     * Start tracking again once we are back
-     */
-    onResumed: function () {
-        timing = true;
-        surveyTimer.trackLocation();
     }
 };
+
+/**
+ * [setLocalNotification description]
+ * @param {[type]} notificationTime [description]
+ */
+function setLocalNotification (notificationTime) {
+    localNotification = Ti.App.iOS.scheduleLocalNotification({
+        alertAction: "continue",
+        alertBody: L('survey.notification.body'),
+        badge: 1,
+        date: new Date(notificationTime),
+        sound: "/alert.wav",
+    });
+}
+
+/**
+ * [cancelLocalNotification description]
+ * @return {[type]} [description]
+ */
+function cancelLocalNotification () {
+    if (localNotification) {
+        localNotification.cancel();
+        localNotification = null;
+    }
+}

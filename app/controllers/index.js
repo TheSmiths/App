@@ -14,6 +14,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        Titanium.UI.iPhone.setAppBadge(0);
         // Check if we have an active survey, if so open the app in active survey mode
         if (require('survey').activeSurvey()) {
             Alloy.createController('surveys/survey', {startedFromRoot: true});

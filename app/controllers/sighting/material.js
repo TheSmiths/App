@@ -33,6 +33,7 @@ _.extend($, {
  */
 function closeWindow (evt) {
     log.info('[sighting/material] Close window');
+    require('event').destroySurveyEvent();
     require('windowManager').closeWin({animated: true});
 }
 

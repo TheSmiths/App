@@ -1,6 +1,8 @@
 /**
  * Controller for index
  *
+ * Reset app badge, check for active survey if not load the default surveys page and menu
+ *
  * @class Controllers.index
  */
 
@@ -14,7 +16,9 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        // Reset badge once opening the app
         Titanium.UI.iPhone.setAppBadge(0);
+
         // Check if we have an active survey, if so open the app in active survey mode
         if (require('survey').activeSurvey()) {
             Alloy.createController('surveys/survey', {startedFromRoot: true});

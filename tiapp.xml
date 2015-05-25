@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.theoceancleanup.surveyapp</id>
     <name>TheOceanCleanup</name>
-    <version>0.7</version>
+    <version>0.8</version>
     <publisher>Harrie Pieters</publisher>
     <url>http://www.theoceancleanup.com</url>
     <description/>

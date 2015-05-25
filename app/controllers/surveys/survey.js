@@ -10,6 +10,7 @@ var log = require('utils/log');
 var survey = require('survey');
 var events = require('event');
 var moment = require('alloy/moment');
+var settings = Ti.App.Properties.getObject('app-survey-settings') || {};
 
 // Internals
 var startTime;
@@ -20,8 +21,8 @@ var state = 'PREACTIVE';
 var startedFromRoot = false;
 
 // constants
-var TRACKLOCATIONTIME = 90;
-var TRACKTIMEINTERVAL = 30;
+var TRACKLOCATIONTIME = ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) || 1740;
+var TRACKTIMEINTERVAL = settings.trackingInterval * 60;
 
 // Collections
 var eventCollection = Alloy.createCollection('Event');
@@ -39,6 +40,11 @@ _.extend($, {
             startedFromRoot = true;
             activateSurvey(survey.activeSurvey());
             state = 'ACTIVE';
+        }
+
+        if (!config.startedFromRoot) {
+            var totalTime = settings.surveyDuration || 30;
+            $.surveyTimer.text = totalTime + ':00';
         }
         // open window
         require('windowManager').openWinWithBack($.getView());

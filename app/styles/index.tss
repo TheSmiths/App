@@ -3,7 +3,7 @@
 }
 
 "#drawer": {
-    openDrawerGestureMode: "OPEN_MODE_ALL",
+    openDrawerGestureMode: "OPEN_MODE_MARGIN",
     closeDrawerGestureMode: "CLOSE_MODE_ALL",
     leftDrawerWidth: 240
 }

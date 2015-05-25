@@ -101,7 +101,7 @@
 
 "#platformHeight": {
     min: 0,
-    max: 30,
+    max: 40,
     top: 30,
     height: Ti.UI.SIZE,
 }

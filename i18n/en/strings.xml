@@ -34,7 +34,7 @@
     <!-- Comment -->
     <string name="surveys.comment.subTitle">Feel free to share</string>
     <string name="surveys.comment.title">Comment</string>
-    <string name="surveys.comment.postComment">Post comment</string>
+    <string name="surveys.comment.postComment">Continue</string>
     <!-- Wind speed -->
     <string name="surveys.done.subTitle">Successfully saved survey</string>
     <string name="surveys.done.title">Saved survey</string>
@@ -91,6 +91,10 @@
     <string name="settings.highContrast">Switch to high contrast:</string>
     <string name="settings.invert">Switch to invert colors:</string>
     <string name="settings.font">Switch font size:</string>
+    <string name="settings.testOption">For testing purposes only.</string>
+    <string name="settings.surveyDuration">Survey duration:</string>
+    <string name="settings.trackingInterval">Tracking interval:</string>
+    <string name="settings.saveSettings">Save settings</string>
     <!-- More -->
     <string name="more.title">More</string>
     <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."\n\nYURI A. GAGARIN, first man in space.</string>

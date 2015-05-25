@@ -15,9 +15,10 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        log.debug('Booted Surveys');
+        log.debug('[surveys] Constructed');
         $.getView().addEventListener('open', populateWindow);
         Ti.Geolocation.addEventListener("heading", compassEventHandler);
+        // Start timer
         updateTime();
     },
 

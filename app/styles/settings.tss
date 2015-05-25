@@ -17,17 +17,17 @@
     backgroundColor: '#fff',
     top: 5,
     right: 5,
-    bottom: 5,
+    bottom: 15,
     left: 5,
     layout: 'vertical',
     height: Ti.UI.SIZE
 }
 
 ".settingsRow": {
-    height: 60,
     left: 15,
-    top: 0,
-    layout: 'horizontal',
+    right: 15,
+    top: 15,
+    height: Ti.UI.SIZE
 }
 
 ".settingsLabel": {
@@ -53,4 +53,79 @@
 
 "#settingsBigFont": {
     text: L('settings.font')
+}
+
+// Test options
+
+".testOptions": {
+    top: 20,
+    text: L('settings.testOption'),
+    font: {
+        fontSize: 12
+    },
+    left: 15,
+    textAlign: 'center'
+}
+
+".surveyDuration": {
+    text: L('settings.surveyDuration'),
+    height: Ti.UI.SIZE,
+    top: 0,
+    left: 0,
+    font: {
+        fontSize: 12
+    }
+}
+
+"#duration": {
+    right: 0,
+    top: 0,
+    text: '30 minutes',
+
+    font: {
+        fontSize: 12,
+        fontWeight: 'bold'
+    }
+}
+
+"#surveyDuration": {
+    min: 0,
+    max: 60,
+    top: 30,
+    value: 30,
+    height: Ti.UI.SIZE,
+}
+
+".trackingInterval": {
+    text: L('settings.trackingInterval'),
+    height: Ti.UI.SIZE,
+    top: 0,
+    left: 0,
+    font: {
+        fontSize: 12
+    }
+}
+
+"#interval": {
+    right: 0,
+    top: 0,
+    text: '1 minute',
+    font: {
+        fontSize: 12,
+        fontWeight: 'bold'
+    }
+}
+
+"#trackingInterval": {
+    min: 0,
+    max: 30,
+    top: 30,
+    value: 1,
+    height: Ti.UI.SIZE,
+}
+
+"#saveSettings": {
+    top: 15,
+    text: L('settings.saveSettings'),
+    bottom: 15
 }

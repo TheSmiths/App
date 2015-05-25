@@ -11,8 +11,12 @@ var localNotification;
 
 var surveyTimer = module.exports = {
     startSurvey: function () {
+        // Get settings
+        var settings = Ti.App.Properties.getObject('app-survey-settings');
+        var totalTime = settings.surveyDuration || 30;
+
         var startTime = new Date().getTime();
-        var endTime = startTime + ( 2 * 60000 );
+        var endTime = startTime + ( totalTime * 60000 );
         var uuid = require('uuid').create();
         var surveyObject = { surveyId: uuid.toString(), startTime: startTime, endTime: endTime };
         // Save object

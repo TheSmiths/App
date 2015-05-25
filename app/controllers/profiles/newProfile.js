@@ -83,7 +83,7 @@ function saveProfile (evt) {
     model.save();
 
     if (STATE === 'PRESURVEY') {
-        require('flow').saveProfile({'observerName': spotterName, 'platformHeight': platformHeight});
+        require('flow').saveProfile({'observerName': spotterName, 'platformHeight': platformHeight, 'id': model.id});
         return;
     }
 

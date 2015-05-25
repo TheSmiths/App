@@ -1,10 +1,11 @@
 exports.definition = {
     config: {
         columns: {
+            "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
             "name": "STRING",
-            "height": "INT",
+            "height": "INTEGER",
             "boat": "STRING",
-            "surveys": "INT",
+            "surveys": "INTEGER",
         },
         defaults: {
             "name": "",

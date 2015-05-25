@@ -40,5 +40,6 @@ function onClickBackButton () {
  * Handle `click` on done butto
  */
 function doClickDone () {
+    Ti.App.fireEvent('newSurvey');
     require('flow').done();
 }

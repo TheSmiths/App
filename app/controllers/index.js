@@ -19,6 +19,20 @@ _.extend($, {
         // Reset badge once opening the app
         Titanium.UI.iPhone.setAppBadge(0);
 
+        if (!Ti.Geolocation.locationServicesEnabled) {
+            log.error('[surveys] Please enable location services');
+        }
+
+        if (Ti.Platform.name == "iPhone OS" && parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
+            Ti.App.iOS.registerUserNotificationSettings({
+                types: [
+                    Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
+                    Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND,
+                    Ti.App.iOS.USER_NOTIFICATION_TYPE_BADGE
+                ]
+            });
+        }
+
         // Check if we have an active survey, if so open the app in active survey mode
         if (require('survey').activeSurvey()) {
             Alloy.createController('surveys/survey', {startedFromRoot: true});

@@ -68,5 +68,13 @@
 }
 
 ".madeBy": {
-    height: Ti.UI.SIZE
+    height: Ti.UI.SIZE,
+    bottom: 10
+}
+
+"#versionLabel": {
+    font: {
+        fontSize: '11'
+    },
+    color: '#fff'
 }

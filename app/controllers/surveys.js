@@ -5,8 +5,12 @@
  * @uses Utils.log
  * @uses Utils.date
  */
-var log = require('utils/log'),
-    date = require('utils/date');
+var log = require('utils/log');
+var date = require('utils/date');
+
+var surveys = Alloy.createCollection('Survey');
+var shadowSurveys = [];
+var remainingUploads = 0;
 
 _.extend($, {
     /**
@@ -15,11 +19,12 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        log.debug('[surveys] Constructed');
-        $.getView().addEventListener('open', populateWindow);
-        Ti.Geolocation.addEventListener("heading", compassEventHandler);
-        // Start timer
-        updateTime();
+        // Set listeners
+        surveys.on('add', onAddSurvey);
+        surveys.on('remove', onRemoveSurvey);
+        // Check if there are any surveys
+        fetchSurveys();
+        Ti.App.addEventListener('newSurvey', fetchSurveys);
     },
 
     /**
@@ -27,92 +32,47 @@ _.extend($, {
      * function executed when closing window
      */
     destruct: function() {
-        Ti.Geolocation.removeEventListener("heading", compassEventHandler);
+        surveys.off('add', onAddSurvey);
+        surveys.off('remove', onRemoveSurvey);
     }
 });
 
 /**
- * @method populateWindow
- * @return {[type]} [description]
+ * @method  onAddSurvey
+ * @param  {[type]} model      [description]
+ * @param  {[type]} collection [description]
+ * @param  {[type]} options    [description]
+ * @return {[type]}            [description]
  */
-function populateWindow () {
-    if (!Ti.Geolocation.locationServicesEnabled) {
-        log.error('[surveys] Please enable location services');
-    }
-
-    if (Ti.Platform.name == "iPhone OS" && parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
-        Ti.App.iOS.registerUserNotificationSettings({
-            types: [
-                Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
-                Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND,
-                Ti.App.iOS.USER_NOTIFICATION_TYPE_BADGE
-            ]
-        });
-    }
-
-    // @TODO: Cleanup the current position code
-    Ti.Geolocation.getCurrentPosition(function (e) {
-        if (!e.success || e.error){
-            log.error(e.error);
-            return;
-        }
-
-        var longitude = e.coords.longitude.toString();
-        var latitude = e.coords.latitude.toString();
-        var altitude = e.coords.altitude;
-
-        var longitudeLength = longitude.length;
-        var latitudeLength = latitude.length;
-
-        if (longitudeLength > 8) {
-            longitude = longitude.substring(0, longitudeLength );
-        }
-
-        longitude = longitude.substring(0, longitude.length - 10);
-        latitude = latitude.substring(0, latitude.length - 10);
-
-        var accuracy = e.coords.accuracy;
-        var speed = e.coords.speed;
-        var speedText = '0 knots';
-
-        if (speed > 0) {
-            speedText = require('utils/conversion').knots(speed);
-        }
-
-        $.headerCurrentSpeed.text = speedText;
-        $.headerCurrentLocation.text = 'lng ' + longitude + ' lat ' +  latitude;
-    });
-}
-
-/**
- * @method updateTime
- * Update time in surveys
- */
-function updateTime () {
-    $.headerCurrentTime.text = date.getCurrentTime();
-    _.delay(updateTime, 50);
-}
-
-/**
- * @method compassEventHandler
- * @param  {Object} evt
- */
-function compassEventHandler (evt) {
-    // Handle error state when trying to get compass values
-    if (evt.success !== undefined && !evt.success) {
+function onAddSurvey (model, collection, options) {
+    log.info('[surveys] Adding a survey model', model);
+    if (_.contains(shadowSurveys, model.get('survey_id'))) {
         return;
     }
 
-    // to prevent overloading only update the value every second
-    _.throttle(function () {
-        var matrix = Ti.UI.create2DMatrix();
-        matrix = matrix.rotate(evt.heading.magneticHeading);
-        var compassAnimation = Ti.UI.createAnimation({
-            transform: matrix,
-            duration: 800
-        });
-        $.compassNeedle.animate(a1);
-    }, 1000);
+    if (!model.get('uploaded')) {
+        addUploadSurvey();
+    }
+
+    var surveyDataRow = Alloy.createController('surveyInfo/surveyInfoRow', {model: model}).getView();
+    $.surveyTableView.appendRow(surveyDataRow);
+    shadowSurveys.push(model.get('survey_id'));
+}
+
+/**
+ * [onRemoveProfile description]
+ * @param  {[type]} model      [description]
+ * @param  {[type]} collection [description]
+ * @param  {[type]} options    [description]
+ * @return {[type]}            [description]
+ */
+function onRemoveSurvey (model, collection, options) {
+    if (collection.length === 0) {
+        $.profilesTableView.visible = false;
+        $.emptyView.visible = true;
+    }
+    $.profilesTableView.deleteRow(options.index);
+    shadowProfiles = _.reject(shadowProfiles, function (id) { return id === model.get('survey_id'); } );
 }
 
 /**
@@ -131,4 +91,38 @@ function doClickStartGuide () {
     var guide = Alloy.createController('guide').getView();
     Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
     Alloy.Globals.menu.activateItem('menuItemGuide');
+}
+
+/**
+ * @method fetchSurveys
+ * @return {[type]} [description]
+ */
+function fetchSurveys () {
+    surveys.fetch({
+        silent: false,
+        success: function(collection, response, options) {
+            log.info('[surveys] Retreived surveys', collection);
+            if (collection.length === 0) {
+                return;
+            }
+
+            $.emptyView.visible = false;
+            $.surveyTableView.visible = true;
+        },
+        error: function(collection, response, options) {
+            log.info('[surveys] Unable to retreive the survey', response);
+        }
+    });
+}
+
+function onClickUploadButton () {
+    require('upload')();
+}
+
+/**
+ * [addUploadSurvey description]
+ */
+function addUploadSurvey () {
+    remainingUploads++;
+    $.uploadButtonContainer.opacity = 1;
 }

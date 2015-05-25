@@ -1,6 +1,8 @@
 {
     "global": {
-        "theme": "default"
+        "theme": "default",
+        "surveyDuration": "30",
+        "intervalDuration": "5"
     },
     "dependencies": {
         "nl.fokkezb.drawer": "*"

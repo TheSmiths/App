@@ -19,6 +19,7 @@ _.extend($, {
      */
     construct: function(config) {
         // Set surveys to active by default
+        $.versionLabel.text = L('menu.version') +  Ti.App.version;
         activeItem = 'menuItemSurveys';
         activateItem('menuItemSurveys');
     },

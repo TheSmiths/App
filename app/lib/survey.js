@@ -10,21 +10,28 @@ var timing = false;
 var localNotification;
 
 var surveyTimer = module.exports = {
-    startSurvey: function () {
+    /**
+     * @method startSurvey
+     * @return {Object} Survey object
+     */
+    startSurvey: function (userId) {
         // Get settings
         var settings = Ti.App.Properties.getObject('app-survey-settings');
-        var totalTime = settings.surveyDuration || 30;
-
+        var totalTime = settings ? settings.surveyDuration : Alloy.CFG.surveyDuration;
         var startTime = new Date().getTime();
         var endTime = startTime + ( totalTime * 60000 );
+        // Create uuid
         var uuid = require('uuid').create();
+        // Create survey object
         var surveyObject = { surveyId: uuid.toString(), startTime: startTime, endTime: endTime };
-        // Save object
-        Ti.App.Properties.setObject('app-survey', surveyObject);
-        log.info('[lib/survey] StartSurvey at time', surveyObject);
+        // Save active survey both persistent as in local memory
+        saveSurveyData(surveyObject, userId);
+        // Start trackingService on the background if we quit the app
         surveyTimer.startTrackingService();
         // Set a local notification
         setLocalNotification(endTime);
+        log.info('[lib/survey] StartSurvey - ', surveyObject);
+        // Return  data
         return surveyObject;
     },
     /**
@@ -48,17 +55,35 @@ var surveyTimer = module.exports = {
         }
         // Stop polling
         surveyTimer.stopTrackLocation();
-
     },
 
+    /**
+     * [destroySurvey description]
+     * @return {[type]} [description]
+     */
     destroySurvey: function () {
         surveyTimer.stopSurvey();
-        // Remove reference to the survey
+        var surveyData = Ti.App.Properties.getObject('app-survey');
+        // Remove all data reference to the survey
         Ti.App.Properties.removeProperty('app-survey');
+        Ti.App.Properties.removeProperty('app-survey-user');
         // Remove any left over events
         require('event').destroySurveyEvent();
         // Remove notification
         cancelLocalNotification();
+        // Remove any data releated to the survey
+        return surveyData;
+    },
+
+    /**
+     * [cancelSurvey description]
+     * @return {[type]} [description]
+     */
+    cancelSurvey: function () {
+        var surveyData = surveyTimer.destroySurvey();
+        if (surveyData) {
+            deleteSurveyData(surveyData);
+        }
     },
 
     /**
@@ -88,30 +113,109 @@ var surveyTimer = module.exports = {
 
     stopTrackLocation: function () {
         timing = false;
+    },
+
+    setUser: function (userData) {
+        log.info('[lib/survey] Save survey user', userData);
+        Ti.App.Properties.setObject('app-survey-user', userData);
+    },
+
+    getUser: function () {
+        log.info('[lib/survey] Return survey user', Ti.App.Properties.getObject('app-survey-user'));
+        return Ti.App.Properties.getObject('app-survey-user');
     }
 };
 
 /**
- * [setLocalNotification description]
- * @param {[type]} notificationTime [description]
+ * [saveSurveyData description]
+ * @param  {[type]} surveyObject [description]
+ * @return {[type]}              [description]
  */
-function setLocalNotification (notificationTime) {
-    localNotification = Ti.App.iOS.scheduleLocalNotification({
-        alertAction: "continue",
-        alertBody: L('survey.notification.body'),
-        badge: 1,
-        date: new Date(notificationTime),
-        sound: "/alert.wav",
+function saveSurveyData (surveyObject) {
+    Ti.App.Properties.setObject('app-survey', surveyObject);
+
+    var userData = surveyTimer.getUser();
+
+    if (!userData) {
+        return log.error('[lib/survey] No user data found, cannot save survey');
+    }
+
+    // Save survey model
+    var surveyModel = Alloy.createModel('Survey', {
+        "survey_id": surveyObject.surveyId,
+        "observer_id": userData.id,
+        "created": new Date().getTime(),
+        "uploaded": false
     });
+
+    surveyModel.save();
 }
 
 /**
- * [cancelLocalNotification description]
- * @return {[type]} [description]
+ * [deleteSurveyData description]
+ * @param  {[type]} surveyObject [description]
+ * @return {[type]}              [description]
+ * @todo: This must be easier than this...
+ */
+function deleteSurveyData (surveyObject) {
+    var surveys = Alloy.createCollection('Survey');
+    //Remove a survey model if it exists
+    surveys.fetch({
+        silent: false,
+        success: function(collection, response, options) {
+            log.info('[lib/surveys] Retreived surveys', collection);
+            surveys.get(surveyObject.surveyId).destroy();
+        },
+        error: function(collection, response, options) {
+            log.info('[lib/surveys] Unable to retreive the survey', response);
+        }
+    });
+
+    // Remove any event models if they exist
+    var events = Alloy.createCollection('Event');
+
+    events.fetch({
+        query: 'SELECT * from events where survey_id = "' + surveyObject.surveyId + '"',
+        success: function(collection, response, options) {
+            events.each(function (model) {
+                model.destroy();
+            });
+        },
+        error: function(collection, response, options) {
+            log.info('[surveys/survey] collection, response', response);
+        }
+    });
+}
+
+
+/**
+ * @method setLocalNotification
+ * Set a local notification on iOS
+ * @param {Int} notificationTime Timestamp of the finish time of the survey
+ * @todo: Android
+ */
+function setLocalNotification (notificationTime) {
+    if (OS_IOS) {
+        localNotification = Ti.App.iOS.scheduleLocalNotification({
+            alertAction: "continue",
+            alertBody: L('survey.notification.body'),
+            badge: 1,
+            date: new Date(notificationTime),
+            sound: "/alert.wav",
+        });
+    }
+}
+
+/**
+ * @method cancelLocalNotification
+ * Remove the timed local notification if set
+ * @todo: Android
  */
 function cancelLocalNotification () {
-    if (localNotification) {
-        localNotification.cancel();
-        localNotification = null;
+    if (OS_IOS) {
+        if (localNotification) {
+            localNotification.cancel();
+            localNotification = null;
+        }
     }
 }

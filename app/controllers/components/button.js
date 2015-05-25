@@ -17,6 +17,11 @@ if (args.text) {
 if (args.textAlign) {
     $.buttonLabel.textAlign = args.textAlign;
 }
+
+// Apply the color to the label
+if (args.color) {
+    $.buttonLabel.color = args.color;
+}
 /**
  * @method doButtonClick
  * Execute the buttonClick debounce function, trigger click and perform basic animation

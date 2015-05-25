@@ -3,7 +3,8 @@ exports.definition = {
         columns: {
             "survey_id": "TEXT PRIMARY KEY",
             "observer_id" : "TEXT",
-            "created": "TEXT"
+            "created": "TEXT",
+            "uploaded": "BOOL"
         },
         adapter: {
             type: "sql",

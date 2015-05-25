@@ -118,11 +118,11 @@ function doClickProfilesTableView (model) {
     var profile = profiles.get(model.rowData.modelId);
     // If state is selection continue flow
     if (STATE === 'PRESURVEY') {
-        require('flow').saveProfile({'observerName': profile.get('name'), 'platformHeight': profile.get('height')});
+        require('flow').saveProfile({'observerName': profile.get('name'), 'platformHeight': profile.get('height'), 'id': profile.id});
         return;
     }
 
-   profile.destroy();
+    profile.destroy();
 }
 
 /**

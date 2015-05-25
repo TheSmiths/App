@@ -38,7 +38,7 @@
                 <string>UIStatusBarStyleLightContent</string>
                 <key>NSLocationAlwaysUsageDescription</key>
                 <string>
-                    In Order to record start and ending vessel positions as well as debree we require gps access.
+                    In order to record start and ending vessel positions as well as debree we require gps access.
                 </string>
                 <key>UIBackgroundModes</key>
                 <array>

@@ -25,11 +25,10 @@
                 <ImageView class="menuIcon" id="menuIconMore" />
                 <Label class="menuItemLabel" id="menuMore" />
             </View>
-
-            <View class="madeBy">
-                <Label class="madeByLabel" />
-                <Label class="versionLabel" />
-            </View>
         </ScrollView>
+
+        <View class="madeBy">
+            <Label id="versionLabel" />
+        </View>
     </Window>
 </Alloy>

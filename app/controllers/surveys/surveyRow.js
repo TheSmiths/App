@@ -9,6 +9,11 @@ _.extend($, {
         var eventData = JSON.parse(config.model.get('data'));
         var surveyData = require('survey').activeSurvey();
 
+        if (config.created) {
+            surveyData = {};
+            surveyData.startTime = config.created;
+        }
+
         var display = {
             'startSurvey': displayStartSurvey,
             'track': displayTrack,
@@ -72,7 +77,10 @@ function displaySighting (eventData, surveyData) {
  * @param  {Object} surveyData
  */
 function displayFinishSurvey (eventData, surveyData) {
-
+    $.eventTime.text = ((eventData.endTime - surveyData.startTime) / 60000).toFixed(1) ;
+    $.eventInformationTitle.text = 'Finished Survey';
+    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.endLocation.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.endLocation.longitude.toString());
+    console.log('***** eventData', eventData);
 }
 
 /**

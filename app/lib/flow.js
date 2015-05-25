@@ -35,6 +35,7 @@ var flowLibrary = module.exports = {
      */
     saveProfile: function (userData) {
         events.updateSurveyEventData('startSurvey', userData);
+        survey.setUser(userData);
         Alloy.createController('surveys/windspeed', { flow: 'PRESURVEY'} );
     },
     /**

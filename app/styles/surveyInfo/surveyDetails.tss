@@ -1,0 +1,34 @@
+".headerTitle": {
+    text: L('surveyDetails.title'),
+    top: 31,
+    left: 40,
+    font: {
+        fontWeight: 'bold',
+    },
+    color: Alloy.CFG.design.header.fontColor
+}
+
+".rightNavButton": {
+    width: 100,
+    height: 40,
+    top: 20,
+    right: 0
+}
+
+"#newProfile": {
+    color: Alloy.CFG.design.header.fontColor,
+    text: L('profiles.newProfile'),
+    font: {
+        fontSize: 13,
+    },
+    opacity: 1
+}
+
+"#surveyTableView": {
+    top: 60,
+    backgroundColor: '#F0F0F0'
+}
+
+"#surveyTableView[platform=ios]": {
+    separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE,
+}

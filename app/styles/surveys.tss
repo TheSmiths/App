@@ -1,5 +1,5 @@
 ".header": {
-    height: 200,
+    height: 60,
     backgroundGradient: {
         type: 'linear',
         colors: ['#56C2D2', '#45AFBF'],
@@ -12,121 +12,82 @@
 
 ".headerWelcomeTitle": {
     text: L('surveys.welcomeTitle'),
-    top: 31,
-    left: 40,
+    top: 30,
     font: {
         fontWeight: 'bold',
     },
-    color: Alloy.CFG.design.header.fontColor
+    color: Alloy.CFG.design.header.fontColor,
+    textAlign: 'center'
 }
 
-".headerCurrentLocationTitle": {
-    text: L('surveys.currentLocationTitle'),
-    top: 110,
-    left: 20,
-    font: {
-        fontSize: 12,
-    },
-    color: Alloy.CFG.design.header.fontColor
+"#uploadButtonContainer": {
+    top: 20,
+    right: 0,
+    width: 60,
+    height: 40,
+    opacity: 0.3
 }
 
-"#headerCurrentLocation": {
-    top: 110,
-    right: 20,
-    font: {
-        fontSize: 14,
-        fontWeight: 'bold'
-    },
-    color: Alloy.CFG.design.header.fontColor
+".uploadButton": {
+    height: 17,
+    width: 17,
+    image: 'images/navigation/upload.png',
+    right: 20
 }
 
-".headerCurrentSpeedTitle": {
-    text: L('surveys.currentSpeed'),
-    top: 130,
-    left: 20,
-    font: {
-        fontSize: 12
-    },
-    color: Alloy.CFG.design.header.fontColor
-}
-
-"#headerCurrentSpeed": {
-    top: 130,
-    right: 20,
-    font: {
-        fontSize: 14,
-        fontWeight: 'bold'
-    },
-    color: Alloy.CFG.design.header.fontColor
-}
-
-
-".headerCurrentTimeTitle": {
-    text: L('surveys.currentTime'),
-    top: 150,
-    left: 20,
-    font: {
-        fontSize: 12,
-    },
-    color: Alloy.CFG.design.header.fontColor
-}
-
-"#headerCurrentTime": {
-    top: 150,
-    right: 20,
-    font: {
-        fontSize: 14,
-        fontWeight: 'bold'
-    },
-    color: Alloy.CFG.design.header.fontColor
-}
-
-
-".compass": {
-    top: 36,
-    right: 20,
-    width: 46,
-    height: 50
-}
-
-".compassBackground": {
-    image: '/images/compass/compass.png',
-    width: 46,
-    height: 50
-}
-
-"#compassNeedle": {
-    image: '/images/compass/compassNeedle.png',
-    width: 5,
-    height: 32,
-    top: 7,
-    zIndex: 5
-}
 
 // Buttons
 
 "#startSurvey": {
-    top: 220,
-    text: L('surveys.startSurvey')
+    top: 67,
+    text: L('surveys.startSurvey'),
+    textAlign: 'center'
+}
+
+".content": {
+    top: 130,
+    backgroundColor: '#F0F0F0'
+}
+
+"#emptyView": {
+    height: Ti.UI.SIZE,
+    top: 25,
+    bottom: 25,
+    layout: 'vertical'
 }
 
 ".or": {
-    top: 283,
+    top: 0,
     text: L('surveys.or'),
-    height: 30,
-    left: 15,
-    right: 15,
     textAlign: 'center',
     font: {
         fontSize: 12,
         fontWeight: "normal"
     },
-    color: '#D8D8D8'
+    color: "#B9B9B9",
+    left: 25,
+    right: 25,
 }
 
 "#viewGuide": {
-    top: 323,
-    text: L('surveys.viewGuide')
+    top: 15,
+    borderColor: "#B9B9B9",
+    color: "#B9B9B9",
+    text: L('surveys.viewGuide'),
+    textAlign: 'center'
 }
+
+
+// Profile
+
+"#surveyTableView": {
+    visible: false,
+    backgroundColor: 'transparent'
+}
+
+"#surveyTableView[platform=ios]": {
+    separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE,
+}
+
 
 

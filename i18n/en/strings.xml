@@ -32,14 +32,15 @@
     <string name="surveys.windspeed.subTitle">Select the wind speed at this moment</string>
     <string name="surveys.windspeed.title">Wind Speed</string>
     <!-- Comment -->
-    <string name="surveys.comment.subTitle">Feel free to share</string>
-    <string name="surveys.comment.title">Comment</string>
+    <string name="surveys.comment.subTitle">Share any remarks about your survey</string>
+    <string name="surveys.comment.title">Special Remarks</string>
     <string name="surveys.comment.postComment">Continue</string>
+    <string name="surveys.comment.commentHintText"></string>
     <!-- Wind speed -->
     <string name="surveys.done.subTitle">Successfully saved survey</string>
     <string name="surveys.done.title">Saved survey</string>
     <string name="surveys.done.paragraphTitle">Successfully saved survey</string>
-    <string name="surveys.done.paragraph">Thank you very much for participating in helping the ocean cleanup. Make sure you remember to upload your results once you have an interent connection!</string>
+    <string name="surveys.done.paragraph">Thank you very much for participating in helping The Ocean Cleanup. Make sure you remember to upload your results once you have an internet connection!</string>
     <string name="surveys.done.continue">Back to overview</string>
     <!-- Local notification -->
     <string name="survey.notification.body">Survey is done! Continue to finalize.</string>
@@ -49,6 +50,7 @@
     <string name="menu.guide">Guide</string>
     <string name="menu.settings">Settings</string>
     <string name="menu.more">More</string>
+    <string name="menu.version">App version: </string>
     <!-- Profiles -->
     <string name="profiles.title">Profiles</string>
     <string name="profiles.newProfile">New profile</string>
@@ -109,5 +111,11 @@
     <string name="sighting.dimension.subTitle">Select debris material size</string>
 
     <string name="sighting.distance.title">Distance</string>
-    <string name="sighting.distance.subTitle">Select distance from boat</string>
+    <string name="sighting.distance.subTitle">Select distance from vessel track line</string>
+
+    <string name="surveyDetails.title">Survey details</string>
+
+    <string name="upload.noInternet">Could not upload surveys because the app is not connected to the internet. Please try again once your connection is established.</string>
+    <string name="upload.noUploadableSurveys">No surveys to upload :)</string>
+    <string name="upload.uploadedSurveys">Uploaded the surveys. Well it would if the server existed.</string>
 </resources>

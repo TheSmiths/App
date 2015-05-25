@@ -109,7 +109,7 @@
 "#interval": {
     right: 0,
     top: 0,
-    text: '1 minute',
+    text: '5 minutes',
     font: {
         fontSize: 12,
         fontWeight: 'bold'
@@ -120,7 +120,7 @@
     min: 0,
     max: 30,
     top: 30,
-    value: 1,
+    value: 5,
     height: Ti.UI.SIZE,
 }
 

@@ -10,7 +10,7 @@ var log = require('utils/log');
 var survey = require('survey');
 var events = require('event');
 var moment = require('alloy/moment');
-var settings = Ti.App.Properties.getObject('app-survey-settings') || {};
+var settings = Ti.App.Properties.getObject('app-survey-settings');
 
 // Internals
 var startTime;
@@ -21,8 +21,8 @@ var state = 'PREACTIVE';
 var startedFromRoot = false;
 
 // constants
-var TRACKLOCATIONTIME = ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) || 1740;
-var TRACKTIMEINTERVAL = settings.trackingInterval * 60;
+var TRACKLOCATIONTIME = settings ? ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) : Alloy.CFG.surveyDuration * 60;
+var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.intervalDuration * 60;
 
 // Collections
 var eventCollection = Alloy.createCollection('Event');
@@ -43,7 +43,7 @@ _.extend($, {
         }
 
         if (!config.startedFromRoot) {
-            var totalTime = settings.surveyDuration || 30;
+            var totalTime = settings ? settings.surveyDuration : Alloy.CFG.surveyDuration;
             $.surveyTimer.text = totalTime + ':00';
         }
         // open window
@@ -60,7 +60,7 @@ _.extend($, {
 });
 
 /**
- * @method onAddProfile
+ * @method onAddEvent
  * Add event model to survyeTableView
  * @param  {Object} model
  */
@@ -101,7 +101,7 @@ function onClickCloseButton (evt) {
         // Stop survey, stop time, start index again, close this window.
         stopTime();
 
-        require('survey').destroySurvey();
+        require('survey').cancelSurvey();
 
         if (startedFromRoot) {
             Alloy.createController('index');

@@ -10,7 +10,7 @@ var eventCollection = Alloy.createCollection('Event');
 // Internals
 var uploadArray = [];
 
-module.exports = function () {
+module.exports = function (parent) {
     // Check if user is online
     // Retreive all surveys wich have not been uploaded
     // For each survey get all the events
@@ -36,14 +36,21 @@ module.exports = function () {
             return;
         }
 
+        _.each(uploadArray, function (survey) {
+            console.log('***** survey', survey.surveyId);
+            var surveyModel = surveyCollection.get(survey.surveyId);
+            surveyModel.set('uploaded',true);
+            surveyModel.save();
+        });
+
+        Ti.App.fireEvent('newSurvey');
         alert(L('upload.uploadedSurveys'));
     });
 };
 
 /**
- * [fetchSurveys description]
- * @param  {Function} callback [description]
- * @return {[type]}            [description]
+ * @method fetchSurveys
+ * @param  {Function} callback
  */
 function fetchSurveys (callback) {
     surveyCollection.fetch({
@@ -62,18 +69,19 @@ function fetchSurveys (callback) {
 }
 
 /**
- * [fetchEventsPerSurvey description]
- * @param  {Function} callback [description]
- * @return {[type]}            [description]
+ * @method fetchEventsPerSurvey
+ * @param  {Function} callback
  */
 function fetchEventsPerSurvey (callback) {
     surveyCollection.each(function (model) {
+        var surveyId = model.get('survey_id');
         var surveyObject = {
+            surveyId: surveyId,
             observer: model.get('observer_id'),
             created: new Date(Math.floor(model.get('created'))),
             events: []
         };
-        var surveyId = model.get('survey_id');
+
         eventCollection.fetch({
             query: 'SELECT * from events where survey_id = "' + surveyId + '"',
             success: function(collection, response, options) {

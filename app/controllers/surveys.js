@@ -10,7 +10,7 @@ var date = require('utils/date');
 
 var surveys = Alloy.createCollection('Survey');
 var shadowSurveys = [];
-var remainingUploads = 0;
+var remainingUploads = [];
 
 _.extend($, {
     /**
@@ -22,6 +22,7 @@ _.extend($, {
         // Set listeners
         surveys.on('add', onAddSurvey);
         surveys.on('remove', onRemoveSurvey);
+        surveys.on('change', onChangeSurvey);
         // Check if there are any surveys
         fetchSurveys();
         Ti.App.addEventListener('newSurvey', fetchSurveys);
@@ -34,6 +35,7 @@ _.extend($, {
     destruct: function() {
         surveys.off('add', onAddSurvey);
         surveys.off('remove', onRemoveSurvey);
+        surveys.off('change', onChangeSurvey);
     }
 });
 
@@ -50,8 +52,12 @@ function onAddSurvey (model, collection, options) {
         return;
     }
 
-    if (!model.get('uploaded')) {
-        addUploadSurvey();
+    if (!model.get('uploaded') || model.get('uploaded') == 0) {
+        addUploadSurvey(model.get('survey_id'));
+    }
+
+    if (!model.get('uploaded') || model.get('uploaded')) {
+        removeUploadSurvey(model.get('survey_id'));
     }
 
     var surveyDataRow = Alloy.createController('surveyInfo/surveyInfoRow', {model: model}).getView();
@@ -73,6 +79,21 @@ function onRemoveSurvey (model, collection, options) {
     }
     $.profilesTableView.deleteRow(options.index);
     shadowProfiles = _.reject(shadowProfiles, function (id) { return id === model.get('survey_id'); } );
+}
+
+// @todo also update the visual representation
+function onChangeSurvey (model, collection, options) {
+    console.log('***** model.changed', model.changed);
+
+    if (model.changed && model.changed.uploaded == 0) {
+        console.log('***** Added new model in changed');
+        addUploadSurvey(model.get('survey_id'));
+    }
+
+    if (model.changed && model.changed.uploaded) {
+        console.log('***** removed model form changed');
+        removeUploadSurvey(model.get('survey_id'));
+    }
 }
 
 /**
@@ -116,13 +137,22 @@ function fetchSurveys () {
 }
 
 function onClickUploadButton () {
-    require('upload')();
+    require('upload')($);
 }
 
 /**
  * [addUploadSurvey description]
  */
-function addUploadSurvey () {
-    remainingUploads++;
+function addUploadSurvey (surveyId) {
+    console.log('***** Add survey');
+    remainingUploads.push(surveyId);
     $.uploadButtonContainer.opacity = 1;
+}
+
+function removeUploadSurvey (surveyId) {
+    remainingUploads = _.reject(remainingUploads, function (id) { return id === surveyId; } );
+
+    if (remainingUploads === 0 ) {
+        $.uploadButtonContainer.opacity = 0.3;
+    }
 }

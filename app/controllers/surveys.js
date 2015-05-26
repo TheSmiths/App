@@ -137,7 +137,7 @@ function fetchSurveys () {
 }
 
 function onClickUploadButton () {
-    require('upload')($);
+    require('upload')();
 }
 
 /**

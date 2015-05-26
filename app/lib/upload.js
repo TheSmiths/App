@@ -10,7 +10,7 @@ var eventCollection = Alloy.createCollection('Event');
 // Internals
 var uploadArray = [];
 
-module.exports = function (parent) {
+module.exports = function () {
     // Check if user is online
     // Retreive all surveys wich have not been uploaded
     // For each survey get all the events

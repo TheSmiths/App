@@ -83,15 +83,11 @@ function onRemoveSurvey (model, collection, options) {
 
 // @todo also update the visual representation
 function onChangeSurvey (model, collection, options) {
-    console.log('***** model.changed', model.changed);
-
     if (model.changed && model.changed.uploaded == 0) {
-        console.log('***** Added new model in changed');
         addUploadSurvey(model.get('survey_id'));
     }
 
     if (model.changed && model.changed.uploaded) {
-        console.log('***** removed model form changed');
         removeUploadSurvey(model.get('survey_id'));
     }
 }

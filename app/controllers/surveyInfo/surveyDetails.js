@@ -10,7 +10,8 @@ var log = require('utils/log');
 var eventCollection = Alloy.createCollection('Event');
 
 // Internals
-var created;
+var startTime;
+var endTime;
 
 _.extend($, {
     /**
@@ -19,13 +20,9 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        // Set state
-        var surveyId = config.surveyId;
-
-        created = config.created;
-
-        fetchSurveyEvents(surveyId);
-
+        startTime = config.startTime;
+        endTime = config.endTime;
+        fetchSurveyEvents(config.surveyId);
         require('windowManager').openWinWithBack($.getView());
     },
 
@@ -47,26 +44,32 @@ function onClickBackButton () {
 }
 
 /**
- * @method onAddEvent
+ * @method addEvent
  * Add event model to survyeTableView
  * @param  {Object} model
  */
-function onAddEvent (model) {
+function addEvent (model) {
     // Filter out duplicates
     log.info('[surveyInfo/surveyDetails] onAddedEvent', model.attributes);
 
-    var eventDataView = Alloy.createController('surveys/surveyRow', {model: model, created: created}).getView();
+    var eventDataView = Alloy.createController('surveys/surveyRow', {model: model, startTime: startTime, endTime: endTime}).getView();
     $.surveyTableView.appendRow(eventDataView);
     $.surveyTableView.height = Ti.UI.FILL;
 }
 
-
+/**
+ * @method fetchSurveyEvents
+ *
+ * Fetch events based on survey id
+ *
+ * @param  {String} surveyId Id of the survye to fetch
+ */
 function fetchSurveyEvents (surveyId) {
     eventCollection.fetch({
         query: 'SELECT * from events where survey_id = "' + surveyId + '"',
         success: function(collection, response, options) {
             log.info('[surveyInfo/surveyDetails] collection, response', collection, response);
-            eventCollection.each(onAddEvent);
+            eventCollection.each(addEvent);
         },
         error: function(collection, response, options) {
             log.info('[surveyInfo/surveyDetails] collection, response', response);

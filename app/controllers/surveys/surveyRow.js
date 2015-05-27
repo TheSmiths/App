@@ -9,9 +9,10 @@ _.extend($, {
         var eventData = JSON.parse(config.model.get('data'));
         var surveyData = require('survey').activeSurvey();
 
-        if (config.created) {
+        if (config.startTime && config.endTime ) {
             surveyData = {};
-            surveyData.startTime = config.created;
+            surveyData.startTime = config.startTime;
+            surveyData.endTime = config.endTime;
         }
 
         var display = {
@@ -77,10 +78,9 @@ function displaySighting (eventData, surveyData) {
  * @param  {Object} surveyData
  */
 function displayFinishSurvey (eventData, surveyData) {
-    $.eventTime.text = ((eventData.endTime - surveyData.startTime) / 60000).toFixed(1) ;
+    $.eventTime.text = surveyData.endTime ? ((surveyData.endTime - surveyData.startTime) / 60000).toFixed(1) : '30';
     $.eventInformationTitle.text = 'Finished Survey';
     $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.endLocation.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.endLocation.longitude.toString());
-    console.log('***** eventData', eventData);
 }
 
 /**

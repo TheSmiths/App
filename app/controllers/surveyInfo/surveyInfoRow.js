@@ -6,10 +6,12 @@
  * @class Controllers.components.surveysRow
  */
 var moment = require('alloy/moment');
+var profiles = Alloy.createCollection('Profile');
 
 // Internals
 var surveyId;
-var created;
+var startTime;
+var endTime;
 
 _.extend($, {
     /**
@@ -20,14 +22,22 @@ _.extend($, {
     construct: function(config) {
         var model = config.model;
 
+
         if (!model) {
             return;
         }
 
+        profiles.fetch();
+
+        var profile = profiles.get(model.get('observer_id'));
+
         surveyId = model.id;
-        created = Math.floor(model.get('created'));
-        $.surveyDate.text = 'Survey from ' + moment(new Date(created)).format('MMMM Do [at] HH:mm');
-        $.userInfo.text = 'User #: ' + model.get('observer_id');
+        startTime = model.get('startTime');
+        endTime = model.get('endTime');
+        $.surveyDate.text = 'Survey from ' + moment(new Date(Math.floor(model.get('created')))).format('MMMM Do [at] HH:mm');
+        $.userInfo.text = 'User #: ' + profile.get('name');
+        $.uploaded.text = model.get('uploaded') ? 'Done' : ' Upload survey';
+        $.uploaded.opacity = model.get('uploaded') ? 0.5 : 1;
     },
 
     /**

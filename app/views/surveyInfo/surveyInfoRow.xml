@@ -3,6 +3,7 @@
         <View class="surveyContainer" onClick="onClickSurvey">
             <Label id="surveyDate" />
             <Label id="userInfo" />
+            <Label id="uploaded" />
         </View>
     </TableViewRow>
 </Alloy>

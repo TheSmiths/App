@@ -37,7 +37,6 @@ module.exports = function () {
         }
 
         _.each(uploadArray, function (survey) {
-            console.log('***** survey', survey.surveyId);
             var surveyModel = surveyCollection.get(survey.surveyId);
             surveyModel.set('uploaded',true);
             surveyModel.save();

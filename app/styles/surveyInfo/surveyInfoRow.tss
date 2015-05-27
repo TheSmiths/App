@@ -33,3 +33,13 @@
         fontSize: 11
     }
 }
+
+"#uploaded": {
+    top: 37,
+    right: 15,
+    color: '#000',
+    font: {
+        fontWeight: 'normal',
+        fontSize: 11
+    }
+}

@@ -105,7 +105,7 @@ var surveyTimer = module.exports = {
         }
         // Store current GPS coordinates
         var location = require('utils/location').getCurrentLatLng(function (err, locationData) {
-            events.saveSurveyEvent('track', locationData);
+            events.saveSurveyEvent('track', {location: locationData});
             // Let the survey view know there is an update
             Ti.App.fireEvent('survey:updated');
         });
@@ -145,6 +145,8 @@ function saveSurveyData (surveyObject) {
         "survey_id": surveyObject.surveyId,
         "observer_id": userData.id,
         "created": new Date().getTime(),
+        "startTime": surveyObject.startTime,
+        "endTime": surveyObject.endTime,
         "uploaded": false
     });
 

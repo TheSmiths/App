@@ -4,6 +4,8 @@ exports.definition = {
             "survey_id": "TEXT PRIMARY KEY",
             "observer_id" : "TEXT",
             "created": "TEXT",
+            "startTime": "TEXT",
+            "endTime": "TEXT",
             "uploaded": "BOOL"
         },
         adapter: {

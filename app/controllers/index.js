@@ -16,9 +16,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        // Reset badge once opening the app
-        Titanium.UI.iPhone.setAppBadge(0);
-
+        // Reset badge once opening the app to remove local notifications
         if (!Ti.Geolocation.locationServicesEnabled) {
             log.error('[surveys] Please enable location services');
         }

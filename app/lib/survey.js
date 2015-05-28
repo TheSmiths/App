@@ -3,6 +3,7 @@
  */
 var log = require('utils/log');
 var events = require('event');
+var notifications = require('notifications');
 
 // Internals
 var timer;
@@ -206,6 +207,8 @@ function setLocalNotification (notificationTime) {
             sound: "/alert.wav",
         });
     }
+
+    notification.increase(1, true);
 }
 
 /**
@@ -220,4 +223,6 @@ function cancelLocalNotification () {
             localNotification = null;
         }
     }
+
+    notification.decrease(1, true);
 }

@@ -46,6 +46,5 @@ function onClickBackButton () {
  */
 function doClickDone () {
     dispatcher.trigger('newSurvey');
-    Titanium.UI.iPhone.setAppBadge(0);
     require('flow').done();
 }

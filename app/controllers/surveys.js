@@ -83,11 +83,13 @@ function onAddSurvey (model, collection, options) {
         return;
     }
 
+    console.log('***** model.get(uploaded)', model.get('uploaded'));
+
     if (!model.get('uploaded') || model.get('uploaded') == 0) {
         addUploadSurvey(model.get('survey_id'));
     }
 
-    if (!model.get('uploaded') || model.get('uploaded')) {
+    if (!model.get('uploaded') || model.get('uploaded') == 1) {
         removeUploadSurvey(model.get('survey_id'));
     }
 
@@ -124,7 +126,7 @@ function onChangeSurvey (model, collection, options) {
         addUploadSurvey(model.get('survey_id'));
     }
 
-    if (model.changed && model.changed.uploaded) {
+    if (model.changed && model.changed.uploaded == 1) {
         removeUploadSurvey(model.get('survey_id'));
     }
 }

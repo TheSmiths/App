@@ -6,9 +6,6 @@
  */
 var log = require('utils/log');
 
-// STATE PRESURVEY or POSTSURVEY
-var STATE = 'PRESURVEY';
-
 _.extend($, {
     /**
      * @constructor
@@ -16,7 +13,6 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        STATE = config.flow || STATE;
         // Set data
         $.grid.setData(require('data/windspeed'));
         // Open
@@ -47,5 +43,5 @@ function onClickBackButton () {
  */
 function onClickGrid (evt) {
     log.info('[windspeed] Click on grid item ', evt.source.componentId);
-    require('flow').saveWindspeed(STATE, {'windspeed': evt.source.componentId});
+    require('flow').saveWindspeed({'windspeed': evt.source.componentId});
 }

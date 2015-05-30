@@ -6,9 +6,6 @@
  */
 var log = require('utils/log');
 
-// STATE PRESURVEY or POSTSURVEY
-var STATE = 'PRESURVEY';
-
 _.extend($, {
     /**
      * @constructor
@@ -16,7 +13,6 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        STATE = config.flow || STATE;
         $.grid.setData(require('data/cloudCover'));
         require('windowManager').openWinWithBack($.getView());
     },
@@ -44,5 +40,5 @@ function onClickBackButton () {
  */
 function onClickGrid (evt) {
     log.info('[cloudCover] Clicked on grid', evt.source.componentId);
-    require('flow').saveCloudCover(STATE, {'cloudCover': evt.source.componentId});
+    require('flow').saveCloudCover({'cloudCover': evt.source.componentId});
 }

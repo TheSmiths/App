@@ -67,25 +67,6 @@ _.extend($, {
 });
 
 /**
- * @method onAddEvent
- * Add event model to survyeTableView
- * @param  {Object} model
- */
-function onAddEvent (model) {
-    // Filter out duplicates
-    if (_.contains(shadowEvents, model.get('event_id'))) {
-        return;
-    }
-
-    log.info('[surveys/survey] Tracking onAddedEvent', model.attributes);
-
-    var eventDataView = Alloy.createController('surveys/surveyRow', {model: model}).getView();
-    $.surveyTableView.appendRow(eventDataView);
-    $.surveyTableView.height = Ti.UI.FILL;
-    shadowEvents.push(model.get('event_id'));
-}
-
-/**
  * @method onClickCloseButton
  * Handle `click` on close button
  * @param  {Object} evt
@@ -142,6 +123,57 @@ function doClickStartSurvey (evt) {
         events.saveSurveyEvent('startSurvey', {startingTime: currentTime, startLocation: currentLocation});
         activateSurvey(surveyObject);
     });
+}
+
+/**
+ * @method doClickAddSighting
+ * Handle `click` on addSighting, create sighting/material controller
+ * @param  {Object} evt
+ */
+function doClickAddSighting (evt) {
+    log.info('[surveys/survey] Started new sighting');
+        // Get current time
+    var sightingStartTime = new Date().getTime();
+    // Request location from system
+    require('utils/location').getCurrentLatLng(function (error, locationObject) {
+        var dataObject = {};
+        // Add time to object
+        dataObject.startTime = sightingStartTime;
+        dataObject.startLocation = locationObject;
+        // Track event
+        events.initSurveyEvent('sighting', dataObject);
+        require('flow').sighting();
+    });
+}
+
+/**
+ * @method doClickFinishSurvey
+ * Handle `click`on doClickFinishSurvey, create sighting/material controller
+ * @param  {Object} evt
+ */
+function doClickFinishSurvey (evt) {
+    events.initSurveyEvent('finishSurvey');
+    log.info('[surveys/survey] Finished survey');
+    require('flow').postSurvey(startedFromRoot);
+}
+
+/**
+ * @method onAddEvent
+ * Add event model to survyeTableView
+ * @param  {Object} model
+ */
+function onAddEvent (model) {
+    // Filter out duplicates
+    if (_.contains(shadowEvents, model.get('event_id'))) {
+        return;
+    }
+
+    log.info('[surveys/survey] Tracking onAddedEvent', model.attributes);
+
+    var eventDataView = Alloy.createController('surveys/surveyRow', {model: model}).getView();
+    $.surveyTableView.appendRow(eventDataView);
+    $.surveyTableView.height = Ti.UI.FILL;
+    shadowEvents.push(model.get('event_id'));
 }
 
 /**
@@ -280,38 +312,6 @@ function updateViewState (state) {
     if (_.contains(['PREACTIVE', 'ACTIVE', 'POSTACTIVE'], state)) {
         stateChange[state]();
     }
-}
-
-/**
- * @method doClickAddSighting
- * Handle `click` on addSighting, create sighting/material controller
- * @param  {Object} evt
- */
-function doClickAddSighting (evt) {
-    log.info('[surveys/survey] Started new sighting');
-        // Get current time
-    var sightingStartTime = new Date().getTime();
-    // Request location from system
-    require('utils/location').getCurrentLatLng(function (error, locationObject) {
-        var dataObject = {};
-        // Add time to object
-        dataObject.startTime = sightingStartTime;
-        dataObject.startLocation = locationObject;
-        // Track event
-        events.initSurveyEvent('sighting', dataObject);
-        require('flow').sighting();
-    });
-}
-
-/**
- * @method doClickFinishSurvey
- * Handle `click`on doClickFinishSurvey, create sighting/material controller
- * @param  {Object} evt
- */
-function doClickFinishSurvey (evt) {
-    events.initSurveyEvent('finishSurvey');
-    log.info('[surveys/survey] Finished survey');
-    require('flow').postSurvey(startedFromRoot);
 }
 
 /**

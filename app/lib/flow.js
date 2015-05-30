@@ -36,7 +36,7 @@ var flowLibrary = module.exports = {
     saveProfile: function (userData) {
         events.updateSurveyEventData('startSurvey', userData);
         survey.setUser(userData);
-        Alloy.createController('surveys/windspeed', { flow: 'PRESURVEY'} );
+        Alloy.createController('surveys/windspeed');
     },
     /**
      * @method saveStartSurveyWindSpeed
@@ -44,11 +44,7 @@ var flowLibrary = module.exports = {
      * @param {Object} windspeed Windspeed category as int
      */
     saveWindspeed: function (state, windspeed) {
-        var eventType = 'startSurvey';
-        if (state === 'POSTSURVEY') {
-            eventType = 'finishSurvey';
-        }
-        events.updateSurveyEventData(eventType, windspeed);
+        events.updateSurveyEventData('startSurvey', windspeed);
         Alloy.createController('surveys/cloudCover', { flow: state} );
     },
     /**
@@ -57,17 +53,8 @@ var flowLibrary = module.exports = {
      * @param {Object} cloudCover cloudCover category as int
      */
     saveCloudCover: function (state, cloudCover) {
-        var eventType = 'startSurvey';
-        if (state === 'POSTSURVEY') {
-            eventType = 'finishSurvey';
-        }
-        events.updateSurveyEventData(eventType, cloudCover);
-
-        if (state !== 'POSTSURVEY') {
-            return Alloy.createController('surveys/survey');
-        }
-
-        Alloy.createController('surveys/comment');
+        events.updateSurveyEventData('startSurvey', cloudCover);
+        Alloy.createController('surveys/survey');
     },
     /**
      * @method sighting
@@ -111,7 +98,7 @@ var flowLibrary = module.exports = {
      */
     postSurvey: function (startedFromRootBoolean) {
         startedFromRoot = startedFromRootBoolean;
-        Alloy.createController('surveys/windspeed', { flow: 'POSTSURVEY' });
+        Alloy.createController('surveys/comment');
     },
     /**
      * [comment description]

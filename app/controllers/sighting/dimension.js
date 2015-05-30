@@ -22,6 +22,10 @@ _.extend($, {
         sightingType = config.sightingType;
         $.grid.setData(require('data/dimension'));
         require('windowManager').openWinWithBack($.getView());
+
+        if (sightingType === "MULTI") {
+            $.headerSubTitle.text = L('sighting.dimension.subTitleMulti');
+        }
     },
 
     /**

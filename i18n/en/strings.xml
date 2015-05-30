@@ -104,18 +104,21 @@
     <!-- More -->
     <string name="more.title">More</string>
     <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."\n\nYURI A. GAGARIN, first man in space.</string>
-    <!-- Sighting -->
+    <!-- Sighting - Material -->
     <string name="sighting.material.title">Material</string>
     <string name="sighting.material.subTitle">Select debris material type</string>
-
+    <string name="sighting.material.subTitleMulti">Select predominant debris material type</string>
+    <!-- Sighting - Category -->
     <string name="sighting.category.title">Category</string>
     <string name="sighting.category.subTitle">Select debris material category</string>
-
+    <!-- Sighting - Dimension -->
     <string name="sighting.dimension.title">Size</string>
     <string name="sighting.dimension.subTitle">Select debris material size</string>
-
+    <string name="sighting.dimension.subTitleMulti">Select average material size</string>
+    <!-- Sighting - Distance -->
     <string name="sighting.distance.title">Distance</string>
     <string name="sighting.distance.subTitle">Select distance from vessel track line</string>
+    <string name="sighting.distance.subTitleMulti">Select average distance from vessel track line</string>
 
     <string name="surveyDetails.title">Survey details</string>
 

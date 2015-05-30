@@ -4,6 +4,7 @@
 
 var async = require('vendor/async');
 var log = require('utils/log');
+var notifications = require('notifications');
 
 
 var surveyCollection = Alloy.createCollection('Survey');
@@ -41,8 +42,10 @@ module.exports = function () {
 
         _.each(uploadArray, function (survey) {
             var surveyModel = surveyCollection.get(survey.surveyId);
-            surveyModel.set('uploaded',true);
+            surveyModel.set('uploaded', true);
             surveyModel.save();
+            // Decrease the nr of notifications
+            notifications.decrease(1);
         });
 
         dispatcher.trigger('newSurvey');

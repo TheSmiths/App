@@ -12,7 +12,6 @@ var dispatcher = require('dispatcher');
 
 // Collections
 var surveys = Alloy.createCollection('Survey');
-var shadowSurveys = [];
 var remainingUploads = [];
 
 _.extend($, {
@@ -79,23 +78,15 @@ function onClickUploadButton () {
  */
 function onAddSurvey (model, collection, options) {
     log.info('[surveys] Adding a survey model', model);
-    if (_.contains(shadowSurveys, model.get('survey_id'))) {
-        return;
-    }
 
-    console.log('***** model.get(uploaded)', model.get('uploaded'));
-
-    if (!model.get('uploaded') || model.get('uploaded') == 0) {
+    if (model.get('uploaded') == 0) {
         addUploadSurvey(model.get('survey_id'));
-    }
-
-    if (!model.get('uploaded') || model.get('uploaded') == 1) {
+    } else {
         removeUploadSurvey(model.get('survey_id'));
     }
 
     var surveyDataRow = Alloy.createController('surveyInfo/surveyInfoRow', {model: model}).getView();
     $.surveyTableView.appendRow(surveyDataRow);
-    shadowSurveys.push(model.get('survey_id'));
 }
 
 /**
@@ -111,7 +102,6 @@ function onRemoveSurvey (model, collection, options) {
         $.emptyView.visible = true;
     }
     $.profilesTableView.deleteRow(options.index);
-    shadowProfiles = _.reject(shadowProfiles, function (id) { return id === model.get('survey_id'); } );
 }
 
 /**
@@ -137,6 +127,8 @@ function onChangeSurvey (model, collection, options) {
  * Fetch surveys from the datbase, update the view based on results
  */
 function fetchSurveys () {
+    $.surveyTableView.data = [];
+
     surveys.fetch({
         silent: false,
         success: function(collection, response, options) {
@@ -144,7 +136,6 @@ function fetchSurveys () {
             if (collection.length === 0) {
                 return;
             }
-
             $.emptyView.visible = false;
             $.surveyTableView.visible = true;
         },

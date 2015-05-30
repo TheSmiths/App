@@ -21,6 +21,10 @@ _.extend($, {
         sightingType = config.sightingType;
          $.grid.setData(require('data/material'));
         require('windowManager').openWinWithBack($.getView());
+
+        if (sightingType === "MULTI") {
+            $.headerSubTitle.text = L('sighting.material.subTitleMulti');
+        }
     },
 
     /**
@@ -32,10 +36,10 @@ _.extend($, {
 });
 
 /**
- * @method closeWindow
+ * @method onClickBackButton
  * Close current window
  */
-function closeWindow (evt) {
+function onClickBackButton (evt) {
     log.info('[sighting/material] Close window');
     $.getView().close({animated: true});
 }

@@ -27,10 +27,10 @@ _.extend($, {
 });
 
 /**
- * @method onClickBackButton
- * Handle `click` on backButton
+ * @method closeWindow
+ * Handle `click` on close Button
  */
-function onClickBackButton () {
+function closeWindow (evt) {
     log.info('[sighting/category] Close window');
     require('event').destroySurveyEvent();
     log.info('[sighting/material] Close window');

@@ -247,7 +247,7 @@ function updateTime () {
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
     $.surveyTimer.text = minutes + ':' + seconds;
-    timer = _.delay(updateTime, 50);
+    timer = setTimeout(function () { updateTime(); }, 50);
 }
 
 

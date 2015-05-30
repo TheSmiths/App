@@ -4,10 +4,13 @@
  * @class Controllers.settings
  * @uses Utils.log
  * @uses Utils.date
+ * @uses dispatcher
  */
 var log = require('utils/log');
 var date = require('utils/date');
+var dispatcher = require('dispatcher');
 
+// Collections
 var surveys = Alloy.createCollection('Survey');
 var shadowSurveys = [];
 var remainingUploads = [];
@@ -23,9 +26,9 @@ _.extend($, {
         surveys.on('add', onAddSurvey);
         surveys.on('remove', onRemoveSurvey);
         surveys.on('change', onChangeSurvey);
+        dispatcher.on('newSurvey', fetchSurveys);
         // Check if there are any surveys
         fetchSurveys();
-        Ti.App.addEventListener('newSurvey', fetchSurveys);
     },
 
     /**
@@ -36,6 +39,7 @@ _.extend($, {
         surveys.off('add', onAddSurvey);
         surveys.off('remove', onRemoveSurvey);
         surveys.off('change', onChangeSurvey);
+        dispatcher.off('newSurvey', fetchSurveys);
     }
 });
 

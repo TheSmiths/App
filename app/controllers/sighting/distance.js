@@ -5,8 +5,10 @@
  * @uses utils.log
  * @uses event
  * @uses flow
+ * @uses dispatcher
  */
 var log = require('utils/log');
+var dispatcher = require('dispatcher');
 
 _.extend($, {
     /**
@@ -56,7 +58,7 @@ function onClickGrid (evt) {
         // Track event
         require('event').saveSurveyEvent('sighting', dataObject);
         // Update the flow
-        Ti.App.fireEvent('survey:updated');
+        dispatcher.trigger('surveyUpdate');
         // Continue flow
         require('flow').distance();
     });

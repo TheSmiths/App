@@ -4,8 +4,11 @@
 
 var async = require('vendor/async');
 var log = require('utils/log');
+
+
 var surveyCollection = Alloy.createCollection('Survey');
 var eventCollection = Alloy.createCollection('Event');
+var dispatcher = require('dispatcher');
 
 // Internals
 var uploadArray = [];
@@ -42,7 +45,7 @@ module.exports = function () {
             surveyModel.save();
         });
 
-        Ti.App.fireEvent('newSurvey');
+        dispatcher.trigger('newSurvey');
         alert(L('upload.uploadedSurveys'));
     });
 };

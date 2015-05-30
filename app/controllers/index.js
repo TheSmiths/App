@@ -5,7 +5,7 @@
  *
  * @class Controllers.index
  */
-
+var dispatcher = require('dispatcher');
 /**
  * Initializes the controller
  */
@@ -44,11 +44,11 @@ _.extend($, {
         $.drawer.open();
 
         $.drawer.addEventListener('windowDidOpen', function (evt) {
-            Ti.App.fireEvent('menuDidOpen');
+            dispatcher.trigger('menuDidOpen');
         });
 
         $.drawer.addEventListener('windowDidClose', function (evt) {
-            Ti.App.fireEvent('menuDidClose');
+            dispatcher.trigger('menuDidClose');
         });
     },
 

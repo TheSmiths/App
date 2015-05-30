@@ -5,11 +5,15 @@
  * @uses utils.log
  * @uses survey
  * @uses alloy.moment
+ * @uses dispatcher
  */
 var log = require('utils/log');
 var survey = require('survey');
 var events = require('event');
 var moment = require('alloy/moment');
+var dispatcher = require('dispatcher');
+
+// Settings
 var settings = Ti.App.Properties.getObject('app-survey-settings');
 
 // Internals
@@ -48,6 +52,9 @@ _.extend($, {
         }
         // open window
         require('windowManager').openWinWithBack($.getView());
+
+        //Listners
+        dispatcher.on('surveyUpdate', renderSurveyTimeline);
     },
 
     /**
@@ -55,7 +62,7 @@ _.extend($, {
      * function executed when closing window
      */
     destruct: function() {
-        Ti.App.removeEventListener('survey:updated', renderSurveyTimeline);
+        dispatcher.off('surveyUpdate', renderSurveyTimeline);
     }
 });
 
@@ -148,7 +155,7 @@ function activateSurvey(surveyTimeObject) {
 
     var currentTime = new Date().getTime();
 
-    Ti.App.addEventListener('survey:updated', renderSurveyTimeline);
+    
     renderSurveyTimeline();
 
     if (currentTime < surveyTimeObject.endTime) {

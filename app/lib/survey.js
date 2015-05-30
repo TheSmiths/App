@@ -4,6 +4,7 @@
 var log = require('utils/log');
 var events = require('event');
 var notifications = require('notifications');
+var dispatcher = require('dispatcher');
 
 // Internals
 var timer;
@@ -108,7 +109,7 @@ var surveyTimer = module.exports = {
         var location = require('utils/location').getCurrentLatLng(function (err, locationData) {
             events.saveSurveyEvent('track', {location: locationData});
             // Let the survey view know there is an update
-            Ti.App.fireEvent('survey:updated');
+            dispatcher.trigger('surveyUpdate');
         });
     },
 
@@ -199,16 +200,19 @@ function deleteSurveyData (surveyObject) {
  */
 function setLocalNotification (notificationTime) {
     if (OS_IOS) {
+        // Update the nr of notifications, but silent (notification will update badge)
+        notification.increase(1, true);
+        // Get the new badge count to display on notification
+        var notificationCount = notification.get() ? notification.get() : 1;
+        // Schedule notification
         localNotification = Ti.App.iOS.scheduleLocalNotification({
             alertAction: "continue",
             alertBody: L('survey.notification.body'),
-            badge: 1,
+            badge: notificationCount,
             date: new Date(notificationTime),
             sound: "/alert.wav",
         });
     }
-
-    notification.increase(1, true);
 }
 
 /**
@@ -222,7 +226,7 @@ function cancelLocalNotification () {
             localNotification.cancel();
             localNotification = null;
         }
-    }
 
-    notification.decrease(1, true);
+        notification.decrease(1);
+    }
 }

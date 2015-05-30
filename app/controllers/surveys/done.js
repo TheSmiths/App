@@ -5,8 +5,11 @@
  *
  * @class Controllers.surveys.comment
  * @uses utils.log
+ * @uses notificatons
  */
 var log = require('utils/log');
+var notifications = require('notifications');
+var dispatcher = require('dispatcher');
 
 _.extend($, {
     /**
@@ -16,6 +19,8 @@ _.extend($, {
      */
     construct: function(config) {
         require('windowManager').openWinWithBack($.getView());
+        // @todo build in auto upload so we don't set the notification unintended.
+        notifications.increase(1);
     },
 
     /**
@@ -40,7 +45,7 @@ function onClickBackButton () {
  * Handle `click` on done butto
  */
 function doClickDone () {
-    Ti.App.fireEvent('newSurvey');
+    dispatcher.trigger('newSurvey');
     Titanium.UI.iPhone.setAppBadge(0);
     require('flow').done();
 }

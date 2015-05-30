@@ -4,8 +4,8 @@
  * @class Controllers.components.menuButton
  */
 var args = arguments[0];
-
 var menuManager = require('menuManager');
+var dispatcher = require('dispatcher');
 
 // Pass through all the properties set on the button, except for meta data and text
 $.menuContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
@@ -17,8 +17,8 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        Ti.App.addEventListener('menuDidOpen', setCloseIcon);
-        Ti.App.addEventListener('menuDidClose', setMenuIcon);
+        dispatcher.on('menuDidOpen', setCloseIcon);
+        dispatcher.on('menuDidClose', setMenuIcon);
     },
 
     /**
@@ -26,9 +26,8 @@ _.extend($, {
      * function executed when closing window
      */
     destruct: function() {
-        Ti.App.addEventListener('menuDidOpen', setCloseIcon);
-        Ti.App.addEventListener('menuDidClose', setMenuIcon);
-
+        dispatcher.off('menuDidOpen', setCloseIcon);
+        dispatcher.off('menuDidClose', setMenuIcon);
     }
 });
 

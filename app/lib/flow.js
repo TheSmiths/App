@@ -122,6 +122,11 @@ var flowLibrary = module.exports = {
         Alloy.createController('surveys/done');
     },
 
+    /**
+     * @method done
+     *
+     * @return {Function} [description]
+     */
     done: function () {
         require('windowManager').closeWin({animated: true});
 

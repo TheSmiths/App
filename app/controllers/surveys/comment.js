@@ -6,6 +6,9 @@
  */
 var log = require('utils/log');
 
+// Internals
+var type = "SURVEY";
+
 _.extend($, {
     /**
      * @constructor
@@ -13,6 +16,10 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        if (config.sightingType) {
+            type = config.sightingType;
+        }
+
         require('windowManager').openWinWithBack($.getView());
     },
 
@@ -39,6 +46,13 @@ function onClickBackButton () {
  */
 function doClickPostComment () {
     var comment = $.commentTextArea.value.trim();
+
+    if (type !== "SURVEY") {
+        require('event').updateSurveyEventData('sighting', {comment: comment});
+        require('flow').multiComment();
+        return;
+    }
+
     var endTime = new Date().getTime();
     // Request location from system
     require('utils/location').getCurrentLatLng(function (error, locationObject) {

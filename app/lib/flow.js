@@ -3,9 +3,11 @@
  *
  */
 var log = require('utils/log');
-
 var events = require('event');
 var survey = require('survey');
+var dispatcher = require('dispatcher');
+
+// Internals
 var startedFromRoot = false;
 
 var flowLibrary = module.exports = {
@@ -61,36 +63,62 @@ var flowLibrary = module.exports = {
      * Start tracking sighting, save current time and location in event data before initialiting flow
      */
     sighting: function () {
-        Alloy.createController('sighting/material');
+        Alloy.createController('sighting/sightingType');
+    },
+    /**
+     * @method sightingType
+     * Continue after sighting type
+     */
+    sightingType: function (sightingType) {
+        Alloy.createController('sighting/material', {sightingType: sightingType});
     },
     /**
      * @method material
      * Flow after finishing material
      * @param {Int} material Material category (to determine the debris type)
      */
-    material: function (material) {
-        Alloy.createController('sighting/category', {material: material});
+    material: function (material, sightingType) {
+        if (sightingType === "SINGLE") {
+            return Alloy.createController('sighting/category', {material: material, sightingType: sightingType});
+        }
+
+        flowLibrary.dimension(sightingType);
     },
     /**
      * @method category
      * Flow after finishing category
      */
-    category: function () {
-        Alloy.createController('sighting/dimension');
+    category: function (sightingType) {
+        Alloy.createController('sighting/dimension', {sightingType: sightingType});
     },
     /**
      * @method dimension
      * Flow after finishing dimension
      */
-    dimension: function () {
-        Alloy.createController('sighting/distance');
+    dimension: function (sightingType) {
+        Alloy.createController('sighting/distance', {sightingType: sightingType});
     },
     /**
      * @method distance
      * Flow after finishing distance
      */
-    distance: function () {
-        require('windowManager').closeWin({animated: true});
+    distance: function (sightingType) {
+        if (sightingType === "SINGLE") {
+            return saveSighting(function () {
+                return require('windowManager').closeWin({animated: true});
+            });
+        }
+
+        Alloy.createController('surveys/comment', {sightingType: "MULTI"});
+    },
+    /**
+     * @method multiComment
+     * Comment after doing multi flow
+     */
+    multiComment: function () {
+        saveSighting(function () {
+            require('windowManager').closeWin({animated: true});
+        });
     },
     /**
      * [postSurvey description]
@@ -122,5 +150,29 @@ var flowLibrary = module.exports = {
         }
     }
 };
+
+/**
+ * @method saveSighting
+ * Save sighting method
+ * @param  {Function} callback
+ * @todo Might need a better location (different lib)
+ */
+function saveSighting (callback) {
+    // Get current time
+    var sightingEndTime = new Date().getTime();
+    // Request location from system
+    require('utils/location').getCurrentLatLng(function (error, locationObject) {
+        var dataObject = {};
+        // Add time to object
+        dataObject.endTime = sightingEndTime;
+        dataObject.endLocation = locationObject;
+        // Track event
+        require('event').saveSurveyEvent('sighting', dataObject);
+        // Update the flow
+        dispatcher.trigger('surveyUpdate');
+        // Continue flow
+        callback();
+    });
+}
 
 

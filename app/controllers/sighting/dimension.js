@@ -8,6 +8,10 @@
  */
 var log = require('utils/log');
 
+
+//Internals
+var sightingType;
+
 _.extend($, {
     /**
      * @constructor
@@ -15,6 +19,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        sightingType = config.sightingType;
         $.grid.setData(require('data/dimension'));
         require('windowManager').openWinWithBack($.getView());
     },
@@ -47,5 +52,5 @@ function onClickGrid (evt) {
     var dimension = evt.source.componentId;
     require('event').updateSurveyEventData('sighting', { dimension: dimension});
     // Continue flow
-    require('flow').dimension();
+    require('flow').dimension(sightingType);
 }

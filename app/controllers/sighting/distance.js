@@ -8,7 +8,9 @@
  * @uses dispatcher
  */
 var log = require('utils/log');
-var dispatcher = require('dispatcher');
+
+//Internals
+var sightingType;
 
 _.extend($, {
     /**
@@ -17,6 +19,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        sightingType = config.sightingType;
         $.grid.setData(require('data/distance'));
         require('windowManager').openWinWithBack($.getView());
     },
@@ -46,20 +49,6 @@ function onClickBackButton () {
 function onClickGrid (evt) {
     log.info('[sighting/distance] Click on grid', evt);
     var distance = evt.source.componentId;
-    // Get current time
-    var sightingEndTime = new Date().getTime();
-    // Request location from system
-    require('utils/location').getCurrentLatLng(function (error, locationObject) {
-        var dataObject = {};
-        // Add time to object
-        dataObject.distance = distance;
-        dataObject.endTime = sightingEndTime;
-        dataObject.endLocation = locationObject;
-        // Track event
-        require('event').saveSurveyEvent('sighting', dataObject);
-        // Update the flow
-        dispatcher.trigger('surveyUpdate');
-        // Continue flow
-        require('flow').distance();
-    });
+    require('event').updateSurveyEventData('sighting', {distance: distance});
+    require('flow').distance(sightingType);
 }

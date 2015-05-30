@@ -8,6 +8,9 @@
  */
 var log = require('utils/log');
 
+//Internals
+var sightingType;
+
 _.extend($, {
     /**
      * @constructor
@@ -15,8 +18,9 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        sightingType = config.sightingType;
          $.grid.setData(require('data/material'));
-        require('windowManager').openWinInNewWindow($.getView());
+        require('windowManager').openWinWithBack($.getView());
     },
 
     /**
@@ -33,8 +37,7 @@ _.extend($, {
  */
 function closeWindow (evt) {
     log.info('[sighting/material] Close window');
-    require('event').destroySurveyEvent();
-    require('windowManager').closeWin({animated: true});
+    $.getView().close({animated: true});
 }
 
 /**
@@ -46,5 +49,5 @@ function onClickGrid (evt) {
     log.info('[sighting/material] Clicked on grid', evt.source, evt);
     var material = evt.source.componentId;
     require('event').updateSurveyEventData('sighting', {material: material});
-    require('flow').material(material);
+    require('flow').material(material, sightingType);
 }

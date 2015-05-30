@@ -1,13 +1,10 @@
 /**
- * Controller for surveys sighting category
+ * Controller for surveys sightingType
  *
- * @class Controllers.sighting.category
+ * @class Controllers.sighting.sightingType
  * @uses utils.log
  */
 var log = require('utils/log');
-
-//Internals
-var sightingType;
 
 _.extend($, {
     /**
@@ -16,10 +13,9 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        sightingType = config.sightingType;
         //Get category based on material
-        $.grid.setData(require('data/category')[config.material]);
-        require('windowManager').openWinWithBack($.getView());
+        $.grid.setData(require('data/sightingType'));
+        require('windowManager').openWinInNewWindow($.getView());
     },
 
     /**
@@ -36,7 +32,9 @@ _.extend($, {
  */
 function onClickBackButton () {
     log.info('[sighting/category] Close window');
-    $.getView().close({animated: true});
+    require('event').destroySurveyEvent();
+    log.info('[sighting/material] Close window');
+    require('windowManager').closeWin({animated: true});
 }
 
 /**
@@ -46,7 +44,10 @@ function onClickBackButton () {
  */
 function onClickGrid (evt) {
     log.info('[sighting/category] Click on grid', evt);
-    var category = evt.source.componentId;
-    require('event').updateSurveyEventData('sighting', { category: category});
-    require('flow').category(sightingType);
+    // Save event
+    var sightingType = evt.source.componentId;
+    require('event').updateSurveyEventData('sighting', { sightingType: sightingType});
+    // Continue flow
+    var sightingTypeName = sightingType === 0 ? "SINGLE" : "MULTI";
+    require('flow').sightingType(sightingTypeName);
 }

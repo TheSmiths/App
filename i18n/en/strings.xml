@@ -25,6 +25,9 @@
     <string name="surveys.survey.finishSurvey">Finalize Survey</string>
     <string name="surveys.survey.preSurveyMessage">Start the survey once ready in order to start collecting data.</string>
     <string name="surveys.survey.started">Started on</string>
+    <!-- -->
+    <string name="sighting.sightingType.title">Amount</string>
+    <string name="sighting.sightingType.subTitle">Number of debris to report</string>
     <!-- Survey - Events -->
     <string name="surveys.survey.event.trackTitle">Tracked location</string>
     <string name="surveys.survey.event.sightingTitle">Added sighting</string>
@@ -36,12 +39,13 @@
     <string name="surveys.comment.title">Special Remarks</string>
     <string name="surveys.comment.postComment">Continue</string>
     <string name="surveys.comment.commentHintText"></string>
-    <!-- Wind speed -->
+    <!-- Done -->
     <string name="surveys.done.subTitle">Successfully saved survey</string>
     <string name="surveys.done.title">Saved survey</string>
     <string name="surveys.done.paragraphTitle">Successfully saved survey</string>
     <string name="surveys.done.paragraph">Thank you very much for participating in helping The Ocean Cleanup. Make sure you remember to upload your results once you have an internet connection!</string>
     <string name="surveys.done.continue">Back to overview</string>
+
     <!-- Local notification -->
     <string name="survey.notification.body">Survey is done! Continue to finalize.</string>
     <!-- Menu -->

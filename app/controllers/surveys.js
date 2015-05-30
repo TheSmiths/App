@@ -44,6 +44,33 @@ _.extend($, {
 });
 
 /**
+ * @method doClickStartGuide
+ * Handle `click` on startSurvey button, create start survey controller
+ */
+function doClickStartSurvey () {
+    require('flow').preSurvey();
+}
+
+/**
+ * @method doClickStartGuide
+ * Handle `click` on startGuide button, create guide controller
+ */
+function doClickStartGuide () {
+    var guide = Alloy.createController('guide').getView();
+    Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
+    Alloy.Globals.menu.activateItem('menuItemGuide');
+}
+
+/**
+ * @method onClickUploadButton
+ * Call upload library to attempt an upload of all surveys
+ * @todo: Implement feedback system
+ */
+function onClickUploadButton () {
+    require('upload')();
+}
+
+/**
  * @method  onAddSurvey
  * @param  {[type]} model      [description]
  * @param  {[type]} collection [description]
@@ -70,7 +97,7 @@ function onAddSurvey (model, collection, options) {
 }
 
 /**
- * [onRemoveProfile description]
+ * @method onRemoveProfile
  * @param  {[type]} model      [description]
  * @param  {[type]} collection [description]
  * @param  {[type]} options    [description]
@@ -85,7 +112,13 @@ function onRemoveSurvey (model, collection, options) {
     shadowProfiles = _.reject(shadowProfiles, function (id) { return id === model.get('survey_id'); } );
 }
 
-// @todo also update the visual representation
+/**
+ * @method onChangeSurvey
+ * @param  {[type]} model      [description]
+ * @param  {[type]} collection [description]
+ * @param  {[type]} options    [description]
+ * todo also update the visual representation
+ */
 function onChangeSurvey (model, collection, options) {
     if (model.changed && model.changed.uploaded == 0) {
         addUploadSurvey(model.get('survey_id'));
@@ -96,27 +129,10 @@ function onChangeSurvey (model, collection, options) {
     }
 }
 
-/**
- * @method doClickStartGuide
- * Handle `click` on startSurvey button, create start survey controller
- */
-function doClickStartSurvey () {
-    require('flow').preSurvey();
-}
-
-/**
- * @method doClickStartGuide
- * Handle `click` on startGuide button, create guide controller
- */
-function doClickStartGuide () {
-    var guide = Alloy.createController('guide').getView();
-    Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
-    Alloy.Globals.menu.activateItem('menuItemGuide');
-}
 
 /**
  * @method fetchSurveys
- * @return {[type]} [description]
+ * Fetch surveys from the datbase, update the view based on results
  */
 function fetchSurveys () {
     surveys.fetch({
@@ -136,23 +152,47 @@ function fetchSurveys () {
     });
 }
 
-function onClickUploadButton () {
-    require('upload')();
+/**
+ * @method addUploadSurvey
+ * ADd surveyId to remainingUploads array and update header
+ * @param {String} surveyId
+ */
+function addUploadSurvey (surveyId) {
+    remainingUploads.push(surveyId);
+
+    if (OS_IOS) {
+        $.uploadButtonContainer.opacity = 1;
+        updateNotificationBadge();
+    }
 }
 
 /**
- * [addUploadSurvey description]
+ * @method removeUploadSurvey
+ * Remove upload survye from the list as it has been uploaded, in order to keep track of remaining uploads
+ * @param {String} surveyId
  */
-function addUploadSurvey (surveyId) {
-    console.log('***** Add survey');
-    remainingUploads.push(surveyId);
-    $.uploadButtonContainer.opacity = 1;
-}
-
 function removeUploadSurvey (surveyId) {
     remainingUploads = _.reject(remainingUploads, function (id) { return id === surveyId; } );
 
-    if (remainingUploads === 0 ) {
+    if (OS_IOS) {
+        updateNotificationBadge();
         $.uploadButtonContainer.opacity = 0.3;
     }
+}
+
+/**
+ * @method updateNotificationBadge
+ * Set the badge on upload button to reflect # of remaining uploads
+ * @todo: Animate
+ */
+function updateNotificationBadge () {
+    var notificationCount = remainingUploads.length;
+
+    if (notificationCount === 0) {
+        $.notificationContainer.setVisible(false);
+        return;
+    }
+
+    $.notificationCount.text = notificationCount;
+    $.notificationContainer.setVisible(true);
 }

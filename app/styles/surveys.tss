@@ -1,3 +1,5 @@
+// header
+
 ".header": {
     height: 60,
     backgroundGradient: {
@@ -20,6 +22,8 @@
     textAlign: 'center'
 }
 
+// Header - Upload button
+
 "#uploadButtonContainer": {
     top: 20,
     right: 0,
@@ -31,8 +35,39 @@
 ".uploadButton": {
     height: 17,
     width: 17,
-    image: 'images/navigation/upload.png',
+    image: '/images/navigation/upload.png',
     right: 20
+}
+
+"#notificationContainer": {
+    width: 17,
+    height: 17,
+    top: 2,
+    right: 10,
+    zIndex: 10,
+    visible: false
+}
+
+"#notificationCount": {
+    text: "1",
+    zIndex: 20,
+    width: 16,
+    left: 1,
+    height: 17,
+    color: '#fff',
+    font: {
+        fontSize: 11,
+        fontWeight: 'bold'
+    },
+    textAlign: 'center',
+
+}
+
+".notificationBackground": {
+
+    width: 17,
+    height: 17,
+    image: '/images/notifications/notification.png'
 }
 
 

@@ -15,7 +15,7 @@ var notifications = module.exports = {
      * @param {Bool} silent If silent don't update the badge
      */
     increase: function (increase, silent) {
-        log.info('[lib/notifications] Set badge count to ', badgeCount);
+        log.info('[lib/notifications] Set badge count to ', increase);
         var currentBadgeCount = notifications.get();
         var newBadgeCount = currentBadgeCount + increase;
         Ti.App.Properties.setInt('app-badge-count', newBadgeCount);
@@ -30,9 +30,9 @@ var notifications = module.exports = {
      * @param {Bool} silent If silent don't update the badge
      */
     decrease: function (decrease, silent) {
-        log.info('[lib/notifications] Decrease badge count to ', badgeCount);
+        log.info('[lib/notifications] Decrease badge count to ', decrease);
         var currentBadgeCount = notifications.get();
-        var newBadgeCount = currentBadgeCount - decrease >= 0 ? currentBadgeCount - increase : 0;
+        var newBadgeCount = currentBadgeCount - decrease >= 0 ? currentBadgeCount - decrease : 0;
         Ti.App.Properties.setInt('app-badge-count', newBadgeCount);
         if (!silent) {
             setBadge(newBadgeCount);
@@ -64,7 +64,7 @@ var notifications = module.exports = {
      */
     reset: function () {
         Ti.App.Properties.setInt('app-badge-count', 0);
-        setBadge(newBadgeCount);
+        setBadge(0);
     }
 };
 

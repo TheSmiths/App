@@ -55,7 +55,7 @@ function displayStartSurvey (eventData, surveyData) {
 function displayTrack (eventData, surveyData) {
     $.eventTime.text = ((eventData.eventTime - surveyData.startTime) / 60000).toFixed(1) ;
     $.eventInformationTitle.text = L('surveys.survey.event.trackTitle');
-    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.longitude.toString());
+    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.location.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.location.longitude.toString());
 }
 
 /**

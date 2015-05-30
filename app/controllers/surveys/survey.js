@@ -155,7 +155,6 @@ function activateSurvey(surveyTimeObject) {
 
     var currentTime = new Date().getTime();
 
-    
     renderSurveyTimeline();
 
     if (currentTime < surveyTimeObject.endTime) {

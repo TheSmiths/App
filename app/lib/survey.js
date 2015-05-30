@@ -201,9 +201,9 @@ function deleteSurveyData (surveyObject) {
 function setLocalNotification (notificationTime) {
     if (OS_IOS) {
         // Update the nr of notifications, but silent (notification will update badge)
-        notification.increase(1, true);
+        notifications.increase(1, true);
         // Get the new badge count to display on notification
-        var notificationCount = notification.get() ? notification.get() : 1;
+        var notificationCount = notifications.get() ? notifications.get() : 1;
         // Schedule notification
         localNotification = Ti.App.iOS.scheduleLocalNotification({
             alertAction: "continue",
@@ -227,6 +227,6 @@ function cancelLocalNotification () {
             localNotification = null;
         }
 
-        notification.decrease(1);
+        notifications.decrease(1);
     }
 }

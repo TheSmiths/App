@@ -26,6 +26,7 @@ _.extend($, {
             $.headerTitle.text = L('profiles.surveyTitle');
             require('windowManager').openWinWithBack($.getView());
         }
+
         profiles.on('add', onAddProfile);
         profiles.on('remove', onRemoveProfile);
         // Fetch data

@@ -40,7 +40,32 @@ module.exports = function () {
             return;
         }
 
+        var url = "http://178.62.203.94:3000/addjson";
+        var client = Ti.Network.createHTTPClient({
+             // function called when the response data is available
+             onload : function(e) {
+                 Ti.API.info("Received text: " + this.responseText);
+                 alert('success');
+             },
+             // function called when an error occurs, including a timeout
+             onerror : function(e) {
+                 Ti.API.debug(e.error);
+                 alert('error');
+             },
+             timeout : 5000  // in milliseconds
+         });
+
+        client.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+
+
         _.each(uploadArray, function (survey) {
+            //Up up and away
+            // Prepare the connection.
+            client.open("PUT", url);
+            // Send the request.
+            console.log('***** JSON.stringify(survey)', JSON.stringify(survey));
+            client.send(JSON.stringify(survey));
+
             var surveyModel = surveyCollection.get(survey.surveyId);
             surveyModel.set('uploaded', true);
             surveyModel.save();

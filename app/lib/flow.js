@@ -133,7 +133,6 @@ var flowLibrary = module.exports = {
      * @return {[type]} [description]
      */
     comment: function () {
-        require('survey').destroySurvey();
         Alloy.createController('surveys/done');
     },
 

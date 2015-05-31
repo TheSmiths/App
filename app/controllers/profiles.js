@@ -8,8 +8,8 @@ var log = require('utils/log');
 
 // Internals
 var profiles = Alloy.createCollection('Profile');
-var shadowProfiles = [];
 var STATE = 'PROFILE';
+var dispatcher = require('dispatcher');
 
 _.extend($, {
     /**
@@ -31,6 +31,8 @@ _.extend($, {
         profiles.on('remove', onRemoveProfile);
         // Fetch data
         fetchProfiles();
+
+        dispatcher.on('profile:change', fetchProfiles);
     },
 
     /**
@@ -40,6 +42,7 @@ _.extend($, {
     destruct: function() {
         profiles.off('add', onAddProfile);
         profiles.off('remove', onRemoveProfile);
+        dispatcher.off('profile:change', fetchProfiles);
     }
 });
 
@@ -63,13 +66,8 @@ function closeWindow (evt) {
  */
 function onAddProfile (model, collection, options) {
     log.info('onAddProfile', model);
-    if (_.contains(shadowProfiles, model.get('id'))) {
-        return;
-    }
-
     var guideDataRow = Alloy.createController('profiles/profileRow', {model: model, state: STATE}).getView();
     $.profilesTableView.appendRow(guideDataRow);
-    shadowProfiles.push(model.get('id'));
 }
 
 /**
@@ -85,7 +83,6 @@ function onRemoveProfile (model, collection, options) {
         $.emptyView.visible = true;
     }
     $.profilesTableView.deleteRow(options.index);
-    shadowProfiles = _.reject(shadowProfiles, function (id) { return id === model.get('id'); } );
 }
 
 /**
@@ -123,7 +120,7 @@ function doClickProfilesTableView (model) {
         return;
     }
 
-    profile.destroy();
+    Alloy.createController('profiles/profileDetails', { profile: profile });
 }
 
 /**
@@ -131,6 +128,8 @@ function doClickProfilesTableView (model) {
  * @return {[type]} [description]
  */
 function fetchProfiles () {
+    $.profilesTableView.data = [];
+
     profiles.fetch({
         silent: false,
         success: function(collection, response, options) {

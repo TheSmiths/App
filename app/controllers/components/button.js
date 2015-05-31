@@ -35,3 +35,12 @@ function doButtonClick () {
 
     buttonClick();
 }
+
+exports.setText = function (buttonText) {
+    $.buttonLabel.text = buttonText;
+};
+
+exports.setVisible = function (visible) {
+    $.button.visible = visible;
+};
+

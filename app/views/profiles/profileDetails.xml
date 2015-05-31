@@ -13,12 +13,17 @@
                 </View>
                 <TextField id="spotter" class="input" />
             </View>
-            <View class="formRow">
+            <View class="formRow formRowSlider">
                 <Label class="platformHeightLabel" />
                 <Label id="height" />
                 <Slider id="platformHeight" class="input" onChange="onChangeUpdateHeight" />
             </View>
+            <View class="formRow">
+                <Label class="boatLabel" />
+                <TextField id="boat" class="input" />
+            </View>
             <Require src="components/button" id="saveProfile" onClick="saveProfile" />
+            <Require src="components/button" id="deleteProfile" onClick="deleteProfile" />
         </ScrollView>
     </Window>
 </Alloy>

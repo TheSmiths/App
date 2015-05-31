@@ -6,12 +6,14 @@ exports.definition = {
             "height": "INTEGER",
             "boat": "STRING",
             "surveys": "INTEGER",
+            "created": "STRING",
         },
         defaults: {
             "name": "",
             "height": 0,
             "boat": "",
             "surveys": 0,
+            "created": ""
         },
         adapter: {
             type: "properties",

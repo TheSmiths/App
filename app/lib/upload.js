@@ -40,7 +40,7 @@ module.exports = function () {
             return;
         }
 
-        var url = "http://178.62.203.94:3000/addjson";
+        var url = "http://178.62.203.94:3000";
         var client = Ti.Network.createHTTPClient({
              // function called when the response data is available
              onload : function(e) {
@@ -55,7 +55,7 @@ module.exports = function () {
              timeout : 5000  // in milliseconds
          });
 
-        client.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        //client.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 
 
         _.each(uploadArray, function (survey) {
@@ -64,6 +64,7 @@ module.exports = function () {
             client.open("PUT", url);
             // Send the request.
             console.log('***** JSON.stringify(survey)', JSON.stringify(survey));
+            client.setRequestHeader("Content-Type", "text/plain");
             client.send(JSON.stringify(survey));
 
             var surveyModel = surveyCollection.get(survey.surveyId);

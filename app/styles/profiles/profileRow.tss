@@ -33,13 +33,3 @@
         fontSize: 11
     }
 }
-
-".deleteUser": {
-    text: L('profiles.profileRow.delete'),
-    right: 15,
-    color: Alloy.CFG.design.colors.error,
-    font: {
-        fontWeight: 'bold',
-        fontSize: 12
-    }
-}

@@ -33,7 +33,12 @@
     height: 80,
     left: 15,
     right: 15,
-    top: 15
+    top: 15,
+    bottom: 0
+}
+
+".formRowSlider": {
+    height: 65
 }
 
 ".input": {
@@ -83,6 +88,8 @@
     paddingLeft: 10
 }
 
+// Platform height
+
 ".platformHeightLabel": {
     text: L('profiles.profileDetails.platformHeight'),
     height: Ti.UI.SIZE,
@@ -96,16 +103,55 @@
 "#height": {
     right: 0,
     top: 0,
-    text: '0 meter'
+    text: '0 meter',
+    font: {
+        fontSize: 12,
+        fontWeight: 'bold'
+    }
 }
 
 "#platformHeight": {
     min: 0,
     max: 40,
     top: 30,
-    height: Ti.UI.SIZE,
+    height: 30,
+    zIndex: 20
 }
 
+// Boat
+
+".boatLabel": {
+    text: L('profiles.profileDetails.boat'),
+    top: 3,
+    left: 0,
+    height: Ti.UI.SIZE,
+    font: {
+        fontSize: 12
+    }
+}
+
+"#boat": {
+    height: Ti.UI.SIZE,
+    top: 30,
+    backgroundColor: '#EAEAEA',
+    width: '100%',
+    height: 40,
+    paddingLeft: 10
+}
+
+
+// Buttons
+
 "#saveProfile": {
-    text: L('profiles.profileDetails.save')
+    text: L('profiles.profileDetails.save'),
+    textAlign: 'center'
+}
+
+"#deleteProfile": {
+    top: 10,
+    text: L('profiles.profileDetails.delete'),
+    textAlign: 'center',
+    borderColor: Alloy.CFG.design.colors.error,
+    color: Alloy.CFG.design.colors.error,
+    visible: false
 }

@@ -1,9 +1,9 @@
 /**
- * Controller for the surveysRow componenent
+ * Controller for the surveyInfoRow componenent
  *
  * Generate tableView Row based on model data
  *
- * @class Controllers.components.surveysRow
+ * @class Controllers.surveyInfo.surveyInfoRow
  */
 var moment = require('alloy/moment');
 var profiles = Alloy.createCollection('Profile');
@@ -51,6 +51,10 @@ _.extend($, {
     }
 });
 
+/**
+ * @method onClickSurvey
+ * Handle `click` on clickSurvey, create surveyDetails controller
+ */
 function onClickSurvey () {
-    Alloy.createController('surveyInfo/surveyDetails', { surveyId: surveyId, created: created });
+    Alloy.createController('surveyInfo/surveyDetails', { surveyId: surveyId, startTime: startTime, endTime: endTime });
 }

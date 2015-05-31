@@ -73,7 +73,7 @@ module.exports = function () {
             notifications.decrease(1);
         });
 
-        dispatcher.trigger('newSurvey');
+        dispatcher.trigger('survey:change');
         alert(L('upload.uploadedSurveys'));
     });
 };

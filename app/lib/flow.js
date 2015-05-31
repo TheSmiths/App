@@ -23,7 +23,7 @@ var flowLibrary = module.exports = {
         Alloy.createCollection('Profile').fetch({
             success: function(collection, response, options) {
                 if (collection.length === 0) {
-                    Alloy.createController('profiles/newProfile', { flow: 'PRESURVEY'} );
+                    Alloy.createController('profiles/profileDetails', { flow: 'PRESURVEY'} );
                     return;
                 }
 

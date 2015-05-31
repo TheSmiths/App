@@ -1,5 +1,5 @@
 ".headerTitle": {
-    text: L('profiles.newProfile.title'),
+    text: L('profiles.profileDetails.title'),
     top: 30,
     font: {
         fontWeight: 'bold',
@@ -16,7 +16,7 @@
 
 "#closeWindow": {
     color: Alloy.CFG.design.header.fontColor,
-    text: L('profiles.newProfile.close'),
+    text: L('profiles.profileDetails.close'),
     font: {
         fontSize: 13,
     },
@@ -42,7 +42,7 @@
 }
 
 ".spotterLabel": {
-    text: L('profiles.newProfile.spotter'),
+    text: L('profiles.profileDetails.spotter'),
     top: 3,
     left: 0,
     height: Ti.UI.SIZE,
@@ -65,7 +65,7 @@
     bottom: 3,
     left: 3,
     right: 3,
-    text: L('profiles.newProfile.spotterError'),
+    text: L('profiles.profileDetails.spotterError'),
     height: Ti.UI.SIZE,
     font: {
         fontSize: 12
@@ -84,7 +84,7 @@
 }
 
 ".platformHeightLabel": {
-    text: L('profiles.newProfile.platformHeight'),
+    text: L('profiles.profileDetails.platformHeight'),
     height: Ti.UI.SIZE,
     top: 0,
     left: 0,
@@ -107,5 +107,5 @@
 }
 
 "#saveProfile": {
-    text: L('profiles.newProfile.save')
+    text: L('profiles.profileDetails.save')
 }

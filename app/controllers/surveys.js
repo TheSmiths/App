@@ -25,7 +25,7 @@ _.extend($, {
         surveys.on('add', onAddSurvey);
         surveys.on('remove', onRemoveSurvey);
         surveys.on('change', onChangeSurvey);
-        dispatcher.on('newSurvey', fetchSurveys);
+        dispatcher.on('survey:change', fetchSurveys);
         // Check if there are any surveys
         fetchSurveys();
     },
@@ -38,7 +38,7 @@ _.extend($, {
         surveys.off('add', onAddSurvey);
         surveys.off('remove', onRemoveSurvey);
         surveys.off('change', onChangeSurvey);
-        dispatcher.off('newSurvey', fetchSurveys);
+        dispatcher.off('survey:change', fetchSurveys);
     }
 });
 

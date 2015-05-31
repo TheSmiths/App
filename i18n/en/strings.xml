@@ -57,16 +57,16 @@
     <string name="menu.version">App version: </string>
     <!-- Profiles -->
     <string name="profiles.title">Profiles</string>
-    <string name="profiles.newProfile">New profile</string>
+    <string name="profiles.profileDetails">New profile</string>
     <string name="profiles.empty">There are currently no profiles, create a profile using the 'new profile' button.</string>
     <string name="profiles.surveyTitle">Select your profile</string>
     <!-- New Profile -->
-    <string name="profiles.newProfile.title">Create Spotter Account</string>
-    <string name="profiles.newProfile.spotterError">Please provide a spotter.</string>
-    <string name="profiles.newProfile.close">Close</string>
-    <string name="profiles.newProfile.spotter">Spotter</string>
-    <string name="profiles.newProfile.platformHeight">Platform height</string>
-    <string name="profiles.newProfile.save">Save</string>
+    <string name="profiles.profileDetails.title">Create Spotter Account</string>
+    <string name="profiles.profileDetails.spotterError">Please provide a spotter.</string>
+    <string name="profiles.profileDetails.close">Close</string>
+    <string name="profiles.profileDetails.spotter">Spotter</string>
+    <string name="profiles.profileDetails.platformHeight">Platform height</string>
+    <string name="profiles.profileDetails.save">Save</string>
     <!-- ProfileRow -->
     <string name="profiles.profileRow.delete">Delete</string>
     <!-- Guide -->

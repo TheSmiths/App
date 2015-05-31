@@ -45,6 +45,6 @@ function onClickBackButton () {
  * Handle `click` on done butto
  */
 function doClickDone () {
-    dispatcher.trigger('newSurvey');
+    dispatcher.trigger('survey:change');
     require('flow').done();
 }

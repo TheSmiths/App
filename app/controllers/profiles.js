@@ -97,7 +97,7 @@ function doClickNewProfile (evt) {
     // Throttle the button press to prevent multiple clicks
     setNewProfileOpacity(0.4);
     _.delay(_.partial(setNewProfileOpacity, 1), 150);
-    Alloy.createController('profiles/newProfile', { parent: $, flow: STATE });
+    Alloy.createController('profiles/profileDetails', { parent: $, flow: STATE });
 }
 
 /**

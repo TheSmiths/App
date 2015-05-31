@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="newProfile">
+    <Window id="profileDetails">
        <View class="header">
             <Label id="headerTitle" class="headerTitle" />
             <Require src="components/closeButton" onClick="closeWindow" />

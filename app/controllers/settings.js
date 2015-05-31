@@ -39,7 +39,7 @@ _.extend($, {
         $.surveyDuration.value = settings.surveyDuration;
         $.trackingInterval.value = settings.trackingInterval;
 
-        unitSetting = settings.unit || unitSetting;
+        unitSetting = settings.unit ? settings.unit : unitSetting;
 
         setUnit(unitSetting);
     },

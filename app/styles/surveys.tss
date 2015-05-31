@@ -1,14 +1,8 @@
 // header
 
 ".header": {
-    height: 60,
-    backgroundGradient: {
-        type: 'linear',
-        colors: ['#56C2D2', '#45AFBF'],
-        startPoint: { x: '50%', y: 0 },
-        endPoint: { x: '50%', y: '100%' },
-        backFillStart: true
-    },
+    height: 150,
+    backgroundColor: '#45AFBF',
     top: 0
 }
 
@@ -74,13 +68,21 @@
 // Buttons
 
 "#startSurvey": {
-    top: 67,
+    top: 75,
     text: L('surveys.startSurvey'),
-    textAlign: 'center'
+    textAlign: 'center',
+    borderRadius: 28,
+    borderWidth: 0,
+    borderColor: 'transparent',
+    backgroundColor: "#B8E986",
+    color: "#649731",
+    font: {
+        fontSize: 16,
+    }
 }
 
 ".content": {
-    top: 130,
+    top: 150,
     backgroundColor: '#F0F0F0'
 }
 

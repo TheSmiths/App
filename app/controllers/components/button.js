@@ -22,6 +22,10 @@ if (args.textAlign) {
 if (args.color) {
     $.buttonLabel.color = args.color;
 }
+
+if (args.font) {
+    $.buttonLabel.font = args.font;
+}
 /**
  * @method doButtonClick
  * Execute the buttonClick debounce function, trigger click and perform basic animation

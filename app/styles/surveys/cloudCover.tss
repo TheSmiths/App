@@ -1,6 +1,4 @@
 ".header": {
-    height: 60,
-    backgroundColor: Alloy.CFG.design.header.backgroundColor,
     top: 0
 }
 
@@ -9,19 +7,19 @@
     top: 26,
     font: {
         fontWeight: 'bold',
+         fontSize: 15
     },
     color: Alloy.CFG.design.header.fontColor
 }
 
 ".headerSubTitle": {
     text: L('surveys.cloudCover.subTitle'),
-    top: 42,
+    top: 45,
     font: {
-        fontSize: 10,
+        fontSize: 11,
         fontWeight: 'bold'
     },
     color: Alloy.CFG.design.header.fontColor,
-    opacity: 0.6
 }
 
 ".content": {

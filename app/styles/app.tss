@@ -13,15 +13,16 @@
     top: 0,
     backgroundColor: '#202121'
 }
+// backgroundGradient: {
+//     type: 'linear',
+//     colors: ['#56C2D2', '#45AFBF'],
+//     startPoint: { x: '50%', y: 0 },
+//     endPoint: { x: '50%', y: '100%' },
+//     backFillStart: true
+// },
 
 ".header": {
-    height: 60,
-    backgroundGradient: {
-        type: 'linear',
-        colors: ['#56C2D2', '#45AFBF'],
-        startPoint: { x: '50%', y: 0 },
-        endPoint: { x: '50%', y: '100%' },
-        backFillStart: true
-    },
+    height: 70,
+    backgroundColor: "##56C2D2",
     top: 0
 }

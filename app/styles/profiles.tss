@@ -2,10 +2,10 @@
 
 ".headerTitle": {
     text: L('profiles.title'),
-    top: 31,
-    left: 40,
+    top: 30,
     font: {
         fontWeight: 'bold',
+        fontSize: 15,
     },
     color: Alloy.CFG.design.header.fontColor
 }
@@ -13,8 +13,9 @@
 ".rightNavButton": {
     width: 100,
     height: 40,
-    top: 20,
-    right: 0
+    top: 21,
+    right: 0,
+    textAlign: 'right'
 }
 
 "#newProfile": {
@@ -23,11 +24,12 @@
     font: {
         fontSize: 13,
     },
-    opacity: 1
+    opacity: 1,
+    right: 6
 }
 
 ".content": {
-    top: 60,
+    top: 70,
     backgroundColor: '#F0F0F0'
 }
 

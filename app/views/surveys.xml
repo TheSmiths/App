@@ -10,9 +10,9 @@
                 <ImageView class="uploadButton" />
             </View>
             <Label class="headerWelcomeTitle" />
-        </View>
 
-        <Require src="components/button" id="startSurvey" onClick="doClickStartSurvey" />
+            <Require src="components/button" id="startSurvey" onClick="doClickStartSurvey" />
+        </View>
 
         <View class="content">
             <View id="emptyView">

@@ -11,6 +11,7 @@
 var log = require('utils/log');
 var notifications = require('notifications');
 var survey = require('survey');
+var dispatcher = require('dispatcher');
 
 // Collections
 var profiles = Alloy.createCollection('Profile');

@@ -82,7 +82,7 @@ var flowLibrary = module.exports = {
             return Alloy.createController('sighting/category', {material: material, sightingType: sightingType});
         }
 
-        flowLibrary.dimension(sightingType);
+        flowLibrary.category(sightingType);
     },
     /**
      * @method category

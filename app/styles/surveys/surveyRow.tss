@@ -1,5 +1,5 @@
 "TableViewRow": {
-    height: 50,
+    height: 55,
     hasChild: false,
     backgroundColor: 'transparent',
     selectedBackgroundColor: '#fff',
@@ -8,7 +8,7 @@
 
 ".eventContainer": {
     top: 5,
-    height: 40,
+    height: 45,
     bottom: 5,
     right: 5
 }
@@ -16,7 +16,7 @@
 ".eventTimeContainer": {
     width: 40,
     left: 0,
-    height: 40
+    height: 45
 }
 
 "#eventTime": {
@@ -28,7 +28,7 @@
 
 ".eventInformation": {
     left: 40,
-    height: 40,
+    height: 45,
     top: 0,
     layout: 'vertical',
     backgroundColor: '#fff'
@@ -40,7 +40,7 @@
     top: 6,
     font: {
         fontWeight: 'bold',
-        fontSize: 11
+        fontSize: 12
     }
 }
 

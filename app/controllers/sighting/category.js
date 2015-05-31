@@ -18,7 +18,15 @@ _.extend($, {
     construct: function(config) {
         sightingType = config.sightingType;
         //Get category based on material
-        $.grid.setData(require('data/category')[config.material]);
+        var data = require('data/category')[config.material];
+
+        // Skip other
+        if (data.length <= 1) {
+            onClickGrid({source: { componentId: 0}});
+            return;
+        }
+
+        $.grid.setData(data);
         require('windowManager').openWinWithBack($.getView());
     },
 

@@ -43,7 +43,7 @@ _.extend($, {
 function displayStartSurvey (eventData, surveyData) {
     $.eventTime.text = '0'; //always 0
     $.eventInformationTitle.text = 'Started Survey';
-    $.eventInformationMessage.text = 'Started new survey';
+    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.startLocation.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.startLocation.longitude.toString());;
 }
 
 /**
@@ -66,9 +66,25 @@ function displayTrack (eventData, surveyData) {
  */
 function displaySighting (eventData, surveyData) {
     $.eventTime.text = ((eventData.eventTime - surveyData.startTime) / 60000).toFixed(1) ;
-    $.eventInformationTitle.text = L('surveys.survey.event.sightingTitle');
+    $.eventInformationTitle.text = eventData.sightingType === 0 ? L('surveys.survey.event.sightingTitle') : L('surveys.survey.event.sightingMultiTitle');
     var totalTime = ((eventData.endTime - eventData.startTime) / 1000).toFixed(2);
-    $.eventInformationMessage.text = 'Data: ' + eventData.material + ', ' + eventData.category + ', ' + eventData.dimension + ', ' + eventData.distance + '. Time: ' + totalTime + ' sec';
+    var materialText = require('data/material')[eventData.material].valueLabel;
+    var dimensionText = require('data/dimension')[eventData.dimension];
+    var distanceText = require('data/distance')[eventData.distance];
+
+    $.eventRow.height = 65;
+    $.eventContainer.height = 55;
+    $.eventTimeContainer.height = 55;
+    $.eventInformation.height = 55;
+
+    if (eventData.sightingType === 0) {
+        // Retreive sighting text
+        var categoryText = require('data/category')[eventData.material][eventData.category].valueLabel;
+        $.eventInformationMessage.text = materialText + " " + categoryText + " of " + dimensionText.valueLabel + " " + dimensionText.captionLabel.toLowerCase() + " located " + distanceText.valueLabel + " " + distanceText.captionLabel.toLowerCase() + " from boat.";
+        return;
+    }
+
+    $.eventInformationMessage.text = "Mainly containing " + materialText + " and average size " + dimensionText.valueLabel + " " + dimensionText.captionLabel.toLowerCase() + " located " + distanceText.valueLabel + " " + distanceText.captionLabel.toLowerCase() + " from boat.";
 }
 
 /**

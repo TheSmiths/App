@@ -79,9 +79,6 @@ function onClickUploadButton () {
 function onAddSurvey (model, collection, options) {
     log.info('[surveys] Adding a survey model', model);
 
-    model.set('uploaded', false);
-    model.save();
-
     if (model.get('uploaded') == 0) {
         addUploadSurvey(model.get('survey_id'));
     } else {

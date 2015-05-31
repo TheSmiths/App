@@ -30,7 +30,8 @@
     <string name="sighting.sightingType.subTitle">Number of debris to report</string>
     <!-- Survey - Events -->
     <string name="surveys.survey.event.trackTitle">Tracked location</string>
-    <string name="surveys.survey.event.sightingTitle">Added sighting</string>
+    <string name="surveys.survey.event.sightingTitle">Added single sighting</string>
+    <string name="surveys.survey.event.sightingMultiTitle">Added multiple sightings</string>
     <!-- Wind speed -->
     <string name="surveys.windspeed.subTitle">Select the wind speed at this moment</string>
     <string name="surveys.windspeed.title">Wind Speed</string>

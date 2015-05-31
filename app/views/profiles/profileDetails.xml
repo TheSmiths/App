@@ -3,6 +3,7 @@
        <View class="header">
             <Label id="headerTitle" class="headerTitle" />
             <Require src="components/closeButton" onClick="closeWindow" />
+            <Require src="components/guideButton" id="guideButton" topic="profile" />
         </View>
 
         <ScrollView>

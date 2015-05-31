@@ -30,6 +30,10 @@
     height: Ti.UI.SIZE
 }
 
+".horizontal": {
+    layout: 'horizontal'
+}
+
 ".settingsLabel": {
     width: 190,
     left: 0,
@@ -53,6 +57,62 @@
 
 "#settingsBigFont": {
     text: L('settings.font')
+}
+
+// Setting
+".surveyUnitSettingContainer": {
+    borderColor: Alloy.CFG.design.colors.mediumBlue,
+    borderRadius: 0,
+    borderWidth: 0.5,
+    layout: 'vertical',
+    height: 50,
+    width: '50%'
+}
+
+"#surveyUnitMetricSetting": {
+    top: 10,
+    text: L('settings.unitMetric'),
+    textAlign: 'center',
+    font: {
+        fontSize: 12,
+        fontWeight: 'bold'
+    },
+    height: Ti.UI.SIZE,
+    color: Alloy.CFG.design.colors.mediumBlue
+}
+
+"#surveyUnitMetricCaptionSetting": {
+    text: L('settings.unitMetricCaption'),
+    textAlign: 'center',
+    font: {
+        fontSize: 10,
+        fontWeight: 'normal'
+    },
+    height: Ti.UI.SIZE,
+    color: Alloy.CFG.design.colors.mediumBlue
+}
+
+"#surveyUnitImperialSetting": {
+    text: L('settings.unitImperial'),
+    textAlign: 'center',
+    font: {
+        fontSize: 12,
+        fontWeight: 'bold'
+    },
+    height: Ti.UI.SIZE,
+    top: 10,
+    color: Alloy.CFG.design.colors.mediumBlue
+}
+
+"#surveyUnitImperialCaptionSetting": {
+    text: L('settings.unitImperialCaption'),
+    textAlign: 'center',
+    font: {
+        fontSize: 10,
+        fontWeight: 'normal'
+    },
+    color: Alloy.CFG.design.colors.mediumBlue,
+    height: Ti.UI.SIZE
 }
 
 // Test options

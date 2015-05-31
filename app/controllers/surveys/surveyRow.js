@@ -5,6 +5,9 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
+        var settings = Ti.App.Properties.getObject('app-survey-settings');
+        console.log('***** settings.unit', settings.unit);
+
         var eventType = config.model.get('type');
         var eventData = JSON.parse(config.model.get('data'));
         var surveyData = require('survey').activeSurvey();
@@ -67,10 +70,12 @@ function displayTrack (eventData, surveyData) {
 function displaySighting (eventData, surveyData) {
     $.eventTime.text = ((eventData.eventTime - surveyData.startTime) / 60000).toFixed(1) ;
     $.eventInformationTitle.text = eventData.sightingType === 0 ? L('surveys.survey.event.sightingTitle') : L('surveys.survey.event.sightingMultiTitle');
+    var settings = Ti.App.Properties.getObject('app-survey-settings');
+    var unitType  = settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
     var totalTime = ((eventData.endTime - eventData.startTime) / 1000).toFixed(2);
     var materialText = require('data/material')[eventData.material].valueLabel;
-    var dimensionText = require('data/dimension')[eventData.dimension];
-    var distanceText = require('data/distance')[eventData.distance];
+    var dimensionText = require('data/dimension')[unitType][eventData.dimension];
+    var distanceText = require('data/distance')[unitType][eventData.distance];
 
     $.eventRow.height = 65;
     $.eventContainer.height = 55;
@@ -80,11 +85,11 @@ function displaySighting (eventData, surveyData) {
     if (eventData.sightingType === 0) {
         // Retreive sighting text
         var categoryText = require('data/category')[eventData.material][eventData.category].valueLabel;
-        $.eventInformationMessage.text = materialText + " " + categoryText + " of " + dimensionText.valueLabel + " " + dimensionText.captionLabel.toLowerCase() + " located " + distanceText.valueLabel + " " + distanceText.captionLabel.toLowerCase() + " from boat.";
+        $.eventInformationMessage.text = materialText + " " + categoryText + " of " + dimensionText.valueLabel + " " + dimensionText.captionLabel + " located " + distanceText.valueLabel + " " + distanceText.captionLabel + " from boat.";
         return;
     }
 
-    $.eventInformationMessage.text = "Mainly containing " + materialText + " and average size " + dimensionText.valueLabel + " " + dimensionText.captionLabel.toLowerCase() + " located " + distanceText.valueLabel + " " + distanceText.captionLabel.toLowerCase() + " from boat.";
+    $.eventInformationMessage.text = "Mainly containing " + materialText + " and average size " + dimensionText.valueLabel + " " + dimensionText.captionLabel + " located " + distanceText.valueLabel + " " + distanceText.captionLabel + " from boat.";
 }
 
 /**

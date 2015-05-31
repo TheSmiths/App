@@ -37,7 +37,7 @@ var eventObject = module.exports = {
     },
     /**
      * @method stopSurveyEvent
-     * @param  {String} eventType Type of event [startSurvey, track, sighting, endSurvey]
+     * @param  {String} eventType Type of event [startSurvey, sighting, endSurvey]
      * @param  {Object]} eventData Data object containing the data
      */
     saveSurveyEvent: function (eventType, eventData) {
@@ -59,6 +59,21 @@ var eventObject = module.exports = {
         eventObject.storeSurveyEvent(activeEvent.type, activeEvent.data);
         // Reset data for new event
         activeEvent = null;
+    },
+    /**
+     * @method saveSurveyTrackEvent
+     * Save tracking in background, don't use default library
+     * @param  {Object]} eventData Data object containing the data
+     */
+    saveSurveyTrackEvent: function (eventData) {
+        var trackEvent = {
+            type : "track",
+            data : eventData
+        };
+        // Set timestamp
+        trackEvent.data.eventTime = new Date().getTime();
+        // Call save method
+        eventObject.storeSurveyEvent(trackEvent.type, trackEvent.data);
     },
     /**
      * @method destroySurveyEvent

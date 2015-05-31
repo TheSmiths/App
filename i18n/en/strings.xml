@@ -87,16 +87,16 @@
     <string name="guide.howToReportFeedback">How to report feeback</string>
     <!-- Guide Detail -->
     <string name="guide.prepareForSurvey.introduction">Introduction:</string>
-    <string name="guide.prepareForSurvey.introductionParagraph">As an observer on a vessel, you are looking for debris that is floating in the sea and recording it while sighted.</string>
-    <string name="guide.prepareForSurvey.Observer">Observer:</string>
-    <string name="guide.prepareForSurvey.observerParagraph">Each survey will take 1 hour, which requires full attention and sufficient batttery of your device. As an observer it is important to choose the best side of the vessel related to sunlight and wind conditions. The observer's standing point must remain the same during the entire 1 hour visual survey.</string>
+    <string name="guide.prepareForSurvey.introductionParagraph">As a spotter on a vessel, you are looking for debris that is floating in the sea and recording what you see.</string>
+    <string name="guide.prepareForSurvey.Observer">Spotter:</string>
+    <string name="guide.prepareForSurvey.observerParagraph">Each survey will take 30 minutes, which requires full attention and sufficient battery of your device. Choose the side of the vessel that allows you to best see the debris, given the sunlight and wind conditions. The observer's place on the boat must remain the same during the entire 30 minutes of the visual survey.</string>
 
     <string name="guide.startingASurvey.introduction">Introduction:</string>
-    <string name="guide.startingASurvey.introductionParagraph">To start a new visual survey, you can navigate back to the 'Welcome' page of the Ocean Cleanup Visual Survey App. Choose 'Start a new survey' to start with the 1-hour sighting. </string>
-    <string name="guide.startingASurvey.observer">Observer:</string>
-    <string name="guide.startingASurvey.observerParagraph">Before you start a new survey, it is important that you have filled in your personal and vessel details. This enables us to link the survey-data to the right vessel and team.</string>
+    <string name="guide.startingASurvey.introductionParagraph">To start a new visual survey, you can navigate back to the 'Welcome' page of the Ocean Cleanup Visual Survey App. Choose 'Start a new survey' to start with the 30 minute sighting. </string>
+    <string name="guide.startingASurvey.observer">Spotter:</string>
+    <string name="guide.startingASurvey.observerParagraph">Before you start a new survey, it is important that you have filled in your personal and vessel details. This enables us to link the survey-data to the right vessel and team</string>
 
-    <string name="guide.enterAnSpotter.info">Info:</string>
+    <string name="guide.enterAnSpotter.info">How to setup your observer profile</string>
     <string name="guide.enterAnSpotter.infoParagraph">To setup your observer profile, you can navigate back to the 'Welcome' page of the Ocean Cleanup Visual Survey App. Choose 'Ready to get started' to fill in your personal and vessel details. We will ask you to fill in the name of the oberserver, the data recorder, the platform height and the name of your vessel. You will be able to update or delete this information when necessary.</string>
 
     <string name="guide.howToReportFeedback.title">Got Feedback?</string>
@@ -110,6 +110,10 @@
     <string name="settings.surveyDuration">Survey duration:</string>
     <string name="settings.trackingInterval">Tracking interval:</string>
     <string name="settings.saveSettings">Save settings</string>
+    <string name="settings.unitMetric">Metric system</string>
+    <string name="settings.unitMetricCaption">(centi)meter</string>
+    <string name="settings.unitImperial">Imperial/US</string>
+    <string name="settings.unitImperialCaption">inch, foot, yard</string>
     <!-- More -->
     <string name="more.title">More</string>
     <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."\n\nYURI A. GAGARIN, first man in space.</string>

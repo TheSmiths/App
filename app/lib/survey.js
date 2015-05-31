@@ -107,7 +107,7 @@ var surveyTimer = module.exports = {
         }
         // Store current GPS coordinates
         var location = require('utils/location').getCurrentLatLng(function (err, locationData) {
-            events.saveSurveyEvent('track', {location: locationData});
+            events.saveSurveyTrackEvent({location: locationData});
             // Let the survey view know there is an update
             dispatcher.trigger('surveyUpdate');
         });

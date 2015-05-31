@@ -6,6 +6,22 @@
  */
 var log = require('utils/log');
 
+// Internals
+var unitSetting = "METRIC";
+
+// Selectors
+var selectors = {
+    'METRIC': {
+        selectedUnitContainer: $.surveyMetricMeterSettingContainer,
+        selectedUnit: $.surveyUnitMetricSetting,
+        selectedUnitCaption: $.surveyUnitMetricCaptionSetting
+    },
+    'IMPERIAL': {
+        selectedUnitContainer: $.surveyMetricInchSettingContainer,
+        selectedUnit: $.surveyUnitImperialSetting,
+        selectedUnitCaption: $.surveyUnitImperialCaptionSetting
+    }
+};
 
 _.extend($, {
     /**
@@ -22,6 +38,10 @@ _.extend($, {
 
         $.surveyDuration.value = settings.surveyDuration;
         $.trackingInterval.value = settings.trackingInterval;
+
+        unitSetting = settings.unit || unitSetting;
+
+        setUnit(unitSetting);
     },
 
     /**
@@ -59,8 +79,33 @@ function onClickSaveSettings () {
     var trackingInterval = Math.floor($.trackingInterval.value) || 0;
     var settingsObject = {
         surveyDuration: surveyDuration,
-        trackingInterval: trackingInterval
+        trackingInterval: trackingInterval,
+        unit: unitSetting
     };
 
     Ti.App.Properties.setObject('app-survey-settings', settingsObject);
+}
+
+function setUnit (localUnitSetting) {
+    var previousUnit = localUnitSetting === "METRIC" ?  "IMPERIAL" : "METRIC";
+    unitSetting = localUnitSetting;
+    selectors[localUnitSetting].selectedUnitContainer.backgroundColor = Alloy.CFG.design.colors.mediumBlue;
+    selectors[localUnitSetting].selectedUnit.color = "#fff";
+    selectors[localUnitSetting].selectedUnitCaption.color = "#fff";
+    selectors[previousUnit].selectedUnitContainer.backgroundColor = "#fff";
+    selectors[previousUnit].selectedUnit.color =  Alloy.CFG.design.colors.mediumBlue;
+    selectors[previousUnit].selectedUnitCaption.color =  Alloy.CFG.design.colors.mediumBlue;
+}
+
+/**
+ * [onClickChangeMetric description]
+ * @param  {[type]} evt [description]
+ * @return {[type]}     [description]
+ */
+function onClickChangeMetric (evt) {
+    if (unitSetting === evt.source.setting) {
+        return;
+    }
+
+    setUnit(evt.source.setting);
 }

@@ -7,6 +7,17 @@
 
         <ScrollView class="content">
             <View class="contentContainer">
+                <View class="settingsRow horizontal">
+                    <View id="surveyMetricMeterSettingContainer" class="surveyUnitSettingContainer" setting="METRIC" onClick="onClickChangeMetric">
+                        <Label id="surveyUnitMetricSetting" setting="METRIC" />
+                        <Label id="surveyUnitMetricCaptionSetting"  setting="METRIC"/>
+                    </View>
+
+                    <View id="surveyMetricInchSettingContainer" class="surveyUnitSettingContainer" setting="IMPERIAL" onClick="onClickChangeMetric">
+                        <Label id="surveyUnitImperialSetting" setting="IMPERIAL" />
+                        <Label id="surveyUnitImperialCaptionSetting"  setting="IMPERIAL"/>
+                    </View>
+                </View>
                 <!--
                 <View class="settingsRow">
                     <Label class="settingsLabel" id="settingsHighContrastLabel" />

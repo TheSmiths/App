@@ -36,7 +36,7 @@ _.extend($, {
         endTime = model.get('endTime');
         $.surveyDate.text = 'Survey from ' + moment(new Date(Math.floor(model.get('created')))).format('MMMM Do [at] HH:mm');
         if (profile) {
-            $.userInfo.text = 'User #: ' + profile.get('name');
+            $.userInfo.text = 'User: ' + profile.get('name');
         }
         $.uploaded.text = model.get('uploaded') == 1 ? 'Done' : ' Upload survey';
         $.uploaded.opacity = model.get('uploaded') == 1 ? 0.5 : 1;

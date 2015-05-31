@@ -236,7 +236,7 @@ function updateTime () {
 
     var remainingSeconds = remainder / 1000;
 
-    console.log('***** Remaining seconds', remaingSeconds);
+    console.log('***** Remaining seconds', remainingSeconds);
     // Track location
     if (remainingSeconds < TRACKLOCATIONTIME && TRACKLOCATIONTIME > 0) {
         survey.trackLocation();

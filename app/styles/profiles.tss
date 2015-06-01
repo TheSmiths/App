@@ -7,7 +7,7 @@
         fontWeight: 'bold',
         fontSize: 15,
     },
-    color: Alloy.CFG.design.header.fontColor
+    color: Alloy.CFG.design.header.fontColor,
 }
 
 ".rightNavButton": {

@@ -2,35 +2,29 @@
     width: '50%',
     left: 0,
     height: Ti.UI.SIZE,
+    backgroundColor: '#fff'
 }
 
 ".gridIconContainer": {
     height: 100,
-    borderColor: Alloy.CFG.design.colors.mediumBlue,
-    borderRadius: 2,
-    borderWidth: 0.5,
-    width: 120
-}
-
-".gridIcon": {
-    top: 12
+    borderWidth: 1,
+    borderColor: '#EDEDED'
 }
 
 ".gridValue": {
-    color: Alloy.CFG.design.colors.darkBlue,
-    top: 63,
+    color: '#1E1E1E',
+    top: 24,
     font: {
-        fontWeight: 'bold',
-        fontSize: 16
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 24
     }
-
 }
 
 ".gridCaption": {
-    color: Alloy.CFG.design.colors.darkBlue,
+    color: '#1E1E1E',
     font: {
-        fontSize: 12
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 16
     },
-    top: 80,
-    opacity: 0.5
+    top: 55,
 }

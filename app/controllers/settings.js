@@ -31,6 +31,8 @@ _.extend($, {
      */
     construct: function(config) {
         var settings = Ti.App.Properties.getObject('app-survey-settings');
+        unitSetting = settings && settings.unit ? settings.unit : unitSetting;
+        setUnit(unitSetting);
 
         if (!settings) {
             return;
@@ -38,10 +40,6 @@ _.extend($, {
 
         $.surveyDuration.value = settings.surveyDuration;
         $.trackingInterval.value = settings.trackingInterval;
-
-        unitSetting = settings.unit ? settings.unit : unitSetting;
-
-        setUnit(unitSetting);
     },
 
     /**
@@ -87,8 +85,9 @@ function onClickSaveSettings () {
 }
 
 function setUnit (localUnitSetting) {
-    var previousUnit = localUnitSetting === "METRIC" ?  "IMPERIAL" : "METRIC";
+    var previousUnit = localUnitSetting === "METRIC" ? "IMPERIAL" : "METRIC";
     unitSetting = localUnitSetting;
+    console.log('***** localUnitSetting', localUnitSetting);
     selectors[localUnitSetting].selectedUnitContainer.backgroundColor = Alloy.CFG.design.colors.mediumBlue;
     selectors[localUnitSetting].selectedUnit.color = "#fff";
     selectors[localUnitSetting].selectedUnitCaption.color = "#fff";

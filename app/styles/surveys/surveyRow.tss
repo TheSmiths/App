@@ -3,14 +3,13 @@
     hasChild: false,
     backgroundColor: 'transparent',
     selectedBackgroundColor: '#fff',
-    borderColor: 'red'
 }
 
 ".eventContainer": {
     top: 5,
     height: 45,
     bottom: 5,
-    right: 5
+    right: 15
 }
 
 ".eventTimeContainer": {

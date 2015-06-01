@@ -29,7 +29,7 @@ function setData (data) {
                 top: 0,
                 layout: 'horizontal',
                 height: 100,
-                bottom: 20,
+                bottom: 0
             });
 
         }

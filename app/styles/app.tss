@@ -23,6 +23,6 @@
 
 ".header": {
     height: 70,
-    backgroundColor: "##56C2D2",
+    backgroundColor: '#01CBE1',
     top: 0
 }

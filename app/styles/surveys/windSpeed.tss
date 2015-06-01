@@ -6,6 +6,7 @@
     text: L('surveys.windspeed.title'),
     top: 26,
     font: {
+        fontFamily: 'ProximaNova-Regular',
         fontWeight: 'bold',
         fontSize: 15
     },
@@ -16,6 +17,7 @@
     text: L('surveys.windspeed.subTitle'),
     top: 45,
     font: {
+        fontFamily: 'ProximaNova-Regular',
         fontSize: 11,
         fontWeight: 'bold'
     },
@@ -25,12 +27,12 @@
 
 ".content": {
     top: 70,
-    height: Ti.UI.SIZE
+    backgroundColor: '#EDEDED'
 }
 
 ".gridContainer": {
-    top: 20,
-    bottom: 20,
+    top: 0,
+    bottom: 0,
     height: Ti.UI.SIZE
 }
 

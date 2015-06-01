@@ -2,7 +2,7 @@
 
 ".header": {
     height: 150,
-    backgroundColor: '#45AFBF',
+    backgroundColor: '#01CBE1',
     top: 0
 }
 
@@ -10,6 +10,7 @@
     text: L('surveys.welcomeTitle'),
     top: 30,
     font: {
+        fontFamily: 'ProximaNova-Regular',
         fontWeight: 'bold',
     },
     color: Alloy.CFG.design.header.fontColor,
@@ -71,13 +72,14 @@
     top: 75,
     text: L('surveys.startSurvey'),
     textAlign: 'center',
-    borderRadius: 28,
-    borderWidth: 0,
-    borderColor: 'transparent',
-    backgroundColor: "#B8E986",
-    color: "#649731",
+    borderRadius: 0,
+    borderWidth: 3,
+    borderColor: '#fff',
+    backgroundColor: "#fff",
+    color: "#01CBE1",
     font: {
         fontSize: 16,
+        fontFamily: 'ProximaNova-Semibold',
     }
 }
 

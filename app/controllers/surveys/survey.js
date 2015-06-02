@@ -25,7 +25,7 @@ var state = 'PREACTIVE';
 var startedFromRoot = false;
 
 // constants
-var TRACKLOCATIONTIME = settings ? ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) : Alloy.CFG.surveyDuration * 60;
+var TRACKLOCATIONTIME = settings ? ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) : (Alloy.CFG.surveyDuration * 60 - Alloy.CFG.intervalDuration * 60);
 var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.intervalDuration * 60;
 
 // Collections

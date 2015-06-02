@@ -9,17 +9,19 @@
                 <Label class="timer" id="surveyTimer" />
                 <Label class="startTime" id="surveyStartTime" />
             </View>
+
+            <View id="startSurveyContainer">
+                <Require src="components/button" id="startSurvey" onClick="doClickStartSurvey" />
+            </View>
+            <View id="sightingContainer">
+                <Require src="components/button" id="addSighting" onClick="doClickAddSighting" />
+            </View>
+            <View id="finishSurveyContainer">
+                <Require src="components/button" id="finishSurvey" onClick="doClickFinishSurvey" />
+            </View>
         </View>
 
-        <View id="startSurveyContainer">
-            <Require src="components/button" id="startSurvey" onClick="doClickStartSurvey" />
-        </View>
-        <View id="sightingContainer">
-            <Require src="components/button" id="addSighting" onClick="doClickAddSighting" />
-        </View>
-        <View id="finishSurveyContainer">
-            <Require src="components/button" id="finishSurvey" onClick="doClickFinishSurvey" />
-        </View>
+
 
         <View class="content">
             <View id="preSurvey">

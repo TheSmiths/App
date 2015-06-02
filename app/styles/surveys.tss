@@ -8,10 +8,9 @@
 
 ".headerWelcomeTitle": {
     text: L('surveys.welcomeTitle'),
-    top: 30,
+    top: 35,
     font: {
-        fontFamily: 'ProximaNova-Regular',
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-Semibold',
     },
     color: Alloy.CFG.design.header.fontColor,
     textAlign: 'center'
@@ -76,6 +75,7 @@
     borderWidth: 3,
     borderColor: '#fff',
     backgroundColor: "#fff",
+    height: 50,
     color: "#01CBE1",
     font: {
         fontSize: 16,
@@ -120,6 +120,7 @@
 // Profile
 
 "#surveyTableView": {
+    top: 10,
     visible: false,
     backgroundColor: 'transparent'
 }

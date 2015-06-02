@@ -1,6 +1,4 @@
 ".header": {
-    height: 60,
-    backgroundColor: Alloy.CFG.design.header.backgroundColor,
     top: 0
 }
 
@@ -8,29 +6,30 @@
     text: L('sighting.dimension.title'),
     top: 26,
     font: {
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 15
     },
     color: Alloy.CFG.design.header.fontColor
 }
 
 ".headerSubTitle": {
     text: L('sighting.dimension.subTitle'),
-    top: 42,
+    top: 45,
     font: {
-        fontSize: 10,
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 11,
         fontWeight: 'bold'
     },
     color: Alloy.CFG.design.header.fontColor,
-    opacity: 0.6
 }
 
 ".content": {
-    top: 60,
-    height: Ti.UI.SIZE
+    top: 70,
+    backgroundColor: '#EDEDED'
 }
 
 ".gridContainer": {
-    top: 20,
-    bottom: 20,
+    top: 0,
+    bottom: 0,
     height: Ti.UI.SIZE
 }

@@ -16,7 +16,7 @@ _.extend($, {
 
         if (dataObject.type === 'large'){
             $.gridContainer.width = Ti.UI.FILL;
-            $.gridIconContainer.width = 280;
+            $.gridIconContainer.width = '100%';
         }
 
         // Populate the view using the data

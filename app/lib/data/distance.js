@@ -13,18 +13,21 @@ var distanceData = module.exports =  {
             icon: '/images/icons/material/foam.png',
             valueLabel: '10 - 50',
             captionLabel: 'Meter',
+        type: 'large'
         },
         {
             id: 2,
             icon: '/images/icons/material/glass.png',
             valueLabel: '50 - 100',
             captionLabel: 'Meter',
+        type: 'large'
         },
         {
             id: 3,
             icon: '/images/icons/material/metal.png',
             valueLabel: '100+',
             captionLabel: 'Meter',
+        type: 'large'
         }
     ],
     'IMPERIAL': [
@@ -40,18 +43,21 @@ var distanceData = module.exports =  {
             icon: '/images/icons/material/foam.png',
             valueLabel: '11 - 55',
             captionLabel: 'Yards',
+        type: 'large'
         },
         {
             id: 2,
             icon: '/images/icons/material/glass.png',
             valueLabel: '55 - 110',
             captionLabel: 'Yards',
+        type: 'large'
         },
         {
             id: 3,
             icon: '/images/icons/material/metal.png',
             valueLabel: '110+',
             captionLabel: 'Yards',
+        type: 'large'
         }
     ],
 };

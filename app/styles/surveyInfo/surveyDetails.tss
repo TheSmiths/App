@@ -1,9 +1,8 @@
 ".headerTitle": {
     text: L('surveyDetails.title'),
-    top: 31,
-    left: 40,
+    top: 35,
     font: {
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-Semibold',
     },
     color: Alloy.CFG.design.header.fontColor
 }
@@ -25,7 +24,7 @@
 }
 
 "#surveyTableView": {
-    top: 60,
+    top: 70,
     backgroundColor: '#F0F0F0'
 }
 

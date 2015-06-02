@@ -1,12 +1,5 @@
 ".header": {
-    height: 120,
-    backgroundGradient: {
-        type: 'linear',
-        colors: ['#56C2D2', '#45AFBF'],
-        startPoint: { x: '50%', y: 0 },
-        endPoint: { x: '50%', y: '100%' },
-        backFillStart: true
-    },
+    height: 210,
     top: 0
 }
 
@@ -14,7 +7,8 @@
     text: L('surveys.survey.title'),
     top: 31,
     font: {
-        fontWeight: 'bold',
+         fontFamily: 'ProximaNova-Semibold',
+
     },
     color: Alloy.CFG.design.header.fontColor
 }
@@ -25,7 +19,6 @@
 }
 
 ".timer": {
-    text: '2:00',
     font: {
         fontWeight: 'bold',
         fontSize: 40
@@ -63,19 +56,49 @@
 "#startSurvey": {
     top: 0,
     text: L('surveys.survey.startSurvey'),
-    textAlign: 'center'
+    textAlign: 'center',
+    borderRadius: 0,
+    borderWidth: 3,
+    borderColor: '#fff',
+    backgroundColor: "#fff",
+    height: 50,
+    color: "#01CBE1",
+    font: {
+        fontSize: 16,
+        fontFamily: 'ProximaNova-Semibold',
+    }
 }
 
 "#addSighting": {
     top: 0,
     text: L('surveys.survey.addSighting'),
-    textAlign: 'center'
+    textAlign: 'center',
+    borderRadius: 0,
+    borderWidth: 3,
+    borderColor: '#fff',
+    backgroundColor: "#fff",
+    height: 50,
+    color: "#01CBE1",
+    font: {
+        fontSize: 16,
+        fontFamily: 'ProximaNova-Semibold',
+    }
 }
 
 "#finishSurvey": {
     top: 0,
     text: L('surveys.survey.finishSurvey'),
-    textAlign: 'center'
+    textAlign: 'center',
+    borderRadius: 0,
+    borderWidth: 3,
+    borderColor: '#fff',
+    backgroundColor: "#fff",
+    height: 50,
+    color: "#01CBE1",
+    font: {
+        fontSize: 16,
+        fontFamily: 'ProximaNova-Semibold',
+    }
 }
 
 ".content": {

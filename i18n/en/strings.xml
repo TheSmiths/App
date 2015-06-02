@@ -62,7 +62,7 @@
     <string name="profiles.empty">There are currently no profiles, create a profile using the 'new profile' button.</string>
     <string name="profiles.surveyTitle">Select your profile</string>
     <!-- New Profile -->
-    <string name="profiles.profileDetails.title">Create Profile</string>
+    <string name="profiles.profileDetails.title">Create New Profile</string>
     <string name="profiles.profileDetails.spotterError">Please provide your name.</string>
     <string name="profiles.profileDetails.close">Close</string>
     <string name="profiles.profileDetails.spotter">Name</string>

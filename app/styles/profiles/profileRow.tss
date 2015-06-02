@@ -6,30 +6,30 @@
 }
 
 ".profileContainer": {
-    top: 5,
+    top: 10,
     bottom: 0,
-    left: 5,
-    right: 5,
-    height: 65,
+    left: 15,
+    right: 15,
+    height: 55,
     backgroundColor: '#fff'
 }
 
 "#user": {
     top: 13,
     left: 15,
-    color: Alloy.CFG.design.colors.darkBlue,
+    color: "#262626",
     font: {
-        fontWeight: 'bold',
-        fontSize: 12
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 11
     }
 }
 
 "#userInfo": {
-    top: 37,
+    top: 32,
     left: 15,
     color: '#000',
     font: {
-        fontWeight: 'normal',
+        fontFamily: 'ProximaNova-Regular',
         fontSize: 11
     }
 }

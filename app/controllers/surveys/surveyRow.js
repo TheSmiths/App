@@ -6,8 +6,6 @@ _.extend($, {
      */
     construct: function(config) {
         var settings = Ti.App.Properties.getObject('app-survey-settings');
-        console.log('***** settings.unit', settings.unit);
-
         var eventType = config.model.get('type');
         var eventData = JSON.parse(config.model.get('data'));
         var surveyData = require('survey').activeSurvey();
@@ -71,7 +69,7 @@ function displaySighting (eventData, surveyData) {
     $.eventTime.text = ((eventData.eventTime - surveyData.startTime) / 60000).toFixed(1) ;
     $.eventInformationTitle.text = eventData.sightingType === 0 ? L('surveys.survey.event.sightingTitle') : L('surveys.survey.event.sightingMultiTitle');
     var settings = Ti.App.Properties.getObject('app-survey-settings');
-    var unitType  = settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
+    var unitType  = settings && settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
     var totalTime = ((eventData.endTime - eventData.startTime) / 1000).toFixed(2);
     var materialText = require('data/material')[eventData.material].valueLabel;
     var dimensionText = require('data/dimension')[unitType][eventData.dimension];

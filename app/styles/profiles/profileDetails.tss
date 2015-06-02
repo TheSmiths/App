@@ -1,7 +1,8 @@
 ".headerTitle": {
     text: L('profiles.profileDetails.title'),
-    top: 30,
+    top: 35,
     font: {
+        fontFamily: 'ProximaNova-Semibold',
         fontWeight: 'bold',
     },
     color: Alloy.CFG.design.header.fontColor
@@ -25,7 +26,7 @@
 }
 
 "ScrollView": {
-    top: 60,
+    top: 70,
     layout: 'vertical',
 }
 
@@ -43,16 +44,21 @@
 
 ".input": {
     top: 20,
-    height: 40
+    height: 40,
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 14
+    }
 }
 
 ".spotterLabel": {
     text: L('profiles.profileDetails.spotter'),
     top: 3,
-    left: 0,
+    left: 1,
     height: Ti.UI.SIZE,
     font: {
-        fontSize: 12
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 13
     }
 }
 
@@ -73,7 +79,7 @@
     text: L('profiles.profileDetails.spotterError'),
     height: Ti.UI.SIZE,
     font: {
-        fontSize: 12
+        fontSize: 13
     },
     color: '#fff',
     textAlign: 'center'
@@ -96,7 +102,8 @@
     top: 0,
     left: 0,
     font: {
-        fontSize: 12
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 13,
     }
 }
 
@@ -105,8 +112,8 @@
     top: 0,
     text: '0 meter',
     font: {
-        fontSize: 12,
-        fontWeight: 'bold'
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 13,
     }
 }
 
@@ -126,7 +133,8 @@
     left: 0,
     height: Ti.UI.SIZE,
     font: {
-        fontSize: 12
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 13,
     }
 }
 
@@ -143,6 +151,10 @@
 // Buttons
 
 "#saveProfile": {
+    top: 10,
+    backgroundColor: '#01CBE1',
+    color: '#fff',
+    borderColor: 'transparent',
     text: L('profiles.profileDetails.save'),
     textAlign: 'center'
 }
@@ -151,7 +163,8 @@
     top: 10,
     text: L('profiles.profileDetails.delete'),
     textAlign: 'center',
-    borderColor: Alloy.CFG.design.colors.error,
-    color: Alloy.CFG.design.colors.error,
+    borderColor: 'transparent',
+    color: '#fff',
+    backgroundColor: Alloy.CFG.design.colors.error,
     visible: false
 }

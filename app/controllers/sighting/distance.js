@@ -21,7 +21,7 @@ _.extend($, {
     construct: function(config) {
         sightingType = config.sightingType;
         var settings = Ti.App.Properties.getObject('app-survey-settings');
-        var unitType  = settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
+        var unitType  = settings && settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
         $.grid.setData(require('data/distance')[unitType]);
         require('windowManager').openWinWithBack($.getView());
 

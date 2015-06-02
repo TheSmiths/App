@@ -6,8 +6,7 @@
     text: L('surveys.windspeed.title'),
     top: 26,
     font: {
-        fontFamily: 'ProximaNova-Regular',
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-Semibold',
         fontSize: 15
     },
     color: Alloy.CFG.design.header.fontColor
@@ -22,7 +21,6 @@
         fontWeight: 'bold'
     },
     color: Alloy.CFG.design.header.fontColor,
-    opacity: 1
 }
 
 ".content": {

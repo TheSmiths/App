@@ -10,7 +10,8 @@
 ".buttonLabel": {
     font: {
         fontSize: 15,
-        fontWeight: "normal"
+        fontWeight: "normal",
+        fontFamily: 'ProximaNova-Semibold',
     },
     color: '#078D9C',
     left: 15,

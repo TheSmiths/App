@@ -41,7 +41,7 @@ function doClickMenu (evt) {
     var buttonClick = _.throttle(function buttonClick () {
         $.menuIcon.opacity = 0.6;
         setTimeout(function () { $.menuIcon.opacity = 1; }, 350);
-        Alloy.Globals.drawer.toggleLeftWindow();
+        Alloy.Globals.drawer.presentLeftMenuViewController()
         var menuState = menuManager.updateStatus();
         if (menuState === 'open') {
             setCloseIcon();

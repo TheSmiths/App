@@ -1,14 +1,14 @@
 <Alloy>
-    <Widget id="drawer" src="nl.fokkezb.drawer">
+    <Widget id="drawer" src="de.marcelpociot.alloysidemenu">
 
-        <NavigationWindow id="navigationWindow" platform="ios" role="centerWindow">
+        <Require src="menu" id="menu" />
+
+        <NavigationWindow id="navigationWindow" platform="ios" role="contentView">
             <Require src="surveys" />
         </NavigationWindow>
 
         <View platform="android" role="centerWindow">
             <Require src="surveys" />
         </View>
-
-        <Require src="menu" id="menu" />
     </Widget>
 </Alloy>

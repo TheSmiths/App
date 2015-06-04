@@ -1,29 +1,31 @@
 <Alloy>
-	<Window role="leftWindow">
+	<Window role="leftMenuView">
         <ScrollView>
-            <View class="menuItem" id="menuItemSurveys" onClick="onClickSurveys">
-                <ImageView class="menuIcon" id="menuIconSurveys" />
-                <Label class="menuItemLabel" id="menuSurveys" />
-            </View>
+            <View class="menu">
+                <View class="menuItem" id="menuItemSurveys" onClick="onClickSurveys">
+                    <ImageView class="menuIcon" id="menuIconSurveys" />
+                    <Label class="menuItemLabel" id="menuSurveys" />
+                </View>
 
-            <View class="menuItem" id="menuItemProfiles" onClick="onClickProfiles">
-                <ImageView class="menuIcon" id="menuIconProfiles" />
-                <Label class="menuItemLabel" id="menuProfiles" />
-            </View>
+                <View class="menuItem" id="menuItemProfiles" onClick="onClickProfiles">
+                    <ImageView class="menuIcon" id="menuIconProfiles" />
+                    <Label class="menuItemLabel" id="menuProfiles" />
+                </View>
 
-            <View class="menuItem" id="menuItemGuide" onClick="onClickGuide">
-                <ImageView class="menuIcon" id="menuIconGuide" />
-                <Label class="menuItemLabel" id="menuGuide" />
-            </View>
+                <View class="menuItem" id="menuItemGuide" onClick="onClickGuide">
+                    <ImageView class="menuIcon" id="menuIconGuide" />
+                    <Label class="menuItemLabel" id="menuGuide" />
+                </View>
 
-            <View class="menuItem" id="menuItemSettings" onClick="onClickSettings">
-                <ImageView class="menuIcon" id="menuIconSettings" />
-                <Label class="menuItemLabel" id="menuSettings" />
-            </View>
+                <View class="menuItem" id="menuItemSettings" onClick="onClickSettings">
+                    <ImageView class="menuIcon" id="menuIconSettings" />
+                    <Label class="menuItemLabel" id="menuSettings" />
+                </View>
 
-            <View class="menuItem" id="menuItemMore" onClick="onClickMore">
-                <ImageView class="menuIcon" id="menuIconMore" />
-                <Label class="menuItemLabel" id="menuMore" />
+                <View class="menuItem" id="menuItemMore" onClick="onClickMore">
+                    <ImageView class="menuIcon" id="menuIconMore" />
+                    <Label class="menuItemLabel" id="menuMore" />
+                </View>
             </View>
         </ScrollView>
 

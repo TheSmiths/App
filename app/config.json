@@ -1,10 +1,11 @@
 {
-    "global": {
-        "theme": "default",
-        "surveyDuration": "30",
-        "intervalDuration": "5"
-    },
-    "dependencies": {
-        "nl.fokkezb.drawer": "*"
-    }
+  "global": {
+    "theme": "default",
+    "surveyDuration": "30",
+    "intervalDuration": "5"
+  },
+  "dependencies": {
+    "nl.fokkezb.drawer": "*",
+    "de.marcelpociot.alloysidemenu": "1.0.2"
+  }
 }

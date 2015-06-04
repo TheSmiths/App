@@ -3,8 +3,12 @@
 }
 
 "#drawer": {
-    openDrawerGestureMode: "OPEN_MODE_MARGIN",
-    closeDrawerGestureMode: "CLOSE_MODE_ALL",
-    leftDrawerWidth: 240
+    contentViewScaleValue: 0.8,
+    scaleContentView: true,
+    panGestureEnabled: false,
+    scaleBackgroundImageView: false,
+    scaleMenuView: true,
+    parallaxEnabled: false,
+    panFromEdge: true
 }
 

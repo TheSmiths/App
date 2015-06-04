@@ -1,10 +1,10 @@
 "Window": {
-    backgroundColor: '#008A99'
+    backgroundColor: '#01CBE1'
 }
 
-"ScrollView": {
-    layout: 'vertical',
-    top: 20
+".menu": {
+    height: Ti.UI.SIZE,
+    layout: 'vertical'
 }
 
 "ScrollView[platform=android]": {
@@ -29,14 +29,22 @@
 
 "#menuSurveys": {
     text: L('menu.surveys'),
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 17
+    }
 }
 
 "#menuIconSurveys": {
-    image: '/images/navigation/surveys.png'
+    image: '/images/navigation/surveys.png',
 }
 
 "#menuProfiles": {
     text: L('menu.profiles'),
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 17
+    }
 }
 
 "#menuIconProfiles": {
@@ -45,6 +53,10 @@
 
 "#menuGuide": {
     text: L('menu.guide'),
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 17
+    }
 }
 
 "#menuIconGuide": {
@@ -53,6 +65,10 @@
 
 "#menuSettings": {
     text: L('menu.settings'),
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 17
+    }
 }
 
 "#menuIconSettings": {
@@ -61,6 +77,10 @@
 
 "#menuMore": {
     text: L('menu.more'),
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 17
+    }
 }
 
 "#menuIconMore": {
@@ -74,7 +94,8 @@
 
 "#versionLabel": {
     font: {
-        fontSize: '11'
+        fontSize: '12',
+        fontFamily: 'ProximaNova-Regular'
     },
     color: '#fff'
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.theoceancleanup.surveyapp</id>
     <name>TheOceanCleanup</name>
-    <version>0.11</version>
+    <version>0.12</version>
     <publisher>Harrie Pieters</publisher>
     <url>http://www.theoceancleanup.com</url>
     <description/>
@@ -59,10 +59,11 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-       <module platform="iphone">dk.napp.drawer</module>
-       <module platform="iphone">com.apaladini.statusbar</module>
-       <module platform="iphone">ti.mely</module>
-    </modules>
+    <module platform="iphone">dk.napp.drawer</module>
+    <module platform="iphone">com.apaladini.statusbar</module>
+    <module platform="iphone">ti.mely</module>
+    <module platform="iphone" version="2.2">de.marcelpociot.sidemenu</module>
+  </modules>
         <deployment-targets>
             <target device="android">true</target>
             <target device="blackberry">false</target>

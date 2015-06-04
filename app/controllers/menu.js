@@ -41,7 +41,7 @@ function onClickSurveys (evt) {
     if (activeItem !== 'menuItemSurveys') {
         var surveys = Alloy.createController('surveys').getView();
         Alloy.Globals.navigationWindow.openWindow(surveys, {animated: false});
-        Alloy.Globals.drawer.toggleLeftWindow();
+        Alloy.Globals.drawer.hideMenuViewController();
         activateItem('menuItemSurveys');
     }
 }
@@ -55,7 +55,7 @@ function onClickProfiles (evt) {
     if (activeItem !== 'menuItemProfiles') {
         var profiles = Alloy.createController('profiles', { flow: 'NONE'}).getView();
         Alloy.Globals.navigationWindow.openWindow(profiles, {animated: false});
-        Alloy.Globals.drawer.toggleLeftWindow();
+        Alloy.Globals.drawer.hideMenuViewController();
         activateItem('menuItemProfiles');
     }
 }
@@ -69,7 +69,7 @@ function onClickGuide (evt) {
     if (activeItem !== 'menuItemGuide') {
         var guide = Alloy.createController('guide').getView();
         Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
-        Alloy.Globals.drawer.toggleLeftWindow();
+        Alloy.Globals.drawer.hideMenuViewController();
         activateItem('menuItemGuide');
     }
 }
@@ -83,7 +83,7 @@ function onClickSettings (evt) {
     if (activeItem !== 'menuItemSettings') {
         var settings = Alloy.createController('settings').getView();
         Alloy.Globals.navigationWindow.openWindow(settings, {animated: false});
-        Alloy.Globals.drawer.toggleLeftWindow();
+        Alloy.Globals.drawer.hideMenuViewController();
         activateItem('menuItemSettings');
     }
 }
@@ -97,7 +97,7 @@ function onClickMore (evt) {
     if (activeItem !== 'menuItemMore') {
         var more = Alloy.createController('more').getView();
         Alloy.Globals.navigationWindow.openWindow(more, {animated: false});
-        Alloy.Globals.drawer.toggleLeftWindow();
+        Alloy.Globals.drawer.hideMenuViewController();
         activateItem('menuItemMore');
     }
 }
@@ -109,7 +109,7 @@ function onClickMore (evt) {
  */
 function activateItem (menuItem) {
     $[activeItem].backgroundColor = 'transparent';
-    $[menuItem].backgroundColor = '#006A76';
+    $[menuItem].backgroundColor = '#00B4C7';
     activeItem = menuItem;
 }
 

@@ -3,7 +3,7 @@ var dimensionData = module.exports =  {
         {
             id: 0,
             icon: '/images/icons/material/plastic.png',
-            valueLabel: '0 - 10',
+            valueLabel: '1 - 10',
             captionLabel: 'CM',
             type: 'large'
         },
@@ -17,7 +17,7 @@ var dimensionData = module.exports =  {
         {
             id: 2,
             icon: '/images/icons/material/glass.png',
-            valueLabel: '0 - 10',
+            valueLabel: '1 - 10',
             captionLabel: 'Meter',
             type: 'large'
         },
@@ -33,7 +33,7 @@ var dimensionData = module.exports =  {
         {
             id: 0,
             icon: '/images/icons/material/plastic.png',
-            valueLabel: '0 - 4',
+            valueLabel: '0.5 - 4',
             captionLabel:'Inch',
             type: 'large'
         },
@@ -47,7 +47,7 @@ var dimensionData = module.exports =  {
         {
             id: 2,
             icon: '/images/icons/material/glass.png',
-            valueLabel: '0 - 11',
+            valueLabel: '1 - 11',
             captionLabel: 'Yards',
             type: 'large'
         },

@@ -25,7 +25,6 @@ var state = 'PREACTIVE';
 var startedFromRoot = false;
 
 // constants
-var TRACKLOCATIONTIME = settings ? ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) : (Alloy.CFG.surveyDuration * 60 - Alloy.CFG.intervalDuration * 60);
 var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.intervalDuration * 60;
 
 // Collections
@@ -55,6 +54,15 @@ _.extend($, {
 
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);
+
+        var TRACKLOCATIONTIME = settings ? ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) : (Alloy.CFG.surveyDuration * 60 - Alloy.CFG.intervalDuration * 60);
+        setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
+
+        // Listen to event
+        if (OS_IOS) {
+            Ti.App.addEventListener('pause', pauseSurvey);
+            Ti.App.addEventListener('resume', continueSurvey);
+        }
     },
 
     /**
@@ -63,6 +71,11 @@ _.extend($, {
      */
     destruct: function() {
         dispatcher.off('surveyUpdate', renderSurveyTimeline);
+
+        if (OS_IOS) {
+            Ti.App.removeEventListener('pause', pauseSurvey);
+            Ti.App.removeEventListener('resume', continueSurvey);
+        }
     }
 });
 
@@ -235,12 +248,15 @@ function updateTime () {
     }
 
     var remainingSeconds = remainder / 1000;
+    // Retreive the Tracklocation time from memory as it might have been changed by the background service
+    var TRACKLOCATIONTIME = Ti.App.Properties.getString('app-survey-trackLocationTime');
 
-    console.log('***** Remaining seconds', remainingSeconds);
     // Track location
     if (remainingSeconds < TRACKLOCATIONTIME && TRACKLOCATIONTIME > 0) {
         survey.trackLocation();
         TRACKLOCATIONTIME = TRACKLOCATIONTIME - TRACKTIMEINTERVAL;
+        // Update value for background Service.
+        setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
     }
 
     var remainingMinutes = remainingSeconds / 60;
@@ -251,6 +267,8 @@ function updateTime () {
     $.surveyTimer.text = minutes + ':' + seconds;
     timer = setTimeout(function () { updateTime(); }, 50);
 }
+
+
 
 
 /**
@@ -335,4 +353,30 @@ function renderSurveyTimeline () {
             log.info('[surveys/survey] collection, response', response);
         }
     });
+}
+
+/**
+ * @method setTrackLocationTimeForBackground
+ * Set the trackLocationTime in variable to be used in background service
+ * @param {String} trackLocationTime
+ */
+function setTrackLocationTimeForBackground (trackLocationTime) {
+    Ti.App.Properties.setString('app-survey-trackLocationTime', trackLocationTime);
+}
+
+/**
+ * @method pauseSurvey
+ * Stop the survey if one is active
+ * @return {[type]} [description]
+ */
+function pauseSurvey () {
+    stopTime();
+}
+
+/**
+ * @method continueSurvey
+ * Continue survey
+ */
+function continueSurvey () {
+    activateSurvey(survey.activeSurvey());
 }

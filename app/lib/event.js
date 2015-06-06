@@ -3,6 +3,9 @@
  */
 var log = require('utils/log');
 
+var Alloy = require('alloy'),
+    _ = Alloy._;
+
 var activeEvent;
 
 var eventObject = module.exports = {

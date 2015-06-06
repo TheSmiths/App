@@ -4,7 +4,6 @@
 var log = require('utils/log');
 var events = require('event');
 var notifications = require('notifications');
-var dispatcher = require('dispatcher');
 
 // Internals
 var timer;
@@ -100,6 +99,10 @@ var surveyTimer = module.exports = {
         timing = true;
     },
 
+    /**
+     * @metho trackLocation
+     * @return {[type]} [description]
+     */
     trackLocation: function () {
         // Kill function if needed (if clearTimout failed for some reason)
         if (!timing) {
@@ -109,7 +112,7 @@ var surveyTimer = module.exports = {
         var location = require('utils/location').getCurrentLatLng(function (err, locationData) {
             events.saveSurveyTrackEvent({location: locationData});
             // Let the survey view know there is an update
-            dispatcher.trigger('surveyUpdate');
+            require('dispatcher').trigger('surveyUpdate');
         });
     },
 

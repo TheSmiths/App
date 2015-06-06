@@ -59,9 +59,6 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-    <module platform="iphone">dk.napp.drawer</module>
-    <module platform="iphone">com.apaladini.statusbar</module>
-    <module platform="iphone">ti.mely</module>
     <module platform="iphone" version="2.2">de.marcelpociot.sidemenu</module>
   </modules>
         <deployment-targets>

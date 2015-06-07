@@ -66,7 +66,29 @@ function doClickStartGuide () {
  * @todo: Implement feedback system
  */
 function onClickUploadButton () {
-    require('upload')();
+    require('upload')(function (err, success) {
+        if (err) {
+            showError(err);
+            return;
+        }
+
+        // Update the list
+        fetchSureveys();
+    });
+}
+
+
+function showError (errorMessage) {
+    var errorMessages = {
+        'NOINTERNET': L('upload.noInternet')
+    };
+
+    // Update the view, display the error and remove after set period
+    alert(L('upload.uploadedSurveys'));
+}
+
+function hideError () {
+
 }
 
 /**

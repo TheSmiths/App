@@ -1,3 +1,6 @@
+/**
+ * lib.controller
+ */
 var Alloy = require('alloy'),
     _ = Alloy._;
 

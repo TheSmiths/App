@@ -2,19 +2,22 @@
  * lib.upload
  */
 
+// Libraries
 var async = require('vendor/async');
 var log = require('utils/log');
 var notifications = require('notifications');
 
-
+// Collections
 var surveyCollection = Alloy.createCollection('Survey');
 var eventCollection = Alloy.createCollection('Event');
-var dispatcher = require('dispatcher');
+
+// Configuration
+var config = require('config');
 
 // Internals
 var uploadArray = [];
 
-module.exports = function () {
+module.exports = function (callback) {
     // Check if user is online
     // Retreive all surveys wich have not been uploaded
     // For each survey get all the events
@@ -23,59 +26,67 @@ module.exports = function () {
     // Send object through http request
 
     if (!Titanium.Network.online) {
-        alert(L('upload.noInternet'));
+        callback('NOINTERNET');
     }
 
     // Reset Array
     uploadArray = [];
 
+    // Fetch data required to send survey
     async.waterfall([
         fetchSurveys,
         fetchEventsPerSurvey
     ], function (err, result) {
         if (err) {
             if (err === "NOSURVEYS") {
+                // propangate error?
                 alert(L('upload.noUploadableSurveys'));
             }
             return;
         }
 
+        // Move url into configuration
         var url = "http://178.62.203.94:3000";
-        var client = Ti.Network.createHTTPClient({
-             // function called when the response data is available
-             onload : function(e) {
-                 Ti.API.info("Received text: " + this.responseText);
-                 alert('success');
-             },
-             // function called when an error occurs, including a timeout
-             onerror : function(e) {
-                 Ti.API.debug(e.error);
-                 alert('error');
-             },
-             timeout : 5000  // in milliseconds
-         });
+
 
         //client.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 
-
-        _.each(uploadArray, function (survey) {
-            //Up up and away
+        async.each(uploadArray, function (survey, callback) {
+            var client = Ti.Network.createHTTPClient({
+                 // function called when the response data is available
+                onload : function(e) {
+                    log.info('[upload] Successfully uploaded survey');
+                    // Get the upload
+                    var surveyModel = surveyCollection.get(survey.surveyId);
+                    surveyModel.set('uploaded', true);
+                    surveyModel.save();
+                    // Decrease the nr of notifications
+                    notifications.decrease(1);
+                    callback();
+                },
+                // function called when an error occurs, including a timeout
+                onerror : function(e) {
+                    // Check for error code to return appropriate error
+                    log.info('[upload] Failed to upload survey');
+                        callback(e.error);
+                    },
+                timeout : 50000
+            });
+            // Up up and away
             // Prepare the connection.
-            client.open("PUT", url);
-            // Send the request.
-            console.log('***** JSON.stringify(survey)', JSON.stringify(survey));
+            client.open("PUT", config.surveyUploadUrl);
             client.setRequestHeader("Content-Type", "text/plain");
+            // Send the request
             client.send(JSON.stringify(survey));
+            // Only upload code once sucessfull
 
-            var surveyModel = surveyCollection.get(survey.surveyId);
-            surveyModel.set('uploaded', true);
-            surveyModel.save();
-            // Decrease the nr of notifications
-            notifications.decrease(1);
+        }, function (err) {
+            if( err ) {
+                callback(err);
+            }
+
+            callback();
         });
-
-        dispatcher.trigger('survey:change');
-        alert(L('upload.uploadedSurveys'));
     });
 };
 
@@ -101,6 +112,7 @@ function fetchSurveys (callback) {
 
 /**
  * @method fetchEventsPerSurvey
+ * For each of the surveys in the collection fetch all events
  * @param  {Function} callback
  */
 function fetchEventsPerSurvey (callback) {
@@ -130,7 +142,9 @@ function fetchEventsPerSurvey (callback) {
                 callback(response);
             }
         });
+        // Survey is "constructed" push to the uploadArray
         uploadArray.push(surveyObject);
+        // Cleanup
         eventCollection.reset();
     });
 

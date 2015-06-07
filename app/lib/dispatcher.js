@@ -1,5 +1,5 @@
 /**
- * lib.libs.dispacher
+ * lib.dispacher
  *
  * Event dispatcher
  */

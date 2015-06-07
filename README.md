@@ -6,13 +6,17 @@ Welcome to the app repository for The Ocean Cleanup Visual Surveys. The goals of
 
 ## App
 
-In order to support the research this app, based on Appcelerator Titanium, will allow users to report sightings. Currently the app is under development, the initial release is planned for May.
+In order to support the research this app, based on Appcelerator Titanium, will allow users to report sightings. Currently the app is under development, the initial release is planned for June.
 
 ## Getting Started
 
 ### Quick start
 
 In order to build the project clone the project and read how to get started with Titanium on [http://docs.appcelerator.com/titanium/3.0/#!/guide/Quick_Start](http://docs.appcelerator.com/titanium/3.0/#!/guide/Quick_Start).
+
+### Configuration
+
+In order not to spill sensitive information all over the internet the config file is left blank, without it you will not be able to upload any surveys to the server. You can find the code for the server here and run it yourelf, or contact any of the contributors of this project with the request for the development and/or production configurations.
 
 ### Documentation
 

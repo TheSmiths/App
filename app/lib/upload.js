@@ -45,10 +45,6 @@ module.exports = function (callback) {
             return;
         }
 
-        // Move url into configuration
-        var url = "http://178.62.203.94:3000";
-
-
         //client.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 
         async.each(uploadArray, function (survey, callback) {

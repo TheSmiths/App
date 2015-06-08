@@ -73,23 +73,29 @@ function onClickUploadButton () {
         }
 
         // Update the list
+        alert(L('upload.uploadedSurveys'));
         fetchSureveys();
     });
 }
 
-
+/**
+ * @method showError
+ * Show error message to the user
+ * @param  {String} errorMessage Error message code as String
+ * @todo: Create nice inline error messages
+ */
 function showError (errorMessage) {
-    var errorMessages = {
-        'NOINTERNET': L('upload.noInternet')
-    };
+    if (errorMessage === 'NOINTERNET') {
+        return alert(L('upload.noInternet'));
+    }
 
-    // Update the view, display the error and remove after set period
-    alert(L('upload.uploadedSurveys'));
+    if (errorMessage === 'NOSURVEYS') {
+        return alert(L('upload.noUploadableSurveys'));
+    }
+    // Generic error
+    alert(L('upload.failed'));
 }
 
-function hideError () {
-
-}
 
 /**
  * @method  onAddSurvey

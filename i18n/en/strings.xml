@@ -136,6 +136,7 @@
     <string name="surveyDetails.title">Survey details</string>
 
     <string name="upload.noInternet">Could not upload surveys because the app is not connected to the internet. Please try again once your connection is established.</string>
-    <string name="upload.noUploadableSurveys">No surveys to upload :)</string>
+    <string name="upload.noUploadableSurveys">No surveys to upload.</string>
+    <string name="upload.failed">Failed to upload surveys. Please try again, and if it continues to fail contact The Ocean Cleanup.</string>
     <string name="upload.uploadedSurveys">Uploaded the surveys. Well it would if the server existed.</string>
 </resources>

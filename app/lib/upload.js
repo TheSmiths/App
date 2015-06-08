@@ -38,11 +38,7 @@ module.exports = function (callback) {
         fetchEventsPerSurvey
     ], function (err, result) {
         if (err) {
-            if (err === "NOSURVEYS") {
-                // propangate error?
-                alert(L('upload.noUploadableSurveys'));
-            }
-            return;
+            return callback(err);
         }
 
         //client.setRequestHeader("Content-Type", "application/json; charset=utf-8");

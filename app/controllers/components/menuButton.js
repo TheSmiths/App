@@ -4,9 +4,8 @@
  * @class Controllers.components.menuButton
  */
 var args = arguments[0];
-var menuManager = require('menuManager');
 var dispatcher = require('dispatcher');
-
+var menuState = 'CLOSED';
 // Pass through all the properties set on the button, except for meta data and text
 $.menuContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
 
@@ -41,12 +40,13 @@ function doClickMenu (evt) {
     var buttonClick = _.throttle(function buttonClick () {
         $.menuIcon.opacity = 0.6;
         setTimeout(function () { $.menuIcon.opacity = 1; }, 350);
-        Alloy.Globals.drawer.presentLeftMenuViewController()
-        var menuState = menuManager.updateStatus();
-        if (menuState === 'open') {
+        Alloy.Globals.drawer.presentLeftMenuViewController();
+        if (menuState === 'OPEN') {
             setCloseIcon();
+            menuState = 'CLOSED';
         } else {
             setMenuIcon();
+            menuState = 'OPEN';
         }
         $.trigger('click');
     }, 100);
@@ -62,7 +62,6 @@ function setCloseIcon (evt) {
     $.menuIcon.image = '/images/navigation/menuIconClose.png';
     $.menuIcon.width = 15;
     $.menuIcon.height = 15;
-    menuManager.setStatus('OPEN');
 }
 
 /**
@@ -73,7 +72,6 @@ function setMenuIcon (evt) {
     $.menuIcon.image = '/images/navigation/menuIcon.png';
     $.menuIcon.width = 19;
     $.menuIcon.height = 12;
-    menuManager.setStatus('CLOSED');
 }
 
 /**

@@ -74,7 +74,7 @@ function onClickUploadButton () {
 
         // Update the list
         alert(L('upload.uploadedSurveys'));
-        fetchSureveys();
+        fetchSurveys();
     });
 }
 

@@ -9,6 +9,7 @@ var dispatcher = require('dispatcher');
 
 // Internals
 var startedFromRoot = false;
+var lockedFlow = false;
 
 var flowLibrary = module.exports = {
     /**
@@ -17,6 +18,9 @@ var flowLibrary = module.exports = {
      * Handle startSurvey flow
      */
     preSurvey: function () {
+        if (lockedFlow) { return; }
+        lockFlow();
+
          // Start storing the event
         events.initSurveyEvent('startSurvey');
         // Check if there are profiles in order to determine which view to open
@@ -36,6 +40,9 @@ var flowLibrary = module.exports = {
      * @param  {Object} userData Data object containing `observerName` and `platformHeight`
      */
     saveProfile: function (userData) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         events.updateSurveyEventData('startSurvey', userData);
         survey.setUser(userData);
         Alloy.createController('surveys/windspeed');
@@ -46,6 +53,9 @@ var flowLibrary = module.exports = {
      * @param {Object} windspeed Windspeed category as int
      */
     saveWindspeed: function (state, windspeed) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         events.updateSurveyEventData('startSurvey', windspeed);
         Alloy.createController('surveys/cloudCover', { flow: state} );
     },
@@ -55,6 +65,9 @@ var flowLibrary = module.exports = {
      * @param {Object} cloudCover cloudCover category as int
      */
     saveCloudCover: function (state, cloudCover) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         events.updateSurveyEventData('startSurvey', cloudCover);
         Alloy.createController('surveys/survey');
     },
@@ -63,6 +76,9 @@ var flowLibrary = module.exports = {
      * Start tracking sighting, save current time and location in event data before initialiting flow
      */
     sighting: function () {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         Alloy.createController('sighting/sightingType');
     },
     /**
@@ -70,6 +86,9 @@ var flowLibrary = module.exports = {
      * Continue after sighting type
      */
     sightingType: function (sightingType) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         Alloy.createController('sighting/material', {sightingType: sightingType});
     },
     /**
@@ -78,6 +97,9 @@ var flowLibrary = module.exports = {
      * @param {Int} material Material category (to determine the debris type)
      */
     material: function (material, sightingType) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         if (sightingType === "SINGLE") {
             return Alloy.createController('sighting/category', {material: material, sightingType: sightingType});
         }
@@ -89,6 +111,9 @@ var flowLibrary = module.exports = {
      * Flow after finishing category
      */
     category: function (sightingType) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         Alloy.createController('sighting/dimension', {sightingType: sightingType});
     },
     /**
@@ -96,6 +121,9 @@ var flowLibrary = module.exports = {
      * Flow after finishing dimension
      */
     dimension: function (sightingType) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         Alloy.createController('sighting/distance', {sightingType: sightingType});
     },
     /**
@@ -103,6 +131,9 @@ var flowLibrary = module.exports = {
      * Flow after finishing distance
      */
     distance: function (sightingType) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         if (sightingType === "SINGLE") {
             return saveSighting(function () {
                 return require('windowManager').closeWin({animated: true});
@@ -116,23 +147,30 @@ var flowLibrary = module.exports = {
      * Comment after doing multi flow
      */
     multiComment: function () {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         saveSighting(function () {
             require('windowManager').closeWin({animated: true});
         });
     },
     /**
-     * [postSurvey description]
-     * @return {[type]} [description]
+     * @method postSurvey
      */
     postSurvey: function (startedFromRootBoolean) {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         startedFromRoot = startedFromRootBoolean;
         Alloy.createController('surveys/comment');
     },
     /**
-     * [comment description]
-     * @return {[type]} [description]
+     * @method comment
      */
     comment: function () {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         Alloy.createController('surveys/done');
     },
 
@@ -142,6 +180,9 @@ var flowLibrary = module.exports = {
      * @return {Function} [description]
      */
     done: function () {
+        if (lockedFlow) { return; }
+        lockFlow();
+
         require('windowManager').closeWin({animated: true});
 
         if (startedFromRoot) {
@@ -172,6 +213,18 @@ function saveSighting (callback) {
         // Continue flow
         callback();
     });
+}
+
+/**
+ * method lockFlow
+ * Disallow the flow, prevent opening to many windows, release after x time.
+ */
+function lockFlow () {
+    lockedFlow = true;
+
+    _.delay(function () {
+        lockedFlow = false;
+    }, 300);
 }
 
 

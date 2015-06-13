@@ -79,11 +79,16 @@ function saveProfile (evt) {
     var boat = $.boat.value.trim();
 
     // Reset validation
-    hideError();
+    hideErrors();
 
     // Validation
     if (profileName.length < 2) {
-        showError();
+        showError('name');
+        return;
+    }
+
+    if (boat.length < 2) {
+        showError('boat');
         return;
     }
 
@@ -162,14 +167,20 @@ function deleteProfile (evt) {
  * @method hideError
  * Set error container visibility to false, hiding the error
  */
-function hideError () {
+function hideErrors () {
     $.spotterErrorContainer.visible = false;
+    $.boatErrorContainer.visible = false;
 }
 
 /**
  * @method showError
  * Set error container visibility to true, showing the error
+ * @param  [String} errorType
  */
-function showError () {
-    $.spotterErrorContainer.visible = true;
+function showError (errorType) {
+    if (errorType === 'name') {
+        return $.spotterErrorContainer.visible = true;
+    }
+
+    $.boatErrorContainer.visible = true;
 }

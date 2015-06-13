@@ -64,10 +64,11 @@
     <!-- New Profile -->
     <string name="profiles.profileDetails.title">Create New Profile</string>
     <string name="profiles.profileDetails.spotterError">Please provide your name.</string>
+    <string name="profiles.profileDetails.boatError">Please provide your boatname.</string>
     <string name="profiles.profileDetails.close">Close</string>
     <string name="profiles.profileDetails.spotter">Name</string>
     <string name="profiles.profileDetails.platformHeight">Platform height</string>
-    <string name="profiles.profileDetails.boat">Boatname (optional)</string>
+    <string name="profiles.profileDetails.boat">Boatname</string>
     <string name="profiles.profileDetails.save">Save Profile</string>
     <string name="profiles.profileDetails.edit">Edit Profile</string>
     <string name="profiles.profileDetails.delete">Delete Profile</string>
@@ -138,5 +139,5 @@
     <string name="upload.noInternet">Could not upload surveys because the app is not connected to the internet. Please try again once your connection is established.</string>
     <string name="upload.noUploadableSurveys">No surveys to upload.</string>
     <string name="upload.failed">Failed to upload surveys. Please try again, and if it continues to fail contact The Ocean Cleanup.</string>
-    <string name="upload.uploadedSurveys">Uploaded the surveys. Well it would if the server existed.</string>
+    <string name="upload.uploadedSurveys">Uploaded all of your surveys. Great job!</string>
 </resources>

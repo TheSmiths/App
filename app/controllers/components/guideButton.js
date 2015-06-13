@@ -32,8 +32,8 @@ function onClickGuideButton (evt) {
     }
 
     var buttonClick = _.throttle(function buttonClick () {
-        $.menuIcon.opacity = 0.6;
-        setTimeout(function () { $.menuIcon.opacity = 1; }, 350);
+        $.guideButtonContainer.opacity = 0.6;
+        setTimeout(function () { $.guideButtonContainer.opacity = 1; }, 350);
         Alloy.Globals.drawer.presentLeftMenuViewController();
         Alloy.createController('guide/guideDetail', { dialog: true, guideIndex: topics[topic] });
     }, 100);

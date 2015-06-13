@@ -10,7 +10,7 @@ $.closeButtonContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__i
 
 function onClickCloseButton () {
     var buttonClick = _.throttle(function buttonClick () {
-        $.button.opacity = 0.6;
+        $.closeButtonContainer.opacity = 0.6;
         _.delay(function () { $.closeButtonContainer.opacity = 1; }, 300);
         $.trigger('click');
     }, 200);

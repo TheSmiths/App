@@ -21,6 +21,9 @@
             </View>
             <View class="formRow">
                 <Label class="boatLabel" />
+                <View id="boatErrorContainer">
+                    <Label class="boatErrorLabel" />
+                </View>
                 <TextField id="boat" class="input" />
             </View>
             <Require src="components/button" id="saveProfile" onClick="saveProfile" />

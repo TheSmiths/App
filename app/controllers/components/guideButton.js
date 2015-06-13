@@ -1,13 +1,14 @@
 /**
  * Controller for the guide button componenent
  *
- * @class Controllers.components.menuButton
+ * @class Controllers.components.guideButton
  */
 var args = arguments[0] || {};
 
 // Pass through all the properties set on the button, except for meta data and text
 $.guideButtonContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
 
+// Topics correlate to the data/guide content
 var topics = {
     'windspeed': 0,
     'cloudCover': 0,
@@ -18,7 +19,6 @@ var topics = {
     'distance': 0,
     'profile': 2
 };
-
 
 /**
  * @method onClickGuideButton
@@ -31,5 +31,12 @@ function onClickGuideButton (evt) {
         return;
     }
 
-    Alloy.createController('guide/guideDetail', { dialog: true, guideIndex: topics[topic] });
+    var buttonClick = _.throttle(function buttonClick () {
+        $.menuIcon.opacity = 0.6;
+        setTimeout(function () { $.menuIcon.opacity = 1; }, 350);
+        Alloy.Globals.drawer.presentLeftMenuViewController();
+        Alloy.createController('guide/guideDetail', { dialog: true, guideIndex: topics[topic] });
+    }, 100);
+
+    buttonClick();
 }

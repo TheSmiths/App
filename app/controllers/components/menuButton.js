@@ -5,7 +5,7 @@
  */
 var args = arguments[0];
 var dispatcher = require('dispatcher');
-var menuState = 'CLOSED';
+
 // Pass through all the properties set on the button, except for meta data and text
 $.menuContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
 
@@ -41,13 +41,6 @@ function doClickMenu (evt) {
         $.menuIcon.opacity = 0.6;
         setTimeout(function () { $.menuIcon.opacity = 1; }, 350);
         Alloy.Globals.drawer.presentLeftMenuViewController();
-        if (menuState === 'OPEN') {
-            setCloseIcon();
-            menuState = 'CLOSED';
-        } else {
-            setMenuIcon();
-            menuState = 'OPEN';
-        }
         $.trigger('click');
     }, 100);
 

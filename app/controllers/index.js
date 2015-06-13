@@ -43,11 +43,11 @@ _.extend($, {
 
         $.drawer.open();
 
-        $.drawer.addEventListener('windowDidOpen', function (evt) {
+        $.drawer.addEventListener('willShowMenuViewController', function (evt) {
             dispatcher.trigger('menuDidOpen');
         });
 
-        $.drawer.addEventListener('windowDidClose', function (evt) {
+        $.drawer.addEventListener('willHideMenuViewController', function (evt) {
             dispatcher.trigger('menuDidClose');
         });
     },

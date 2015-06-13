@@ -9,18 +9,21 @@ var args = arguments[0];
 $.closeButtonContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
 
 function onClickCloseButton () {
-    // @todo debounce / throttle
-    $.trigger('click');
+    var buttonClick = _.throttle(function buttonClick () {
+        $.button.opacity = 0.6;
+        _.delay(function () { $.closeButtonContainer.opacity = 1; }, 300);
+        $.trigger('click');
+    }, 200);
+
+    buttonClick();
 }
 
 /**
- * [hide description]
- * @return {[type]} [description]
+ * @method show
+ * @public
+ * Allow dynamic visibilty change on runtime
  */
-function show () {
+exports.show = function () {
     $.closeButtonContainer.visible = true;
 }
-
-// Export fetchProfiles
-exports.show = show;
 

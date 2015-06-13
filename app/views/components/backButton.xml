@@ -1,5 +1,5 @@
 <Alloy>
-    <View class="backButtonContainer" onClick="onClickBackButton">
+    <View id="backButtonContainer" class="backButtonContainer" onClick="onClickBackButton">
         <ImageView class="backButton" />
     </View>
 </Alloy>

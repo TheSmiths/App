@@ -7,7 +7,7 @@
     top: 26,
     font: {
         fontFamily: 'ProximaNova-Semibold',
-        fontSize: 15
+        fontSize: 17
     },
     color: Alloy.CFG.design.header.fontColor
 }
@@ -17,8 +17,7 @@
     top: 45,
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 11,
-        fontWeight: 'bold'
+        fontSize: 12,
     },
     color: Alloy.CFG.design.header.fontColor,
 }
@@ -31,7 +30,9 @@
 ".commentContainer": {
     left: 15,
     right: 15,
-    top: 20,
+    top: 15,
+    bottom: 15,
+    backgroundColor: '#fff',
     layout: 'vertical',
     height: Ti.UI.SIZE,
 }
@@ -40,14 +41,22 @@
     top: 0,
     backgroundColor: '#EAEAEA',
     paddingLeft: 10,
-    width: '100%',
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 12,
+    },
+    left: 15,
+    right: 15,
+    top: 15,
     height: 200
 }
 
 "#postComment": {
-    top: 20,
+    top: 15,
     text: L('surveys.comment.postComment'),
+    backgroundColor: '#01CBE1',
+    color: '#fff',
+    borderColor: 'transparent',
     textAlign: 'center',
-    left: 0,
-    right: 0
+    bottom: 15
 }

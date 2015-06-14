@@ -1,64 +1,68 @@
-".header": {
-    height: 60,
-    backgroundColor: Alloy.CFG.design.header.backgroundColor,
-    top: 0
-}
-
 ".headerTitle": {
     text: L('surveys.done.title'),
     top: 26,
     font: {
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 17
     },
     color: Alloy.CFG.design.header.fontColor
 }
 
 ".headerSubTitle": {
     text: L('surveys.done.subTitle'),
-    top: 42,
+    top: 45,
     font: {
-        fontSize: 10,
-        fontWeight: 'bold'
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 12,
     },
     color: Alloy.CFG.design.header.fontColor,
-    opacity: 0.6
 }
 
 ".content": {
-    top: 60,
-    height: Ti.UI.SIZE,
+    top: 70,
+    backgroundColor: '#EDEDED'
 }
 
 ".contentContainer": {
     left: 15,
     right: 15,
-    layout: 'vertical'
+    top: 15,
+    bottom: 15,
+    layout: 'vertical',
+    backgroundColor: '#fff',
+    height: Ti.UI.SIZE
 }
 
 ".title": {
     top: 20,
+    left: 15,
+    right: 15,
     text: L('surveys.done.paragraphTitle'),
     font: {
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-SemiBold',
+        fontSize: 15,
     },
-    left: 0
 }
 
 ".paragraph": {
     text: L('surveys.done.paragraph'),
     font: {
-        fontSize: 12,
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 14,
     },
-    top: 10
+    top: 10,
+    left: 15,
+    right: 15,
 }
 
 "#doneButton": {
     top: 20,
     text: L('surveys.done.continue'),
+    backgroundColor: '#01CBE1',
+    color: '#fff',
+    borderColor: 'transparent',
     textAlign: 'center',
-    left: 0,
-    right: 0
+    bottom: 15
 }
 
 

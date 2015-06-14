@@ -7,8 +7,8 @@
     text: L('surveys.survey.title'),
     top: 31,
     font: {
-         fontFamily: 'ProximaNova-Semibold',
-
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 17
     },
     color: Alloy.CFG.design.header.fontColor
 }

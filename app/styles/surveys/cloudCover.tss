@@ -8,7 +8,7 @@
     font: {
         fontFamily: 'ProximaNova-Regular',
         fontWeight: 'bold',
-        fontSize: 15
+        fontSize: 17
     },
     color: Alloy.CFG.design.header.fontColor
 }
@@ -18,7 +18,7 @@
     top: 45,
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: 'bold'
     },
     color: Alloy.CFG.design.header.fontColor,

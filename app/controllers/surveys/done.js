@@ -25,19 +25,6 @@ _.extend($, {
     construct: function(config) {
         require('windowManager').openWinWithBack($.getView());
         // @todo build in auto upload so we don't set the notification unintended.
-        notifications.increase(1);
-        // Lets Update the user
-        var activeProfile = survey.getUser();
-        profiles.fetch();
-        var activeProfileModel = profiles.get(activeProfile.id);
-        var numberOfSurveys = activeProfileModel.get('surveys') + 1;
-        activeProfileModel.set('surveys', numberOfSurveys);
-        activeProfileModel.save();
-        dispatcher.trigger('profile:change');
-        // Remove any reference to the survey
-        require('survey').destroySurvey();
-        // Trigger a update
-        dispatcher.trigger('survey:change');
     },
 
     /**
@@ -62,5 +49,18 @@ function onClickBackButton () {
  * Handle `click` on done butto
  */
 function doClickDone () {
+    notifications.increase(1);
+    // Lets Update the user
+    var activeProfile = survey.getUser();
+    profiles.fetch();
+    var activeProfileModel = profiles.get(activeProfile.id);
+    var numberOfSurveys = activeProfileModel.get('surveys') + 1;
+    activeProfileModel.set('surveys', numberOfSurveys);
+    activeProfileModel.save();
+    dispatcher.trigger('profile:change');
+    // Remove any reference to the survey
+    require('survey').destroySurvey();
+    // Trigger a update
+    dispatcher.trigger('survey:change');
     require('flow').done();
 }

@@ -36,10 +36,12 @@ _.extend($, {
         unitSetting = settings && settings.unit ? settings.unit : unitSetting;
         setUnit(unitSetting);
 
-
         if (!Alloy.CFG.developmentVersion) {
             return;
         }
+
+        $.testOptions.height = Ti.UI.SIZE;
+        $.testOptions.visible = true;
 
         if (!settings) {
             return;
@@ -48,8 +50,7 @@ _.extend($, {
         // Set test settings
         $.surveyDuration.value = settings.surveyDuration;
         $.trackingInterval.value = settings.trackingInterval;
-        $.testOptions.height = Ti.UI.SIZE;
-        $.testOptions.visible = true;
+
     },
 
     /**

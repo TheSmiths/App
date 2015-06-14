@@ -60,6 +60,8 @@
     textAlign: 'center'
 }
 
+
+
 // Profile
 
 "#profilesTableView": {

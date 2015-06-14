@@ -19,6 +19,10 @@ _.extend($, {
             $.gridIconContainer.width = '100%';
         }
 
+        if (!dataObject.captionLabel) {
+            $.value.top = 37;
+        }
+
         // Populate the view using the data
         $.value.text = dataObject.valueLabel;
         $.caption.text = dataObject.captionLabel;

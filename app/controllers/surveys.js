@@ -181,9 +181,12 @@ function fetchSurveys () {
 function addedSurvey () {
     fetchSurveys();
 
-    if (Titanium.Network.online) {
-        onClickUploadButton();
-    }
+    _.delay(function () {
+        if (Titanium.Network.online) {
+            onClickUploadButton();
+        }
+    }, 2000);
+
 }
 
 /**

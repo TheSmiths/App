@@ -97,10 +97,9 @@ var flowLibrary = module.exports = {
      * @param {Int} material Material category (to determine the debris type)
      */
     material: function (material, sightingType) {
-        if (lockedFlow) { return; }
-        lockFlow();
-
         if (sightingType === "SINGLE") {
+            if (lockedFlow) { return; }
+            lockFlow();
             return Alloy.createController('sighting/category', {material: material, sightingType: sightingType});
         }
 

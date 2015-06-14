@@ -34,28 +34,28 @@ var distanceData = module.exports =  {
         {
             id: 0,
             icon: '/images/icons/material/plastic.png',
-            valueLabel: '0 - 11',
-            captionLabel: 'Yards',
+            valueLabel: '0 - 33',
+            captionLabel: 'Feet',
             type: 'large'
         },
         {
             id: 1,
             icon: '/images/icons/material/foam.png',
-            valueLabel: '11 - 55',
-            captionLabel: 'Yards',
+            valueLabel: '33 - 164',
+            captionLabel: 'Feet',
             type: 'large'
         },
         {
             id: 2,
             icon: '/images/icons/material/glass.png',
-            valueLabel: '55 - 110',
+            valueLabel: '164 - 328',
             captionLabel: 'Yards',
             type: 'large'
         },
         {
             id: 3,
             icon: '/images/icons/material/metal.png',
-            valueLabel: '110+',
+            valueLabel: '328+',
             captionLabel: 'Yards',
             type: 'large'
         }

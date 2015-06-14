@@ -47,15 +47,15 @@ var dimensionData = module.exports =  {
         {
             id: 2,
             icon: '/images/icons/material/glass.png',
-            valueLabel: '1 - 11',
-            captionLabel: 'Yards',
+            valueLabel: '3.3 - 33',
+            captionLabel: 'Feet',
             type: 'large'
         },
         {
             id: 3,
             icon: '/images/icons/material/metal.png',
-            valueLabel: '11+',
-            captionLabel: 'Yards',
+            valueLabel: '33+',
+            captionLabel: 'Feet',
             type: 'large'
         }
     ]

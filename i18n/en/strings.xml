@@ -114,7 +114,7 @@
     <string name="settings.unitMetric">Metric system</string>
     <string name="settings.unitMetricCaption">(centi)meter</string>
     <string name="settings.unitImperial">Imperial/US</string>
-    <string name="settings.unitImperialCaption">inch, foot, yard</string>
+    <string name="settings.unitImperialCaption">inch and feet</string>
     <!-- More -->
     <string name="more.title">More</string>
     <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."\n\nYURI A. GAGARIN, first man in space.</string>

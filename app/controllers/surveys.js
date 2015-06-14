@@ -180,12 +180,9 @@ function fetchSurveys () {
 function addedSurvey () {
     fetchSurveys();
 
-    _.delay(function () {
-        if (Titanium.Network.online) {
-            onClickUploadButton();
-        }
-    }, 2000);
-
+    if (Titanium.Network.online) {
+        onClickUploadButton();
+    }
 }
 
 /**

@@ -42,7 +42,6 @@ _.extend($, {
  * @parems {Object} evt
  */
 function onClickBackButton (evt) {
-    // Modal
     $.getView().close({ animated : true });
 }
 

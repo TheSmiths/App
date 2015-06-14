@@ -11,6 +11,7 @@ var dispatcher = require('dispatcher');
 var WM = require('windowManager');
 
 
+
 // Internal
 var navWindow;
 var STATE = 'PROFILE';

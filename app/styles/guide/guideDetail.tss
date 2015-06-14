@@ -57,11 +57,7 @@
     height: Ti.UI.SIZE,
     font: {
         fontFamily: 'ProximaNova-Regular',
-<<<<<<< HEAD
-         fontSize: 14
-=======
-         fontSize: 13
->>>>>>> fd55485... Cleanup, toast expansion, fetch if online
+        fontSize: 13
     },
     color: '#333',
     bottom: 10

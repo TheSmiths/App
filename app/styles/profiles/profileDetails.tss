@@ -3,7 +3,7 @@
     top: 35,
     font: {
         fontFamily: 'ProximaNova-Semibold',
-        fontWeight: 'bold',
+        fontSize: 17,
     },
     color: Alloy.CFG.design.header.fontColor
 }

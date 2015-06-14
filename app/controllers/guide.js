@@ -41,9 +41,9 @@ _.extend($, {
 });
 
 /**
- * [onClickTableView description]
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @method  onClickTableView
+ * Handle click on row and open detail page
+ * @param  {Object} evt
  */
 function onClickTableView (evt) {
     var guide = Alloy.createController('guide/guideDetail', { guideIndex: evt.index }).getView();

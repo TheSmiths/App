@@ -35,7 +35,7 @@ _.extend($, {
  * @parems {Object} evt
  */
 function onClickBackButton (evt) {
-    $.getView().close();
+    $.getView().close({ animated : true });
 }
 
 /**

@@ -16,16 +16,9 @@
 
 "#label": {
     left: 15,
-    color: Alloy.CFG.design.colors.mediumBlue,
+    color: '#000',
     font: {
-        fontWeight: 'bold',
-        fontSize: 12
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 14,
     }
-}
-
-".icon": {
-    right: 15,
-    width: 6,
-    height: 11,
-    image: '/images/buttons/buttonArrow.png'
 }

@@ -9,6 +9,7 @@
 var log = require('utils/log');
 var date = require('utils/date');
 var dispatcher = require('dispatcher');
+var toast = require('toast');
 
 // Collections
 var surveys = Alloy.createCollection('Survey');
@@ -25,7 +26,7 @@ _.extend($, {
         surveys.on('add', onAddSurvey);
         surveys.on('remove', onRemoveSurvey);
         surveys.on('change', onChangeSurvey);
-        dispatcher.on('survey:change', fetchSurveys);
+        dispatcher.on('survey:change', addedSurvey);
         // Check if there are any surveys
         fetchSurveys();
     },
@@ -38,7 +39,7 @@ _.extend($, {
         surveys.off('add', onAddSurvey);
         surveys.off('remove', onRemoveSurvey);
         surveys.off('change', onChangeSurvey);
-        dispatcher.off('survey:change', fetchSurveys);
+        dispatcher.off('survey:change', addedSurvey);
     }
 });
 
@@ -73,7 +74,7 @@ function onClickUploadButton () {
         }
 
         // Update the list
-        alert(L('upload.uploadedSurveys'));
+        toast.showToastMessage($, 'surveys', L('upload.uploadedSurveys'));
         fetchSurveys();
     });
 }
@@ -86,14 +87,14 @@ function onClickUploadButton () {
  */
 function showError (errorMessage) {
     if (errorMessage === 'NOINTERNET') {
-        return alert(L('upload.noInternet'));
+        return toast.showToastMessage($, 'surveys', L('upload.noInternet'));
     }
 
     if (errorMessage === 'NOSURVEYS') {
-        return alert(L('upload.noUploadableSurveys'));
+        return toast.showToastMessage($, 'surveys', L('upload.noUploadableSurveys'));
     }
     // Generic error
-    alert(L('upload.failed'));
+    toast.showToastMessage($, 'surveys',L('upload.failed'));
 }
 
 
@@ -171,6 +172,18 @@ function fetchSurveys () {
             log.info('[surveys] Unable to retreive the survey', response);
         }
     });
+}
+
+/**
+ * @method addedSurvey
+ * Also upload if there is internet available
+ */
+function addedSurvey () {
+    fetchSurveys();
+
+    if (Titanium.Network.online) {
+        onClickUploadButton();
+    }
 }
 
 /**

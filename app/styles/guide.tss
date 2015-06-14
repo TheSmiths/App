@@ -1,9 +1,9 @@
 ".headerTitle": {
     text: L('guide.title'),
-    top: 31,
-    left: 40,
+    top: 35,
     font: {
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 17,
     },
     color: Alloy.CFG.design.header.fontColor
 }

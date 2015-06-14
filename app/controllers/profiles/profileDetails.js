@@ -3,9 +3,12 @@
  *
  * @class Controllers.profiles.newProfile
  * @uses utils.log
+ * @uses dispatcher
+
  */
 var log = require('utils/log');
 var dispatcher = require('dispatcher');
+
 
 // Internal
 var navWindow;
@@ -99,6 +102,8 @@ function saveProfile (evt) {
         profileModel.set('boat', boat);
         profileModel.save();
         closeViewWithUpdate();
+        // Show message to user
+        dispatcher.trigger('profile:update');
         return;
     }
 
@@ -117,6 +122,7 @@ function saveProfile (evt) {
         return;
     }
 
+    dispatcher.trigger('profile:new');
     // Fetch the updated list in order to visualise added profile
     closeViewWithUpdate();
 }
@@ -157,7 +163,8 @@ function deleteProfile (evt) {
 
         profileModel.destroy();
         closeViewWithUpdate();
-
+        // Show message to user
+         dispatcher.trigger('profile:delete');
     });
 
     dialog.show();

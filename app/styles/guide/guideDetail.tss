@@ -1,45 +1,31 @@
 ".headerTitle": {
-    top: 30,
+    top: 35,
     font: {
-        fontWeight: 'bold',
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 17,
     },
     color: Alloy.CFG.design.header.fontColor
 }
 
-"#backButton": {
-    top: 20,
-    left: 0,
-    width: 60,
-    height: 40
+"#content": {
+    top: 70,
+    backgroundColor: '#F0F0F0'
 }
 
-"#headerBack": {
-    text: L('guide.back'),
-    font: {
-        fontWeight: 'bold',
-    },
-    color: Alloy.CFG.design.header.fontColor
+"#contentContainer": {
+    top: 15,
+    bottom: 15,
+    left: 15,
+    right: 15,
+    height: Ti.UI.SIZE,
+    backgroundColor: '#fff',
+
 }
 
 ".heading": {
     height: Ti.UI.SIZE,
     top: 15,
     bottom: 15
-}
-
-"#content": {
-    top: 60,
-    backgroundColor: '#F0F0F0'
-}
-
-"#contentContainer": {
-    top: 5,
-    bottom: 5,
-    left: 5,
-    right: 5,
-    height: Ti.UI.SIZE,
-    backgroundColor: '#fff',
-
 }
 
 "#paddingContainer": {
@@ -51,13 +37,13 @@
 
 ".title": {
     font: {
-        fontWeight: 'bold',
-        fontSize: 13
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 14,
     },
     left: 15,
     height: Ti.UI.SIZE,
     top: 10,
-     color: 'rgba(0,0,0,.8)',
+     color: '#333',
     bottom: 10
 }
 
@@ -66,9 +52,9 @@
     right: 15,
     height: Ti.UI.SIZE,
     font: {
-        fontWeight: 'normal',
-        fontSize: 11
+        fontFamily: 'ProximaNova-Regular',
+         fontSize: 13
     },
-    color: 'rgba(0,0,0,.7)',
+    color: '#333',
     bottom: 10
 }

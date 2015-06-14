@@ -3,8 +3,10 @@
  *
  * @class Controllers.profiles
  * @uses utils.log
+ * @uses toast
  */
 var log = require('utils/log');
+var toast = require('toast');
 
 // Internals
 var profiles = Alloy.createCollection('Profile');
@@ -33,6 +35,15 @@ _.extend($, {
         fetchProfiles();
 
         dispatcher.on('profile:change', fetchProfiles);
+        dispatcher.on('profile:new', function () {
+            toast.showToastMessage($, 'profile', L("profile.saved"));
+        });
+        dispatcher.on('profile:update', function () {
+            toast.showToastMessage($, 'profile', L("profile.updated"));
+        });
+        dispatcher.on('profile:delete', function () {
+            toast.showToastMessage($, 'profile', L("profile.deleted"));
+        });
     },
 
     /**

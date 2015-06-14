@@ -61,6 +61,10 @@
     <string name="profiles.newProfile">New profile</string>
     <string name="profiles.empty">There are currently no profiles, create a profile using the 'new profile' button.</string>
     <string name="profiles.surveyTitle">Select your profile</string>
+    <string name="profile.updated">Successfully updated profile</string>
+    <string name="profile.saved">Successfully created profile</string>
+    <string name="profile.deleted">Deleted profile</string>
+
     <!-- New Profile -->
     <string name="profiles.profileDetails.title">Create New Profile</string>
     <string name="profiles.profileDetails.spotterError">Please provide your name.</string>
@@ -85,7 +89,7 @@
     <string name="guide.prepareForSurvey">Preparing for a survey</string>
     <string name="guide.startingASurvey">Starting a survey</string>
     <string name="guide.enterAnSpotter">Enter a spotter</string>
-    <string name="guide.howToReportFeedback">How to report feeback</string>
+    <string name="guide.howToReportFeedback">How to report feedback</string>
     <!-- Guide Detail -->
     <string name="guide.prepareForSurvey.introduction">Introduction:</string>
     <string name="guide.prepareForSurvey.introductionParagraph">As a spotter on a vessel, you are looking for debris that is floating in the sea and recording what you see.</string>

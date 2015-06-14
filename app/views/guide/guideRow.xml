@@ -2,7 +2,6 @@
     <TableViewRow>
         <View class="guideContainer">
             <Label id="label" />
-            <ImageView class="icon" />
         </View>
     </TableViewRow>
 </Alloy>

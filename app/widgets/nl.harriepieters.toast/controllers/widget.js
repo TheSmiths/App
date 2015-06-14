@@ -12,7 +12,9 @@ var animation = require('alloy/animation'),
 
 //typeIcon hashmap
 var typeIcon = {
-    'settings': 'navigation/settings.png'
+    'settings': 'navigation/settings.png',
+    'profile': 'navigation/profile.png',
+    'surveys': 'navigation/surveys.png'
 };
 
 _.extend($, {
@@ -51,7 +53,7 @@ _.extend($, {
 function setType (_type) {
     var type = 'settings';
 
-    if (_.contains(['settings'], _type)){
+    if (_.contains(['settings', 'profile', 'surveys'], _type)){
         type = _type;
     }
 

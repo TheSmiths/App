@@ -2,6 +2,8 @@
 exports.guidePages = [
     L('guide.prepareForSurvey'),
     L('guide.startingASurvey'),
+    L('guide.duringTheSurvey'),
+    L('guide.finishTheSurvey'),
     L('guide.enterAnSpotter'),
     L('guide.howToReportFeedback')
 ];
@@ -20,6 +22,16 @@ exports.guideDetails = [
         { paragraph: L('guide.startingASurvey.introductionParagraph') },
         { title: L('guide.startingASurvey.observer') },
         { paragraph: L('guide.startingASurvey.observerParagraph') }
+    ],
+    [
+        { heading: L('guide.duringTheSurvey') },
+        { title: L('guide.duringTheSurvey.introduction') },
+        { paragraph: L('guide.duringTheSurvey.introductionParagraph') },
+    ],
+    [
+        { heading: L('guide.finishTheSurvey') },
+        { title: L('guide.finishTheSurvey.introduction') },
+        { paragraph: L('guide.finishTheSurvey.introductionParagraph') },
     ],
     [
         { heading: L('guide.enterAnSpotter') },

@@ -20,6 +20,10 @@ _.extend($, {
             type = config.sightingType;
         }
 
+        if (type !== 'SURVEY') {
+            $.headerSubTitle.text = 'Provide a description of the group of debris';
+        }
+
         require('windowManager').openWinWithBack($.getView());
     },
 

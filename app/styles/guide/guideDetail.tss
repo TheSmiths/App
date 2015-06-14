@@ -53,7 +53,7 @@
     height: Ti.UI.SIZE,
     font: {
         fontFamily: 'ProximaNova-Regular',
-         fontSize: 13
+         fontSize: 14
     },
     color: '#333',
     bottom: 10

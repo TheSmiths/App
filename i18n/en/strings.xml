@@ -12,7 +12,7 @@
     <string name="surveys.or">Need some information or help getting started using the app? Read the guide.</string>
     <string name="surveys.viewGuide">View our guide</string>
     <!-- Cloud Cover -->
-    <string name="surveys.cloudCover.subTitle">What is the current cloud coverage</string>
+    <string name="surveys.cloudCover.subTitle">What is the current cloud coverage?</string>
     <string name="surveys.cloudCover.title">Cloud coverage</string>
     <!-- Survey -->
     <string name="surveys.survey.title">Survey</string>
@@ -27,13 +27,13 @@
     <string name="surveys.survey.started">Started on</string>
     <!-- -->
     <string name="sighting.sightingType.title">Amount</string>
-    <string name="sighting.sightingType.subTitle">Number of debris to report</string>
+    <string name="sighting.sightingType.subTitle">How many items of debris?</string>
     <!-- Survey - Events -->
     <string name="surveys.survey.event.trackTitle">Tracked location</string>
     <string name="surveys.survey.event.sightingTitle">Added single sighting</string>
     <string name="surveys.survey.event.sightingMultiTitle">Added multiple sightings</string>
     <!-- Wind speed -->
-    <string name="surveys.windspeed.subTitle">Select the wind speed at this moment</string>
+    <string name="surveys.windspeed.subTitle">What is the current wind speed?</string>
     <string name="surveys.windspeed.title">Wind Speed</string>
     <!-- Comment -->
     <string name="surveys.comment.subTitle">Share any remarks about your survey</string>
@@ -44,7 +44,7 @@
     <string name="surveys.done.subTitle">Successfully saved survey</string>
     <string name="surveys.done.title">Saved survey</string>
     <string name="surveys.done.paragraphTitle">Successfully saved survey</string>
-    <string name="surveys.done.paragraph">Thank you very much for participating in helping The Ocean Cleanup. Make sure you remember to upload your results once you have an internet connection!</string>
+    <string name="surveys.done.paragraph"> Thank you for your contribution towards cleaner oceans. Make sure you remember to upload your results!</string>
     <string name="surveys.done.continue">Back to overview</string>
 
     <!-- Local notification -->
@@ -68,11 +68,11 @@
     <!-- New Profile -->
     <string name="profiles.profileDetails.title">Create New Profile</string>
     <string name="profiles.profileDetails.spotterError">Please provide your name.</string>
-    <string name="profiles.profileDetails.boatError">Please provide your boatname.</string>
+    <string name="profiles.profileDetails.boatError">Please provide your vessel.</string>
     <string name="profiles.profileDetails.close">Close</string>
     <string name="profiles.profileDetails.spotter">Name</string>
     <string name="profiles.profileDetails.platformHeight">Platform height</string>
-    <string name="profiles.profileDetails.boat">Boatname</string>
+    <string name="profiles.profileDetails.boat">Vessel</string>
     <string name="profiles.profileDetails.save">Save Profile</string>
     <string name="profiles.profileDetails.edit">Edit Profile</string>
     <string name="profiles.profileDetails.delete">Delete Profile</string>
@@ -88,24 +88,39 @@
     <string name="guide.back">back</string>
     <string name="guide.prepareForSurvey">Preparing for a survey</string>
     <string name="guide.startingASurvey">Starting a survey</string>
+    <string name="guide.duringTheSurvey">During the survey</string>
+    <string name="guide.finishTheSurvey">Finishing the survey</string>
     <string name="guide.enterAnSpotter">Enter a spotter</string>
     <string name="guide.howToReportFeedback">How to report feedback</string>
     <!-- Guide Detail -->
     <string name="guide.prepareForSurvey.introduction">Introduction:</string>
-    <string name="guide.prepareForSurvey.introductionParagraph">As a spotter on a vessel, you are looking for debris that is floating in the sea and recording what you see.</string>
-    <string name="guide.prepareForSurvey.Observer">Spotter:</string>
-    <string name="guide.prepareForSurvey.observerParagraph">Each survey will take 30 minutes, which requires full attention and sufficient battery of your device. Choose the side of the vessel that allows you to best see the debris, given the sunlight and wind conditions. The observer's place on the boat must remain the same during the entire 30 minutes of the visual survey.</string>
 
-    <string name="guide.startingASurvey.introduction">Introduction:</string>
-    <string name="guide.startingASurvey.introductionParagraph">To start a new visual survey, you can navigate back to the 'Welcome' page of the Ocean Cleanup Visual Survey App. Choose 'Start a new survey' to start with the 30 minute sighting. </string>
+
+
+
+
+    <string name="guide.prepareForSurvey.introductionParagraph">As a ‘debris spotter’ on a moving vessel, you are looking for debris that is floating at sea, and recording what you see in The Ocean Cleanup app.</string>
+    <string name="guide.prepareForSurvey.Observer">Debris Spotter:</string>
+    <string name="guide.prepareForSurvey.observerParagraph">Each survey takes 30 minutes and requires your full attention and sufficient battery of your device. Choose the side of the vessel- starboard or port side - that allows you to best see floating debris, given the available sunlight and wind conditions.\n\nYour standing point must remain the same during the entire 30-minutes visual survey.\n\nIf this is your first visual survey using this app, make sure to take some time to have a look at our guide and settings. The settings tab gives you the option to choose between Metric and Imperial systems for the measurements you will have to guess during the survey.</string>
+
+    <string name="guide.startingASurvey.introduction">Starting a survey:</string>
+    <string name="guide.startingASurvey.introductionParagraph">Navigate to the ‘Welcome’ page of The Ocean Cleanup app and press ‘Start a new survey’.\n\nThe app will then give you the opportunity to either select your existing profile or create a new one. Provide your name, boat name, and platform height, which is a guess of the distance between your eyes and the mean water line.\n\nNext, it will ask you the current wind speed (use an anemometer, or guess it) and cloud coverage (guess it).\n\nYou are now ready to get the 30 minutes ocean watch started.</string>
+
+    <string name="guide.duringTheSurvey.introduction">During the survey</string>
+    <string name="guide.duringTheSurvey.introductionParagraph">You are now in a screen with a countdown timer that tells you how much time you have left before the 30 minutes survey is over.\n\nYou should focus your attention on looking for debris floating within a 90-degree arc encompassing the area ahead of the ship and one side of the track-line.\n\nYour should be searching for debris in closeby waters - 0 - 10 meters from the boat’s track-line - but debris sighted at any distance can be recorded.\n\nWhen you spot a debris, press ‘New Sighting’. You will then have to log the debris amount, material, type, size, and distance from the vessel track-line.</string>
+
+    <string name="guide.finishTheSurvey.introduction">Finishing the survey</string>
+    <string name="guide.finishTheSurvey.introductionParagraph">When the 30 minutes ocean watch is over, your phone will vibrate to let you know that the survey is over.\n\nYou wil then have the opportunity to write down any remarks you may have, such as app improvement suggestions and reports of unusual sightings (e.g. marine life, abrupt weather condition changes).</string>
+
+
     <string name="guide.startingASurvey.observer">Spotter:</string>
     <string name="guide.startingASurvey.observerParagraph">Before you start a new survey, it is important that you have filled in your personal and vessel details. This enables us to link the survey-data to the right vessel and team</string>
 
     <string name="guide.enterAnSpotter.info">How to setup your observer profile</string>
-    <string name="guide.enterAnSpotter.infoParagraph">To setup your observer profile, you can navigate back to the 'Welcome' page of the Ocean Cleanup Visual Survey App. Choose 'Ready to get started' to fill in your personal and vessel details. We will ask you to fill in the name of the oberserver, the data recorder, the platform height and the name of your vessel. You will be able to update or delete this information when necessary.</string>
+    <string name="guide.enterAnSpotter.infoParagraph">To setup your observer profile, go to the profiles page using the menu or simply press 'start survey'. On the profiles page you will be able to create a new profile using the 'new profile' button.</string>
 
     <string name="guide.howToReportFeedback.title">Got Feedback?</string>
-    <string name="guide.howToReportFeedback.paragraph">Is the answer to your question not available in this guide? Do you experience a problem with the use of the app or when conducting a survey? Please don't hesitate to contact us.</string>
+    <string name="guide.howToReportFeedback.paragraph">Is the answer to your question not available in this guide? Do you experience a problem with the use of the app or when conducting a survey? Please don't hesitate to contact us.\n\napp@theoceancleanup.com</string>
     <!-- Settings -->
     <string name="settings.title">Settings</string>
     <string name="settings.unitSetting">Measurement settings:</string>
@@ -127,25 +142,25 @@
     <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."</string>
     <string name="more.motivationAuthor">YURI A. GAGARIN, first man in space.</string>
     <string name="more.tocTitle">The Ocean Cleanup</string>
-    <string name="more.toc">Plastic pollution has become a major hazard to marine life and is also leading to aesthetic degradation, economic losses, and impacts on human health. The Ocean Cleanup aims to mitigate ocean plastic pollution by starting effective at-sea cleanup operations. By developing technologies to extract, prevent, and intercept plastic pollution. The Ocean Cleanup’s goal is to fuel the world’s fight against oceanic plastic pollution, by initiating the largest cleanup in history.</string>
+    <string name="more.toc">Plastic pollution has become a major hazard to marine life and is also leading to aesthetic degradation, economic losses, and impacts on human health. The Ocean Cleanup aims to mitigate ocean plastic pollution by starting effective at-sea cleanup operations. By developing technologies to extract, prevent, and intercept plastic pollution. The Ocean Cleanup’s goal is to fuel the world’s fight against oceanic plastic pollution, by initiating the largest cleanup in history.\n\nhttp://www.theoceancleanup.com</string>
     <string name="more.goalTitle">Survey App Goal</string>
     <string name="more.goal">By conducting visual surveys the Ocean Cleanup will be able to estimate the amounts and types of objects floating in our oceans. This knowledge is crucial to develop technologies to clean it up. Your help is greatly appreciated!</string>
     <string name="more.teamTitle">Team</string>
     <string name="more.team">Julia Reisser (Ocean Research)\nHarrie Pieters (App Developer, UI and UX)\nBart Sturm (UX, Server and Testing)\nEva Seignette (Testing) \nDaniel Baker (Icons)</string>
     <!-- Sighting - Material -->
     <string name="sighting.material.title">Material</string>
-    <string name="sighting.material.subTitle">Select debris material type</string>
-    <string name="sighting.material.subTitleMulti">Select predominant debris material type</string>
+    <string name="sighting.material.subTitle">What is it made of?</string>
+    <string name="sighting.material.subTitleMulti">What are they mostly made of?</string>
     <!-- Sighting - Category -->
     <string name="sighting.category.title">Category</string>
-    <string name="sighting.category.subTitle">Select debris material category</string>
+    <string name="sighting.category.subTitle">What is it?</string>
     <!-- Sighting - Dimension -->
     <string name="sighting.dimension.title">Size</string>
-    <string name="sighting.dimension.subTitle">Select debris material size</string>
-    <string name="sighting.dimension.subTitleMulti">Select average material size</string>
+    <string name="sighting.dimension.subTitle">What is the debris length?</string>
+    <string name="sighting.dimension.subTitleMulti">What is the common debris length?</string>
     <!-- Sighting - Distance -->
     <string name="sighting.distance.title">Distance</string>
-    <string name="sighting.distance.subTitle">Select distance from vessel track line</string>
+    <string name="sighting.distance.subTitle">Distance between the debris and the vessel track-line?</string>
     <string name="sighting.distance.subTitleMulti">Select average distance from vessel track line</string>
 
     <string name="surveyDetails.title">Survey details</string>

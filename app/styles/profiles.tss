@@ -2,10 +2,9 @@
 
 ".headerTitle": {
     text: L('profiles.title'),
-    top: 30,
+    top: 35,
     font: {
-        fontWeight: 'bold',
-        fontSize: 15,
+        fontFamily: 'ProximaNova-Semibold',
     },
     color: Alloy.CFG.design.header.fontColor,
 }

@@ -7,7 +7,11 @@
 
         <ScrollView class="content">
             <View class="contentContainer">
+
+                <Label class="unitSetting" />
+
                 <View class="settingsRow horizontal">
+
                     <View id="surveyMetricMeterSettingContainer" class="surveyUnitSettingContainer" setting="METRIC" onClick="onClickChangeMetric">
                         <Label id="surveyUnitMetricSetting" setting="METRIC" />
                         <Label id="surveyUnitMetricCaptionSetting"  setting="METRIC"/>
@@ -18,39 +22,26 @@
                         <Label id="surveyUnitImperialCaptionSetting"  setting="IMPERIAL"/>
                     </View>
                 </View>
-                <!--
-                <View class="settingsRow">
-                    <Label class="settingsLabel" id="settingsHighContrastLabel" />
-                    <Switch class="settingsSwitch" id="settingsHighContrast" value="false" onChange="onChangeSettingsHighContrast"/>
-                </View>
 
-                <View class="settingsRow">
-                    <Label class="settingsLabel" id="settingsInvert" />
-                    <Switch class="settingsSwitch" id="settingsInvert" value="false" onChange="onChangeSettingsInvert"/>
-                </View>
+                <View id="testOptions">
 
+                    <Label class="testOptions"  />
 
-                <View class="settingsRow">
-                    <Label class="settingsLabel" id="settingsBigFont" />
-                    <Switch class="settingsSwitch" id="settingsBigFont" value="false" onChange="onChangeSettingsBigFont"/>
-                </View>
-                -->
+                    <View class="settingsRow">
+                        <Label class="surveyDuration" />
+                        <Label id="duration" />
+                        <Slider id="surveyDuration" class="input" onChange="onChangeSurveyDuration" />
+                    </View>
 
-                <Label class="testOptions" />
+                    <View class="settingsRow">
+                        <Label class="trackingInterval" />
+                        <Label id="interval" />
+                        <Slider id="trackingInterval" class="input" onChange="onChangeTrackingInterval" />
+                    </View>
 
-                <View class="settingsRow">
-                    <Label class="surveyDuration" />
-                    <Label id="duration" />
-                    <Slider id="surveyDuration" class="input" onChange="onChangeSurveyDuration" />
-                </View>
+                    <Require src="components/button" id="saveSettings" onClick="onClickSaveSettings" />
 
-                <View class="settingsRow">
-                    <Label class="trackingInterval" />
-                    <Label id="interval" />
-                    <Slider id="trackingInterval" class="input" onChange="onChangeTrackingInterval" />
-                </View>
-
-                <Require src="components/button" id="saveSettings" onClick="onClickSaveSettings" />
+                 </View>
             </View>
         </ScrollView>
     </Window>

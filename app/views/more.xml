@@ -8,7 +8,24 @@
         <ScrollView class="content">
             <View class="contentContainer">
                 <View class="contentRow">
-                    <Label class="title" id="motivation" />
+                    <Label class="title" id="quote" />
+                    <Label class="paragraph" id="motivation" />
+                    <Label class="author" id="motivationAuthor" />
+                </View>
+
+                <View class="contentRow">
+                    <Label class="title" id="tocTitle" />
+                    <Label class="paragraph" id="toc" />
+                </View>
+
+                <View class="contentRow">
+                    <Label class="title" id="goalTitle" />
+                    <Label class="paragraph" id="goal" />
+                </View>
+
+                <View class="contentRow">
+                    <Label class="title" id="teamTitle" />
+                    <Label class="paragraph" id="team" />
                 </View>
 
             </View>

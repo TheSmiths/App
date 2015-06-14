@@ -1,0 +1,8 @@
+<Alloy>
+    <View id="toastContainer">
+        <View class="toastIconWrapper">
+            <ImageView id="toastIcon" />
+        </View>
+        <Label id="toastMessage" />
+    </View>
+</Alloy>

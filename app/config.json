@@ -1,11 +1,20 @@
 {
-  "global": {
-    "theme": "default",
-    "surveyDuration": "30",
-    "intervalDuration": "5"
-  },
+    "global": {
+        "theme": "default",
+        "surveyDuration": "30",
+        "intervalDuration": "5"
+    },
+    "env:development": {
+        "developmentVersion": false
+    },
+    "env:test": {
+        "developmentVersion": false
+    },
+    "env:production": {
+        "developmentVersion": false
+    },
   "dependencies": {
-    "nl.fokkezb.drawer": "*",
-    "de.marcelpociot.alloysidemenu": "1.0.2"
+    "de.marcelpociot.alloysidemenu": "1.0.2",
+    "nl.harriepieters.toast": "*"
   }
 }

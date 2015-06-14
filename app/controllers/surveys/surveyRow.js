@@ -99,7 +99,9 @@ function displaySighting (eventData, surveyData) {
 function displayFinishSurvey (eventData, surveyData) {
     $.eventTime.text = surveyData.endTime ? ((surveyData.endTime - surveyData.startTime) / 60000).toFixed(1) : '30';
     $.eventInformationTitle.text = 'Finished Survey';
-    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.endLocation.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.endLocation.longitude.toString());
+    if (eventData.endLocation) {
+        $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.endLocation.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.endLocation.longitude.toString());
+    }
 }
 
 /**

@@ -1,24 +1,24 @@
 ".headerTitle": {
     text: L('settings.title'),
-    top: 31,
-    left: 40,
+    top: 32,
     font: {
-        fontWeight: 'bold',
+        fontSize: 17,
+        fontFamily: 'ProximaNova-Semibold',
     },
     color: Alloy.CFG.design.header.fontColor
 }
 
 ".content": {
-    top: 60,
+    top: 70,
     backgroundColor: '#F0F0F0'
 }
 
 ".contentContainer": {
     backgroundColor: '#fff',
-    top: 5,
-    right: 5,
+    top: 15,
+    right: 15,
     bottom: 15,
-    left: 5,
+    left: 15,
     layout: 'vertical',
     height: Ti.UI.SIZE
 }
@@ -26,7 +26,8 @@
 ".settingsRow": {
     left: 15,
     right: 15,
-    top: 15,
+    top: 10,
+    bottom: 15,
     height: Ti.UI.SIZE
 }
 
@@ -60,58 +61,70 @@
 }
 
 // Setting
+
+".unitSetting": {
+    text: L('settings.unitMetric'),
+    top: 15,
+    bottom: 0,
+    left: 15,
+    font: {
+        fontSize: 13,
+        fontFamily: 'ProximaNova-Regular',
+    },
+    color: '#656565',
+    height: Ti.UI.SIZE
+}
+
 ".surveyUnitSettingContainer": {
-    borderColor: Alloy.CFG.design.colors.mediumBlue,
     borderRadius: 0,
-    borderWidth: 0.5,
     layout: 'vertical',
     height: 50,
     width: '50%'
 }
 
 "#surveyUnitMetricSetting": {
-    top: 10,
+    top: 12,
     text: L('settings.unitMetric'),
     textAlign: 'center',
     font: {
-        fontSize: 12,
-        fontWeight: 'bold'
+        fontSize: 15,
+        fontFamily: 'ProximaNova-Semibold',
     },
     height: Ti.UI.SIZE,
-    color: Alloy.CFG.design.colors.mediumBlue
+    color: '#000'
 }
 
 "#surveyUnitMetricCaptionSetting": {
     text: L('settings.unitMetricCaption'),
     textAlign: 'center',
     font: {
-        fontSize: 10,
-        fontWeight: 'normal'
+        fontSize: 12,
+        fontFamily: 'ProximaNova-Regular',
     },
     height: Ti.UI.SIZE,
-    color: Alloy.CFG.design.colors.mediumBlue
+    color: '#000'
 }
 
 "#surveyUnitImperialSetting": {
     text: L('settings.unitImperial'),
     textAlign: 'center',
     font: {
-        fontSize: 12,
-        fontWeight: 'bold'
+        fontSize: 15,
+        fontFamily: 'ProximaNova-Semibold',
     },
     height: Ti.UI.SIZE,
-    top: 10,
-    color: Alloy.CFG.design.colors.mediumBlue
+    top: 12,
+    color: '#000'
 }
 
 "#surveyUnitImperialCaptionSetting": {
     text: L('settings.unitImperialCaption'),
     textAlign: 'center',
     font: {
-        fontSize: 10,
-        fontWeight: 'normal'
+        fontSize: 12,
+        fontFamily: 'ProximaNova-Regular',
     },
-    color: Alloy.CFG.design.colors.mediumBlue,
+    color: '#000',
     height: Ti.UI.SIZE
 }
 
@@ -189,3 +202,11 @@
     text: L('settings.saveSettings'),
     bottom: 15
 }
+
+"#testOptions": {
+    layout: 'vertical',
+    height: 0,
+    visible: false
+}
+
+

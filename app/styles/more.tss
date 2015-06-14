@@ -1,44 +1,115 @@
 ".headerTitle": {
     text: L('more.title'),
-    top: 31,
-    left: 40,
+    top: 32,
     font: {
-        fontWeight: 'bold',
+        fontSize: 17,
+        fontFamily: 'ProximaNova-Semibold',
     },
     color: Alloy.CFG.design.header.fontColor
 }
 
 ".content": {
-    top: 60,
+    top: 70,
     backgroundColor: '#F0F0F0'
 }
 
 ".contentContainer": {
-    top: 5,
-    right: 5,
-    bottom: 5,
-    left: 5,
+    top: 15,
     layout: 'vertical',
-    backgroundColor: '#fff',
     height: Ti.UI.SIZE,
 }
 
 ".contentRow": {
     height: Ti.UI.SIZE,
-    layout: 'horizontal'
+    layout: 'vertical',
+    right: 15,
+    left: 15,
+    bottom: 15,
+    backgroundColor: '#fff',
 }
+
+".title": {
+    font: {
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 15
+    },
+    color: '#333',
+    height: Ti.UI.SIZE,
+    top: 15,
+    bottom: 10,
+    left: 15,
+    right: 15
+}
+
+".paragraph": {
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 14
+    },
+    color: '#333',
+    height: Ti.UI.SIZE,
+    bottom: 15,
+    left: 15,
+    right: 15
+}
+
+".author": {
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 13
+    },
+    color: '#959595',
+    height: Ti.UI.SIZE
+}
+
+"#quote": {
+    text: L('more.quote'),
+    top: 15,
+    bottom: 10,
+    left: 15,
+    right: 15,
+    height: Ti.UI.SIZE,
+}
+
 
 "#motivation": {
     text: L('more.motivation'),
     left: 15,
     right: 15,
-    top: 15,
+    top: 0,
+    bottom: 0,
+    height: Ti.UI.SIZE,
+}
+
+"#motivationAuthor": {
+    text: L('more.motivationAuthor'),
+    right: 15,
+    top: 10,
     bottom: 15,
     height: Ti.UI.SIZE,
-    font: {
-        fontWeight: 'normal',
-        fontSize: 14
-    },
-    color: 'rgba(0,0,0,.9)',
-    bottom: 10
+}
+
+"#tocTitle": {
+    text: L('more.tocTitle')
+}
+
+"#toc": {
+    text: L('more.toc')
+}
+
+"#goalTitle": {
+    text: L('more.goalTitle')
+}
+
+"#goal": {
+    text: L('more.goal')
+}
+
+
+"#teamTitle": {
+    text: L('more.teamTitle')
+}
+
+"#team": {
+    text: L('more.team')
 }

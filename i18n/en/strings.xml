@@ -104,6 +104,7 @@
     <string name="guide.howToReportFeedback.paragraph">Is the answer to your question not available in this guide? Do you experience a problem with the use of the app or when conducting a survey? Please don't hesitate to contact us.</string>
     <!-- Settings -->
     <string name="settings.title">Settings</string>
+    <string name="settings.unitSetting">Measurement settings:</string>
     <string name="settings.highContrast">Switch to high contrast:</string>
     <string name="settings.invert">Switch to invert colors:</string>
     <string name="settings.font">Switch font size:</string>
@@ -112,12 +113,21 @@
     <string name="settings.trackingInterval">Tracking interval:</string>
     <string name="settings.saveSettings">Save settings</string>
     <string name="settings.unitMetric">Metric system</string>
-    <string name="settings.unitMetricCaption">(centi)meter</string>
-    <string name="settings.unitImperial">Imperial/US</string>
-    <string name="settings.unitImperialCaption">inch and feet</string>
+    <string name="settings.unitMetricCaption">(Centi)Meter</string>
+    <string name="settings.unitImperial">Imperial</string>
+    <string name="settings.unitImperialCaption">Inch and Feet</string>
+    <string name="settings.saved">Succesfully saved settings!</string>
     <!-- More -->
     <string name="more.title">More</string>
-    <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."\n\nYURI A. GAGARIN, first man in space.</string>
+    <string name="more.quote">Quote</string>
+    <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."</string>
+    <string name="more.motivationAuthor">YURI A. GAGARIN, first man in space.</string>
+    <string name="more.tocTitle">The Ocean Cleanup</string>
+    <string name="more.toc">Plastic pollution has become a major hazard to marine life and is also leading to aesthetic degradation, economic losses, and impacts on human health. The Ocean Cleanup aims to mitigate ocean plastic pollution by starting effective at-sea cleanup operations. By developing technologies to extract, prevent, and intercept plastic pollution. The Ocean Cleanup’s goal is to fuel the world’s fight against oceanic plastic pollution, by initiating the largest cleanup in history.</string>
+    <string name="more.goalTitle">Survey App Goal</string>
+    <string name="more.goal">By conducting visual surveys the Ocean Cleanup will be able to estimate the amounts and types of objects floating in our oceans. This knowledge is crucial to develop technologies to clean it up. Your help is greatly appreciated!</string>
+    <string name="more.teamTitle">Team</string>
+    <string name="more.team">Julia Reisser (Ocean Research)\nHarrie Pieters (App Developer, UI and UX)\nBart Sturm (UX, Server and Testing)\nEva Seignette (Testing) \nDaniel Baker (Icons)</string>
     <!-- Sighting - Material -->
     <string name="sighting.material.title">Material</string>
     <string name="sighting.material.subTitle">Select debris material type</string>

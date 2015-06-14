@@ -1,0 +1,13 @@
+{
+	"id": "nl.harriepieters.toast",
+	"name": "nl.harriepieters.toast",
+	"description" : "Toast messages for iOS",
+	"author": "Harrie Pieters",
+	"version": "1.0",
+	"copyright":"Copyright (c) 2015",
+	"license":"Public Domain",
+	"min-alloy-version": "1.0",
+	"min-titanium-version":"3.5",
+	"tags":"",
+	"platforms":"android,blackberry,ios,mobileweb"
+}

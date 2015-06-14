@@ -3,8 +3,10 @@
  *
  * @class Controllers.settings
  * @uses utils.log
+ * @uses toast
  */
 var log = require('utils/log');
+var toast = require('toast');
 
 // Internals
 var unitSetting = "METRIC";
@@ -34,12 +36,20 @@ _.extend($, {
         unitSetting = settings && settings.unit ? settings.unit : unitSetting;
         setUnit(unitSetting);
 
+
+        if (!Alloy.CFG.developmentVersion) {
+            return;
+        }
+
         if (!settings) {
             return;
         }
 
+        // Set test settings
         $.surveyDuration.value = settings.surveyDuration;
         $.trackingInterval.value = settings.trackingInterval;
+        $.testOptions.height = Ti.UI.SIZE;
+        $.testOptions.visible = true;
     },
 
     /**
@@ -84,27 +94,45 @@ function onClickSaveSettings () {
     Ti.App.Properties.setObject('app-survey-settings', settingsObject);
 }
 
+/**
+ * @method setUnit
+ * Change appearance
+ * @param {String} localUnitSetting
+ */
 function setUnit (localUnitSetting) {
+    // Remember preivous
     var previousUnit = localUnitSetting === "METRIC" ? "IMPERIAL" : "METRIC";
-    unitSetting = localUnitSetting;
-    console.log('***** localUnitSetting', localUnitSetting);
-    selectors[localUnitSetting].selectedUnitContainer.backgroundColor = Alloy.CFG.design.colors.mediumBlue;
+    // Update styling
+    selectors[localUnitSetting].selectedUnitContainer.backgroundColor = '#01CBE1';
     selectors[localUnitSetting].selectedUnit.color = "#fff";
     selectors[localUnitSetting].selectedUnitCaption.color = "#fff";
-    selectors[previousUnit].selectedUnitContainer.backgroundColor = "#fff";
-    selectors[previousUnit].selectedUnit.color =  Alloy.CFG.design.colors.mediumBlue;
-    selectors[previousUnit].selectedUnitCaption.color =  Alloy.CFG.design.colors.mediumBlue;
+    selectors[previousUnit].selectedUnitContainer.backgroundColor = "#E8E8E8";
+    selectors[previousUnit].selectedUnit.color =  '#6C6C6C';
+    selectors[previousUnit].selectedUnitCaption.color =  '#6C6C6C';
 }
 
 /**
- * [onClickChangeMetric description]
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @method onClickChangeMetric
+ * Handle click on the metric
+ * @param  {Object} evt Event information
  */
 function onClickChangeMetric (evt) {
-    if (unitSetting === evt.source.setting) {
+    var unit = evt.source.setting;
+    // If someone taps the currently selected don't do anything
+    if (unitSetting === unit) {
         return;
     }
-
-    setUnit(evt.source.setting);
+    // Update styling
+    setUnit(unit);
+    // Set current setting
+    unitSetting = unit;
+    // Save
+    var settings = Ti.App.Properties.getObject('app-survey-settings');
+    if (!settings) {
+        settings = {};
+    }
+    settings.unit = unit;
+    Ti.App.Properties.setObject('app-survey-settings', settings);
+    // Show message to user
+    toast.showToastMessage($, 'settings', L("settings.saved"));
 }

@@ -10,7 +10,7 @@
 
 "#guideTableView": {
     height: Ti.UI.FILL,
-    top: 60,
+    top: 70,
     backgroundColor: '#F0F0F0'
 }
 

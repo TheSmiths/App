@@ -189,15 +189,15 @@ function addUploadSurvey (surveyId) {
 
 /**
  * @method removeUploadSurvey
- * Remove upload survye from the list as it has been uploaded, in order to keep track of remaining uploads
+ * Remove upload survey from the list as it has been uploaded, in order to keep track of remaining uploads
  * @param {String} surveyId
  */
 function removeUploadSurvey (surveyId) {
     remainingUploads = _.reject(remainingUploads, function (id) { return id === surveyId; } );
 
     if (OS_IOS) {
-        updateNotificationBadge();
         $.uploadButtonContainer.opacity = 0.3;
+        updateNotificationBadge();
     }
 }
 

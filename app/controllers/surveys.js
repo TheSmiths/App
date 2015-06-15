@@ -67,14 +67,16 @@ function doClickStartGuide () {
  * @todo: Implement feedback system
  */
 function onClickUploadButton () {
+    var reference = $;
+
     require('upload')(function (err, success) {
         if (err) {
-            showError(err);
+            showError(err, reference);
             return;
         }
 
         // Update the list
-        toast.showToastMessage($, 'surveys', L('upload.uploadedSurveys'));
+        toast.showToastMessage(reference, 'surveys', L('upload.uploadedSurveys'));
         fetchSurveys();
     });
 }
@@ -85,16 +87,16 @@ function onClickUploadButton () {
  * @param  {String} errorMessage Error message code as String
  * @todo: Create nice inline error messages
  */
-function showError (errorMessage) {
+function showError (errorMessage, reference) {
     if (errorMessage === 'NOINTERNET') {
-        return toast.showToastMessage($, 'surveys', L('upload.noInternet'));
+        return toast.showToastMessage(reference, 'surveys', L('upload.noInternet'));
     }
 
     if (errorMessage === 'NOSURVEYS') {
-        return toast.showToastMessage($, 'surveys', L('upload.noUploadableSurveys'));
+        return toast.showToastMessage(reference, 'surveys', L('upload.noUploadableSurveys'));
     }
     // Generic error
-    toast.showToastMessage($, 'surveys',L('upload.failed'));
+    toast.showToastMessage(reference, 'surveys',L('upload.failed'));
 }
 
 

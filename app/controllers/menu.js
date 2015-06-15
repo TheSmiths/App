@@ -39,9 +39,7 @@ _.extend($, {
  */
 function onClickSurveys (evt) {
     if (activeItem !== 'menuItemSurveys') {
-        var surveys = Alloy.createController('surveys').getView();
-        Alloy.Globals.navigationWindow.openWindow(surveys, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        navigateTo(Alloy.createController('surveys'));
         activateItem('menuItemSurveys');
     }
 }
@@ -53,9 +51,7 @@ function onClickSurveys (evt) {
  */
 function onClickProfiles (evt) {
     if (activeItem !== 'menuItemProfiles') {
-        var profiles = Alloy.createController('profiles', { flow: 'NONE'}).getView();
-        Alloy.Globals.navigationWindow.openWindow(profiles, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        navigateTo(Alloy.createController('profiles', { flow: 'NONE' }));
         activateItem('menuItemProfiles');
     }
 }
@@ -67,9 +63,7 @@ function onClickProfiles (evt) {
  */
 function onClickGuide (evt) {
     if (activeItem !== 'menuItemGuide') {
-        var guide = Alloy.createController('guide').getView();
-        Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        navigateTo(Alloy.createController('guide'));
         activateItem('menuItemGuide');
     }
 }
@@ -81,9 +75,7 @@ function onClickGuide (evt) {
  */
 function onClickSettings (evt) {
     if (activeItem !== 'menuItemSettings') {
-        var settings = Alloy.createController('settings').getView();
-        Alloy.Globals.navigationWindow.openWindow(settings, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        navigateTo(Alloy.createController('settings'));
         activateItem('menuItemSettings');
     }
 }
@@ -95,9 +87,7 @@ function onClickSettings (evt) {
  */
 function onClickMore (evt) {
     if (activeItem !== 'menuItemMore') {
-        var more = Alloy.createController('more').getView();
-        Alloy.Globals.navigationWindow.openWindow(more, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        navigateTo(Alloy.createController('more'));
         activateItem('menuItemMore');
     }
 }
@@ -111,6 +101,21 @@ function activateItem (menuItem) {
     $[activeItem].backgroundColor = 'transparent';
     $[menuItem].backgroundColor = '#00B4C7';
     activeItem = menuItem;
+}
+
+/**
+ * Open given controller in a new window (platform specific)
+ * @method navigateTo
+ * @param  {Controller} controller navigation target
+ */
+function navigateTo(controller) {
+    if(OS_IOS) {
+        Alloy.Globals.navigationWindow.openWindow(controller.getView(), {animated: false});
+        Alloy.Globals.drawer.hideMenuViewController();
+        return;
+    }
+    /* ANDROID */
+    require('windowManager').openWinWithBack(controller.getView());
 }
 
 // Exports

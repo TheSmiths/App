@@ -37,19 +37,12 @@ _.extend($, {
             return;
         }
 
-        Alloy.Globals.drawer = $.drawer;
-        Alloy.Globals.navigationWindow = $.navigationWindow;
-        Alloy.Globals.menu = $.menu;
-
-        $.drawer.open();
-
-        $.drawer.addEventListener('willShowMenuViewController', function (evt) {
-            dispatcher.trigger('menuDidOpen');
-        });
-
-        $.drawer.addEventListener('willHideMenuViewController', function (evt) {
-            dispatcher.trigger('menuDidClose');
-        });
+        // Take care of Drawer navigation
+        Alloy.Globals.drawer = initDrawer();
+        if(OS_IOS) {
+            Alloy.Globals.navigationWindow = $.navigationWindow;
+            Alloy.Globals.menu = $.menu;
+        }
     },
 
     /**
@@ -59,3 +52,40 @@ _.extend($, {
     destruct: function() {
     }
 });
+
+/**
+ * Handle drawer init for both platforms
+ * @method initDrawer
+ * @return {View} the drawer
+ */
+function initDrawer() {
+    var drawerOpen = function (evt) { dispatcher.trigger('menuDidOpen'); },
+        drawerClose = function (evt) { dispatcher.trigger('menuDidClose'); };
+
+    if (OS_IOS) {
+        $.drawer.open();
+        $.drawer.addEventListener('willShowMenuViewController', drawerOpen);
+        $.drawer.addEventListener('willHideMenuViewController', drawerClose);
+        return $.drawer;
+    }
+    // * ANDROID *
+    // define menu and main content view
+    $.drawer.leftView = Alloy.createController('menu').getView();
+    $.drawer.centerView = Alloy.createController('surveys').getView();
+    $.drawer.addEventListener('draweropen', drawerOpen);
+    $.drawer.addEventListener('drawerclose', drawerClose);
+
+    $.droidWindow.addEventListener('open',function(){
+        var activity = $.droidWindow.getActivity();
+        if (activity){
+            var actionBar = activity.getActionBar();
+            if (actionBar){
+                actionBar.displayHomeAsUp = true;
+                actionBar.onHomeIconItemSelected=function(){
+                  $.drawer.toggleLeftWindow();
+                }
+            }
+        }
+    })
+    $.droidWindow.open();
+}

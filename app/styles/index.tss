@@ -2,7 +2,12 @@
     backgroundColor: 'white'
 }
 
-"#drawer": {
+"#drawer[platform=android]": {
+    leftDrawerWidth: "240",
+    width: Ti.UI.FILL,
+    height: Ti.UI.FILL
+}
+"#drawer[platform=ios]": {
     contentViewScaleValue: 0.8,
     scaleContentView: true,
     panGestureEnabled: false,
@@ -11,4 +16,3 @@
     parallaxEnabled: false,
     panFromEdge: true
 }
-

@@ -1,14 +1,14 @@
 <Alloy>
-    <Widget id="drawer" src="de.marcelpociot.alloysidemenu">
+    <Widget id="drawer" src="de.marcelpociot.alloysidemenu" platform="ios">
 
-        <Require src="menu" id="menu" />
-
-        <NavigationWindow id="navigationWindow" platform="ios" role="contentView">
+        <Window role="leftMenuView">
+            <Require src="menu" id="menu" />
+        </Window>
+        <NavigationWindow id="navigationWindow" role="contentView">
             <Require src="surveys" />
         </NavigationWindow>
-
-        <View platform="android" role="centerWindow">
-            <Require src="surveys" />
-        </View>
     </Widget>
+    <Window id="droidWindow" platform="android">
+        <Module id="drawer" module="com.tripvi.drawerlayout" method="createDrawer"/>
+    </Window>
 </Alloy>

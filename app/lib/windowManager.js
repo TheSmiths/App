@@ -45,7 +45,7 @@ var WM = module.exports = {
                 _.last(_navWindows).openWindow(win, openProperties);
             }
         } else {
-            win.open();
+            WM.openWinWithBack(win, openProperties);
         }
     },
 
@@ -72,6 +72,10 @@ var WM = module.exports = {
              _.last(_navWindows).close(closeProperties);
              _navWindows.pop();
         }
+    },
+
+    setActiveNavWindow: function(activeWin) {
+        _navWindows.push(activeWin);
     }
 };
 

@@ -6,7 +6,7 @@
  * @uses module.statusbar
  */
 var log = require('utils/log');
-
+var dispatcher = require('dispatcher');
 
 // Internal variables
 var activeItem;
@@ -22,6 +22,9 @@ _.extend($, {
         $.versionLabel.text = L('menu.version') +  Ti.App.version;
         activeItem = 'menuItemSurveys';
         activateItem('menuItemSurveys');
+        dispatcher.on("menu:activate", function(name) {
+            activateItem(name);
+        });
     },
 
     /**
@@ -39,7 +42,7 @@ _.extend($, {
  */
 function onClickSurveys (evt) {
     if (activeItem !== 'menuItemSurveys') {
-        navigateTo(Alloy.createController('surveys'));
+        dispatcher.trigger("index:navigate", 'surveys');
         activateItem('menuItemSurveys');
     }
 }
@@ -51,7 +54,7 @@ function onClickSurveys (evt) {
  */
 function onClickProfiles (evt) {
     if (activeItem !== 'menuItemProfiles') {
-        navigateTo(Alloy.createController('profiles', { flow: 'NONE' }));
+        dispatcher.trigger("index:navigate", 'profiles');
         activateItem('menuItemProfiles');
     }
 }
@@ -63,7 +66,7 @@ function onClickProfiles (evt) {
  */
 function onClickGuide (evt) {
     if (activeItem !== 'menuItemGuide') {
-        navigateTo(Alloy.createController('guide'));
+        dispatcher.trigger("index:navigate", 'guide');
         activateItem('menuItemGuide');
     }
 }
@@ -75,7 +78,7 @@ function onClickGuide (evt) {
  */
 function onClickSettings (evt) {
     if (activeItem !== 'menuItemSettings') {
-        navigateTo(Alloy.createController('settings'));
+        dispatcher.trigger("index:navigate", 'settings');
         activateItem('menuItemSettings');
     }
 }
@@ -87,7 +90,7 @@ function onClickSettings (evt) {
  */
 function onClickMore (evt) {
     if (activeItem !== 'menuItemMore') {
-        navigateTo(Alloy.createController('more'));
+        dispatcher.trigger("index:navigate", 'more');
         activateItem('menuItemMore');
     }
 }
@@ -101,21 +104,6 @@ function activateItem (menuItem) {
     $[activeItem].backgroundColor = 'transparent';
     $[menuItem].backgroundColor = '#00B4C7';
     activeItem = menuItem;
-}
-
-/**
- * Open given controller in a new window (platform specific)
- * @method navigateTo
- * @param  {Controller} controller navigation target
- */
-function navigateTo(controller) {
-    if(OS_IOS) {
-        Alloy.Globals.navigationWindow.openWindow(controller.getView(), {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
-        return;
-    }
-    /* ANDROID */
-    require('windowManager').openWinWithBack(controller.getView());
 }
 
 // Exports

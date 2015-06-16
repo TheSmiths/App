@@ -24,7 +24,10 @@ _.extend($, {
             $.menuButton.hide();
             $.closeButton.show();
             $.headerTitle.text = L('profiles.surveyTitle');
-            require('windowManager').openWinWithBack($.getView());
+            // Wrap in a window
+            var win = $.UI.create("Window", {});
+            win.add($.getView());
+            require('windowManager').openWinWithBack(win);
         }
 
         profiles.on('add', onAddProfile);

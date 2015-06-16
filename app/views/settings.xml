@@ -1,5 +1,5 @@
  <Alloy>
-    <Window id="settings">
+    <View id="settings">
          <View class="header">
               <Require src="components/menuButton" id="menuButton" />
             <Label class="headerTitle" />
@@ -44,5 +44,5 @@
                  </View>
             </View>
         </ScrollView>
-    </Window>
+    </View>
 </Alloy>

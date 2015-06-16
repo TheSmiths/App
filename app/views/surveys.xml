@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="surveys">
+    <View id="surveys">
         <View class="header">
             <Require src="components/menuButton" id="menuButton" />
             <View id="uploadButtonContainer" onClick="onClickUploadButton">
@@ -22,5 +22,5 @@
 
             <TableView id="surveyTableView" />
         </View>
-    </Window>
+    </View>
 </Alloy>

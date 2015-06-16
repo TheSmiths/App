@@ -61,7 +61,7 @@ function navigateTo(controllerName) {
     if(OS_IOS) {
         var win = $.UI.create("Window", {});
         win.add(controllerView.getView());
-        WM.openWinInActiveNavWindow(win, {animated: false});
+        WM.openWinWithBack(win, {animated: false});
         $.drawer.hideMenuViewController();
     } else {
         $.drawer.setCenterView(controllerView.getView());

@@ -5,6 +5,7 @@
  * @uses utils.log
  */
 var log = require('utils/log');
+var WM = require('windowManager');
 
 _.extend($, {
     /**
@@ -15,7 +16,7 @@ _.extend($, {
     construct: function(config) {
         //Get category based on material
         $.grid.setData(require('data/sightingType'));
-        require('windowManager').openWinInNewWindow($.getView());
+        WM.openWinInNewWindow($.getView());
     },
 
     /**
@@ -34,7 +35,7 @@ function closeWindow (evt) {
     log.info('[sighting/category] Close window');
     require('event').destroySurveyEvent();
     log.info('[sighting/material] Close window');
-    require('windowManager').closeWin({animated: true});
+    WM.closeNav({animated: true});
 }
 
 /**

@@ -47,5 +47,5 @@ _.extend($, {
  */
 function onClickTableView (evt) {
     var guide = Alloy.createController('guide/guideDetail', { guideIndex: evt.index }).getView();
-    require('windowManager').openWinInActiveNavWindow(guide, {animated: false});
+    require('windowManager').openModal(guide, {animated: false});
 }

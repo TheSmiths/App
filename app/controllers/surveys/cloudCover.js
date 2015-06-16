@@ -5,6 +5,7 @@
  * @uses utils.log
  */
 var log = require('utils/log');
+var WM = require('windowManager');
 
 _.extend($, {
     /**
@@ -14,7 +15,7 @@ _.extend($, {
      */
     construct: function(config) {
         $.grid.setData(require('data/cloudCover'));
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView());
     },
 
     /**
@@ -30,7 +31,7 @@ _.extend($, {
  * Handle `click` on backButton
  */
 function onClickBackButton () {
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 /**

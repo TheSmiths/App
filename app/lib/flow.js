@@ -6,6 +6,7 @@ var log = require('utils/log');
 var events = require('event');
 var survey = require('survey');
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
 
 // Internals
 var startedFromRoot = false;
@@ -135,7 +136,7 @@ var flowLibrary = module.exports = {
 
         if (sightingType === "SINGLE") {
             return saveSighting(function () {
-                return require('windowManager').closeWin({animated: true});
+                return WM.closeNav({animated: true});
             });
         }
 
@@ -150,7 +151,7 @@ var flowLibrary = module.exports = {
         lockFlow();
 
         saveSighting(function () {
-            require('windowManager').closeWin({animated: true});
+            WM.closeNav({animated: true});
         });
     },
     /**
@@ -182,7 +183,7 @@ var flowLibrary = module.exports = {
         if (lockedFlow) { return; }
         lockFlow();
 
-        require('windowManager').closeWin({animated: true});
+        WM.closeNav({animated: true});
 
         if (startedFromRoot) {
             Alloy.createController('index');

@@ -12,6 +12,7 @@ var log = require('utils/log');
 var notifications = require('notifications');
 var survey = require('survey');
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
 
 // Collections
 var profiles = Alloy.createCollection('Profile');
@@ -23,7 +24,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView());
         // @todo build in auto upload so we don't set the notification unintended.
 
         notifications.updateBadge();
@@ -54,7 +55,7 @@ _.extend($, {
  * Handle `click` on backButton
  */
 function onClickBackButton () {
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 

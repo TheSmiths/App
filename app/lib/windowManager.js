@@ -1,8 +1,8 @@
 
 var _navWindows = []; //Array holding all opened NavigationWindows
+var _closableWindows = []; //Array holding all opened Windows
 
 var WM = module.exports = {
-    closableWindows: [],
 
     /**
      * Opens given Window in a new Ti.UI.iOS.NavigationWindow on iOS and returns the new NavWindow. Does nothing on other platforms
@@ -19,33 +19,8 @@ var WM = module.exports = {
                 fullscreen: true,
                 window: win
             });
-
-            navWindow.id = 'navWindow_' + _.uniqueId();
-
             _navWindows.push(navWindow);
-
-            // Store reference in the root Window to the NavigationWindow
-            win.navWin = navWindow;
-
             return navWindow;
-        } else
-            return win;
-    },
-
-    /**
-     * Open given Window in a the last created Ti.UI.iOS.NavigationWindow on iOS. Just open the Window on other platforms
-     *
-     * @param {Ti.UI.Window} win Window to open in NavigationWindow
-     */
-    openWinInActiveNavWindow: function(win, openProperties) {
-        if (OS_IOS) {
-            if (!_navWindows.length) {
-                WM.createNewNavWindow(win).open(openProperties);
-            } else {
-                _.last(_navWindows).openWindow(win, openProperties);
-            }
-        } else {
-            WM.openWinWithBack(win, openProperties);
         }
     },
 
@@ -53,24 +28,52 @@ var WM = module.exports = {
         if (OS_IOS) {
             WM.createNewNavWindow(win).open(openProperties);
         } else {
-            win.open();
+            win.open(openProperties);
         }
     },
 
+    /**
+     * Open given Window in a the last created Ti.UI.iOS.NavigationWindow on iOS. Just open the Window on other platforms
+     *
+     * @param {Ti.UI.Window} win Window to open in NavigationWindow
+     */
     openWinWithBack: function(win, openProperties) {
-        if(OS_ANDROID) {
+        if(OS_IOS) {
+            if (!_navWindows.length) {
+                WM.createNewNavWindow(win).open(openProperties);
+            } else {
+                _.last(_navWindows).openWindow(win, openProperties);
+                _closableWindows.push(win);
+            }
+        } else {
             win.addEventListener('open', doOpenWindowWithBack);
             win.open(openProperties || {});
         }
-        else {
-            WM.openWinInActiveNavWindow(win, openProperties);
+    },
+
+    openModal: function(win, openProperties) {
+        if (OS_IOS) {
+            openProperties = openProperties || {};
+            win.open(_.extend(openProperties, {modal:true}));
+        } else {
+            win.open(openProperties);
         }
     },
 
     closeWin: function (closeProperties) {
+        if (_closableWindows.length) {
+            _.last(_closableWindows).close(closeProperties);
+            _closableWindows.pop();
+        }
+    },
+
+    closeNav: function (closeProperties) {
+        if(OS_ANDROID) { return WM.closeWin(closeProperties); }
         if (_navWindows.length) {
-             _.last(_navWindows).close(closeProperties);
-             _navWindows.pop();
+            // Forget about all insider windows
+            _closableWindows = [];
+            _.last(_navWindows).close(closeProperties);
+            _navWindows.pop();
         }
     },
 
@@ -90,16 +93,13 @@ var WM = module.exports = {
  */
 function doOpenWindowWithBack(evt) {
     var win = this;
-
     win.removeEventListener('open', doOpenWindowWithBack);
 
     if(OS_ANDROID) {
         var activity = win.activity;
-
         if (activity.actionBar) {
             activity.actionBar.setDisplayHomeAsUp(true);
         }
-
         activity.actionBar.onHomeIconItemSelected = function() {
             win.close({
                 activityEnterAnimation: Titanium.App.Android.R.anim.slide_in_left,

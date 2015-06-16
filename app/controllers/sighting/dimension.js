@@ -7,7 +7,7 @@
  * @uses flow
  */
 var log = require('utils/log');
-
+var WM = require('windowManager');
 
 //Internals
 var sightingType;
@@ -23,7 +23,7 @@ _.extend($, {
         var settings = Ti.App.Properties.getObject('app-survey-settings');
         var unitType  = settings && settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
         $.grid.setData(require('data/dimension')[unitType]);
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView());
 
         if (sightingType === "MULTI") {
             $.headerSubTitle.text = L('sighting.dimension.subTitleMulti');
@@ -44,7 +44,7 @@ _.extend($, {
  */
 function onClickBackButton () {
     log.info('[sighting/dimension] Close window');
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 /**

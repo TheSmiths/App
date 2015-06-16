@@ -34,7 +34,6 @@ function onClickGuideButton (evt) {
     var buttonClick = _.throttle(function buttonClick () {
         $.guideButtonContainer.opacity = 0.6;
         setTimeout(function () { $.guideButtonContainer.opacity = 1; }, 350);
-        require('dispatcher').trigger("drawer:open");
         Alloy.createController('guide/guideDetail', { dialog: true, guideIndex: topics[topic] });
     }, 100);
 

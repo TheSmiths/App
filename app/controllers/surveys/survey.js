@@ -14,7 +14,13 @@ var moment = require('alloy/moment');
 var dispatcher = require('dispatcher');
 
 // Settings
-var settings = Ti.App.Properties.getObject('app-survey-settings');
+var settings = Ti.App.Properties.getObject('app-survey-settings') || {
+    trackingInterval: Alloy.CFG.intervalDuration,
+    surveyDuration: Alloy.CFG.surveyDuration,
+    unit: 'METRIC'
+};
+
+Ti.API.warn(settings);
 
 // Internals
 var startTime;
@@ -25,7 +31,7 @@ var state = 'PREACTIVE';
 var startedFromRoot = false;
 
 // constants
-var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.intervalDuration * 60;
+var TRACKTIMEINTERVAL = settings.trackingInterval * 60;
 
 // Collections
 var eventCollection = Alloy.createCollection('Event');
@@ -46,8 +52,7 @@ _.extend($, {
         }
 
         if (!config.startedFromRoot) {
-            var totalTime = settings ? settings.surveyDuration : Alloy.CFG.surveyDuration;
-            $.surveyTimer.text = totalTime + ':00';
+            $.surveyTimer.text = settings.surveyDuration + ':00';
         }
         // open window
         require('windowManager').openWinWithBack($.getView());
@@ -55,7 +60,7 @@ _.extend($, {
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);
 
-        var TRACKLOCATIONTIME = settings ? ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) : (Alloy.CFG.surveyDuration * 60 - Alloy.CFG.intervalDuration * 60);
+        var TRACKLOCATIONTIME = settings.surveyDuration * 60 - settings.trackingInterval * 60; 
         setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
 
         // Listen to event

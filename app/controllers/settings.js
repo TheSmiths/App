@@ -32,25 +32,17 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        var settings = Ti.App.Properties.getObject('app-survey-settings');
-        unitSetting = settings && settings.unit ? settings.unit : unitSetting;
+        var settings = Ti.App.Properties.getObject('app-survey-settings') || {};
+        unitSetting = settings.unit ? settings.unit : unitSetting;
         setUnit(unitSetting);
 
-        if (!Alloy.CFG.developmentVersion) {
-            return;
+        if (Alloy.CFG.developmentVersion) {
+            // Set test settings
+            $.surveyDuration.value = settings.surveyDuration || Alloy.CFG.surveyDuration;
+            $.trackingInterval.value = settings.trackingInterval || Alloy.CFG.intervalDuration;
+            $.testOptions.height = Ti.UI.SIZE;
+            $.testOptions.visible = true;
         }
-
-        $.testOptions.height = Ti.UI.SIZE;
-        $.testOptions.visible = true;
-
-        if (!settings) {
-            return;
-        }
-
-        // Set test settings
-        $.surveyDuration.value = settings.surveyDuration;
-        $.trackingInterval.value = settings.trackingInterval;
-
     },
 
     /**
@@ -130,9 +122,16 @@ function onClickChangeMetric (evt) {
     // Save
     var settings = Ti.App.Properties.getObject('app-survey-settings');
     if (!settings) {
-        settings = {};
+        settings = {
+            trackingInverval: Alloy.CFG.intervalDuration,
+            surveyDuration: Alloy.CFG.surveyDuration
+        };
     }
+
     settings.unit = unit;
+
+    Ti.API.warn(settings);
+
     Ti.App.Properties.setObject('app-survey-settings', settings);
     // Show message to user
     toast.showToastMessage($, 'settings', L("settings.saved"));

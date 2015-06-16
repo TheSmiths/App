@@ -3,11 +3,17 @@
     <!-- the theme applied to the application or activity -->
     <style name="Theme.TheOceanCleanup" parent="@style/Theme.AppCompat.Light">
         <item name="android:actionBarStyle">@style/Theme.TheOceanCleanup.ActionBar</item>
+
+        <item name="android:actionBarItemBackground">@drawable/ab_solid_theoceancleanup</item>
+        <item name="actionBarItemBackground">@drawable/ab_solid_theoceancleanup</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="Theme.TheOceanCleanup.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_theoceancleanup</item>
         <item name="background">@drawable/ab_solid_theoceancleanup</item>
+
+        <item name="android:logo">@android:color/transparent</item>
+        <item name="logo">@android:color/transparent</item>
     </style>
 </resources>

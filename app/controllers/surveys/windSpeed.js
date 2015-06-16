@@ -14,7 +14,7 @@ _.extend($, {
      */
     construct: function(config) {
         // Set data
-        $.grid.setData(require('data/windspeed'));
+        $.grid.setData(require('data/windSpeed'));
         // Open
         require('windowManager').openWinWithBack($.getView());
     },

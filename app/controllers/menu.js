@@ -107,4 +107,4 @@ function activateItem (menuItem) {
 }
 
 // Exports
-exports.activateItem = activateItem;
+exports.getActiveItem = function(){ return activeItem; };

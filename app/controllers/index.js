@@ -6,6 +6,8 @@
  * @class Controllers.index
  */
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
+
 /**
  * Initializes the controller
  */
@@ -59,7 +61,7 @@ function navigateTo(controllerName) {
     if(OS_IOS) {
         var win = $.UI.create("Window", {});
         win.add(controllerView.getView());
-        require('windowManager').openWinInActiveNavWindow(win, {animated: false});
+        WM.openWinInActiveNavWindow(win, {animated: false});
         $.drawer.hideMenuViewController();
     } else {
         $.drawer.setCenterView(controllerView.getView());
@@ -77,18 +79,28 @@ function defineNavigation() {
         drawerClose = function (evt) { dispatcher.trigger('menu:close'); };
 
     if (OS_IOS) {
-        require('windowManager').setActiveNavWindow($.navigationWindow);
+        WM.setActiveNavWindow($.navigationWindow);
 
         $.drawer.open();
         $.drawer.addEventListener('willShowMenuViewController', drawerOpen);
         $.drawer.addEventListener('willHideMenuViewController', drawerClose);
     } else {
         // define menu and main content view
-        $.drawer.leftView = Alloy.createController('menu').getView();
+        var menu = Alloy.createController('menu');
+        $.drawer.leftView = menu.getView();
         $.drawer.centerView = Alloy.createController('surveys').getView();
         $.drawer.addEventListener('draweropen', drawerOpen);
         $.drawer.addEventListener('drawerclose', drawerClose);
 
+        $.navigationWindow.addEventListener('android:back', function(){
+            Ti.API.warn(">> menu.activeItem", menu.activeItem);
+            if(menu.getActiveItem() != 'menuItemSurveys') {
+                dispatcher.trigger('menu:activate', 'menuItemSurveys');
+                navigateTo('surveys');
+                return false;
+            }
+            $.navigationWindow.close();
+        });
         $.navigationWindow.addEventListener('open',function(){
             var activity = $.navigationWindow.getActivity();
             if (activity){

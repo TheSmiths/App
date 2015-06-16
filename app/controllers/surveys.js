@@ -56,9 +56,8 @@ function doClickStartSurvey () {
  * Handle `click` on startGuide button, create guide controller
  */
 function doClickStartGuide () {
-    var guide = Alloy.createController('guide').getView();
-    Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
-    Alloy.Globals.menu.activateItem('menuItemGuide');
+    dispatcher.trigger('index:navigate', 'guide');
+    dispatcher.trigger('menu:activate', 'menuItemGuide');
 }
 
 /**

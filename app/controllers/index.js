@@ -37,19 +37,8 @@ _.extend($, {
             return;
         }
 
-        Alloy.Globals.drawer = $.drawer;
-        Alloy.Globals.navigationWindow = $.navigationWindow;
-        Alloy.Globals.menu = $.menu;
-
-        $.drawer.open();
-
-        $.drawer.addEventListener('willShowMenuViewController', function (evt) {
-            dispatcher.trigger('menuDidOpen');
-        });
-
-        $.drawer.addEventListener('willHideMenuViewController', function (evt) {
-            dispatcher.trigger('menuDidClose');
-        });
+        // Take care of platform navigation
+        defineNavigation();
     },
 
     /**
@@ -59,3 +48,70 @@ _.extend($, {
     destruct: function() {
     }
 });
+
+/**
+ * On Menu event, open specified controller (platform specific)
+ * @method navigateTo
+ * @param  {String} controllerName navigation target
+ */
+function navigateTo(controllerName) {
+    var controllerView = Alloy.createController(controllerName);
+    if(OS_IOS) {
+        var win = $.UI.create("Window", {});
+        win.add(controllerView.getView());
+        require('windowManager').openWinInActiveNavWindow(win, {animated: false});
+        $.drawer.hideMenuViewController();
+    } else {
+        $.drawer.setCenterView(controllerView.getView());
+        $.drawer.closeLeftWindow();
+    }
+}
+
+/**
+ * Handle drawer init for both platforms
+ * @method defineNavigation
+ * @return {View} the drawer
+ */
+function defineNavigation() {
+    var drawerOpen = function (evt) { dispatcher.trigger('menu:open'); },
+        drawerClose = function (evt) { dispatcher.trigger('menu:close'); };
+
+    if (OS_IOS) {
+        require('windowManager').setActiveNavWindow($.navigationWindow);
+
+        $.drawer.open();
+        $.drawer.addEventListener('willShowMenuViewController', drawerOpen);
+        $.drawer.addEventListener('willHideMenuViewController', drawerClose);
+    } else {
+        // define menu and main content view
+        $.drawer.leftView = Alloy.createController('menu').getView();
+        $.drawer.centerView = Alloy.createController('surveys').getView();
+        $.drawer.addEventListener('draweropen', drawerOpen);
+        $.drawer.addEventListener('drawerclose', drawerClose);
+
+        $.navigationWindow.addEventListener('open',function(){
+            var activity = $.navigationWindow.getActivity();
+            if (activity){
+                var actionBar = activity.getActionBar();
+                if (actionBar){
+                    actionBar.displayHomeAsUp = true;
+                    actionBar.onHomeIconItemSelected=function(){
+                      $.drawer.toggleLeftWindow();
+                    }
+                }
+            }
+        })
+        $.navigationWindow.open();
+    }
+    dispatcher.on("index:navigate", function(name) {
+        navigateTo(name);
+    });
+    dispatcher.on("drawer:open", function() {
+        OS_IOS && $.drawer.presentLeftMenuViewController();
+        OS_ANDROID && $.drawer.openLeftWindow();
+    });
+    dispatcher.on("drawer:close", function() {
+        OS_IOS && $.drawer.hideMenuViewController();
+        OS_ANDROID && $.drawer.closeLeftWindow();
+    });
+}

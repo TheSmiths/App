@@ -63,6 +63,7 @@
     </mobileweb>
     <modules>
     <module platform="iphone" version="2.2">de.marcelpociot.sidemenu</module>
+    <module platform="android">com.tripvi.drawerlayout</module>
   </modules>
         <deployment-targets>
             <target device="android">true</target>

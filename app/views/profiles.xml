@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="profiles">
+    <View id="profiles">
         <View class="header">
             <Require src="components/menuButton" id="menuButton" />
             <Require src="components/closeButton" id="closeButton" onClick="closeWindow" />
@@ -17,5 +17,5 @@
 
             <TableView id="profilesTableView" onClick="doClickProfilesTableView" />
         </View>
-    </Window>
+    </View>
 </Alloy>

@@ -51,6 +51,9 @@
         <manifest>
             <application android:theme="@style/Theme.TheOceanCleanup" />
         </manifest>
+        <services>
+            <service url="serviceTrack.js" type="interval" />
+        </services>
     </android>
     <mobileweb>
         <precache>

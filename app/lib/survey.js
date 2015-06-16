@@ -6,9 +6,9 @@ var events = require('event');
 var notifications = require('notifications');
 
 // Internals
-var timer;
-var timing = false;
-var localNotification;
+var timing = false,
+    serviceTrackIntent, // Only for Android
+    localNotification;
 
 var surveyTimer = module.exports = {
     /**
@@ -50,10 +50,15 @@ var surveyTimer = module.exports = {
      */
     stopSurvey: function () {
         log.info('[lib/survey] Stop current survey');
+
         // Remove the background service
-        if (Ti.App.iOS.BackgroundService) {
+        if (OS_IOS && Ti.App.iOS.BackgroundService) {
             Ti.App.iOS.BackgroundService.unregister();
+        } else if (OS_ANDROID && serviceTrackIntent) {
+            Ti.Android.stopService(serviceTrackIntent);
+            serviceTrackIntent = null;
         }
+
         // Stop polling
         surveyTimer.stopTrackLocation();
     },
@@ -94,7 +99,11 @@ var surveyTimer = module.exports = {
     startTrackingService: function () {
         log.info('[lib/survey] Start running the background service');
         if (OS_IOS) {
-            Ti.App.iOS.registerBackgroundService({url: 'iosTrack.js'});
+            Ti.App.iOS.registerBackgroundService({url: 'serviceTrack.js'});
+        } else if (OS_ANDROID) {
+            serviceTrackIntent = Ti.Android.createServiceIntent({url: 'serviceTrack.js'}); 
+            serviceTrackIntent.putExtra('interval', 600); // !TODO: Remove hardcoded interval value
+            Ti.Android.startService(serviceTrackIntent);
         }
         timing = true;
     },

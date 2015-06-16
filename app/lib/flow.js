@@ -45,7 +45,7 @@ var flowLibrary = module.exports = {
 
         events.updateSurveyEventData('startSurvey', userData);
         survey.setUser(userData);
-        Alloy.createController('surveys/windspeed');
+        Alloy.createController('surveys/windSpeed');
     },
     /**
      * @method saveStartSurveyWindSpeed
@@ -226,5 +226,3 @@ function lockFlow () {
         lockedFlow = false;
     }, 300);
 }
-
-

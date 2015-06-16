@@ -12,6 +12,7 @@ var survey = require('survey');
 var events = require('event');
 var moment = require('alloy/moment');
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
 
 // Settings
 var settings = Ti.App.Properties.getObject('app-survey-settings') || {
@@ -20,7 +21,6 @@ var settings = Ti.App.Properties.getObject('app-survey-settings') || {
     unit: 'METRIC'
 };
 
-Ti.API.warn(settings);
 
 // Internals
 var startTime;
@@ -55,12 +55,12 @@ _.extend($, {
             $.surveyTimer.text = settings.surveyDuration + ':00';
         }
         // open window
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView());
 
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);
 
-        var TRACKLOCATIONTIME = settings.surveyDuration * 60 - settings.trackingInterval * 60; 
+        var TRACKLOCATIONTIME = settings.surveyDuration * 60 - settings.trackingInterval * 60;
         setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
 
         // Listen to event
@@ -113,7 +113,7 @@ function onClickCloseButton (evt) {
             Alloy.createController('index');
         }
 
-        require('windowManager').closeWin({animated: true});
+        WM.closeNav({animated: true});
     });
 
     dialog.show();

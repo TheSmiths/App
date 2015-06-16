@@ -6,6 +6,7 @@
  * @uses data.guide
  */
 var log = require('utils/log');
+var WM = require('windowManager');
 
 _.extend($, {
     /**
@@ -18,7 +19,7 @@ _.extend($, {
         buildPage(guideDetailsSourceData);
         // Open the window in dialog if the window is requested from other than the guide
         if (config.dialog) {
-            $.getView().open({modal:true});
+            WM.openModal($.getView());
         }
     },
 
@@ -35,6 +36,7 @@ _.extend($, {
  * @parems {Object} evt
  */
 function onClickBackButton (evt) {
+    // Modal
     $.getView().close({ animated : true });
 }
 

@@ -1,8 +1,8 @@
 
 var _navWindows = []; //Array holding all opened NavigationWindows
+var _closableWindows = []; //Array holding all opened Windows
 
 var WM = module.exports = {
-    closableWindows: [],
 
     /**
      * Opens given Window in a new Ti.UI.iOS.NavigationWindow on iOS and returns the new NavWindow. Does nothing on other platforms
@@ -43,6 +43,7 @@ var WM = module.exports = {
                 WM.createNewNavWindow(win).open(openProperties);
             } else {
                 _.last(_navWindows).openWindow(win, openProperties);
+                _closableWindows.push(win);
             }
         } else {
             WM.openWinWithBack(win, openProperties);
@@ -53,7 +54,7 @@ var WM = module.exports = {
         if (OS_IOS) {
             WM.createNewNavWindow(win).open(openProperties);
         } else {
-            win.open();
+            win.open(openProperties);
         }
     },
 
@@ -67,10 +68,40 @@ var WM = module.exports = {
         }
     },
 
+    openModal: function(win, openProperties) {
+        if (OS_IOS) {
+            openProperties = openProperties || {};
+            win.open(_.extend(openProperties, {modal:true}));
+        } else {
+            win.open(openProperties);
+        }
+    },
+
     closeWin: function (closeProperties) {
         if (_navWindows.length) {
-             _.last(_navWindows).close(closeProperties);
-             _navWindows.pop();
+            if (_closableWindows.length) {
+                _.last(_closableWindows).close(closeProperties);
+                _closableWindows.pop();
+            } else {
+                _.last(_navWindows).close(closeProperties);
+                _navWindows.pop();
+            }
+        }
+    },
+
+    closeNav: function (closeProperties) {
+        if(OS_ANDROID) { return WM.closeWin(closeProperties); }
+
+        if (_navWindows.length) {
+            var nav = _.last(_navWindows);
+            if(_closableWindows.length) {
+                // Forget about insider windows
+                _.each(_closableWindows, function(win) {
+                    nav.closeWindow(win);
+                });
+            }
+            nav.close(closeProperties);
+            _navWindows.pop();
         }
     },
 

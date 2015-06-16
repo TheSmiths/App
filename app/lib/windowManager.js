@@ -19,34 +19,8 @@ var WM = module.exports = {
                 fullscreen: true,
                 window: win
             });
-
-            navWindow.id = 'navWindow_' + _.uniqueId();
-
             _navWindows.push(navWindow);
-
-            // Store reference in the root Window to the NavigationWindow
-            win.navWin = navWindow;
-
             return navWindow;
-        } else
-            return win;
-    },
-
-    /**
-     * Open given Window in a the last created Ti.UI.iOS.NavigationWindow on iOS. Just open the Window on other platforms
-     *
-     * @param {Ti.UI.Window} win Window to open in NavigationWindow
-     */
-    openWinInActiveNavWindow: function(win, openProperties) {
-        if (OS_IOS) {
-            if (!_navWindows.length) {
-                WM.createNewNavWindow(win).open(openProperties);
-            } else {
-                _.last(_navWindows).openWindow(win, openProperties);
-                _closableWindows.push(win);
-            }
-        } else {
-            WM.openWinWithBack(win, openProperties);
         }
     },
 
@@ -58,13 +32,22 @@ var WM = module.exports = {
         }
     },
 
+    /**
+     * Open given Window in a the last created Ti.UI.iOS.NavigationWindow on iOS. Just open the Window on other platforms
+     *
+     * @param {Ti.UI.Window} win Window to open in NavigationWindow
+     */
     openWinWithBack: function(win, openProperties) {
-        if(OS_ANDROID) {
+        if(OS_IOS) {
+            if (!_navWindows.length) {
+                WM.createNewNavWindow(win).open(openProperties);
+            } else {
+                _.last(_navWindows).openWindow(win, openProperties);
+                _closableWindows.push(win);
+            }
+        } else {
             win.addEventListener('open', doOpenWindowWithBack);
             win.open(openProperties || {});
-        }
-        else {
-            WM.openWinInActiveNavWindow(win, openProperties);
         }
     },
 
@@ -92,7 +75,7 @@ var WM = module.exports = {
     closeNav: function (closeProperties) {
         if(OS_ANDROID) { return WM.closeWin(closeProperties); }
 
-        if (_navWindows.length) {
+        if (_navWindows.length > 1) {
             var nav = _.last(_navWindows);
             if(_closableWindows.length) {
                 // Forget about insider windows

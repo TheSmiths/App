@@ -48,6 +48,7 @@
     <string name="surveys.done.continue">Back to overview</string>
 
     <!-- Local notification -->
+    <string name="survey.notification.title">%i survey(s) achieved!</string>
     <string name="survey.notification.body">Survey is done! Continue to finalize.</string>
     <!-- Menu -->
     <string name="menu.surveys">Surveys</string>

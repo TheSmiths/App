@@ -6,6 +6,10 @@
     top: 0
 }
 
+".header[platform=android]": {
+    height: 100
+}
+
 ".headerWelcomeTitle": {
     text: L('surveys.welcomeTitle'),
     top: 35,
@@ -28,13 +32,16 @@
 }
 
 ".uploadButton": {
+    image: '/images/navigation/upload.png',
+}
+
+".uploadButton[platform=ios]": {
     height: 17,
     width: 17,
-    image: '/images/navigation/upload.png',
     right: 20
 }
 
-"#notificationContainer": {
+"#notificationContainer[platform=ios]": {
     width: 17,
     height: 17,
     top: 2,
@@ -43,27 +50,42 @@
     visible: false
 }
 
+"#notificationContainer[platform=android]": {
+    width: Ti.UI.FILL,
+    height: Ti.UI.FILL,
+    visible: false,
+    zIndex: 10
+}
+
+
 "#notificationCount": {
     text: "1",
+    height: Ti.UI.FILL,
+    width: Ti.UI.FILL,
     zIndex: 20,
-    width: 16,
-    left: 1,
-    height: 17,
     color: '#fff',
     font: {
         fontSize: 11,
         fontWeight: 'bold'
     },
     textAlign: 'center',
-
+}
+"#notificationCount[platform=ios]": {
+    width: 16,
+    left: 1,
+    height: 17,
 }
 
 ".notificationBackground": {
-
+    image: '/images/notifications/notification.png',
+    width: Ti.UI.FILL,
+    height: Ti.UI.FILL
+} 
+".notificationBackground[platform=ios]": {
     width: 17,
     height: 17,
-    image: '/images/notifications/notification.png'
 }
+
 
 
 // Buttons
@@ -84,9 +106,17 @@
     }
 }
 
+"#startSurvey[platform=android]": {
+    top: 20
+}
+
 ".content": {
     top: 150,
     backgroundColor: '#F0F0F0'
+}
+
+".content[platform=android]": {
+    top: 100
 }
 
 "#emptyView": {

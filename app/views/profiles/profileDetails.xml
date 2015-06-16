@@ -1,10 +1,14 @@
 <Alloy>
     <Window id="profileDetails">
-       <View class="header">
+       <View class="header" platform="ios">
             <Label id="headerTitle" class="headerTitle" />
             <Require src="components/closeButton" onClick="closeWindow" />
             <Require src="components/guideButton" id="guideButton" topic="profile" />
         </View>
+
+        <Menu platform="android">
+            <Require src="components/guideButton" id="guideButton" topic="profile" /> 
+        </Menu>
 
         <ScrollView>
             <View class="formRow">

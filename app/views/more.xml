@@ -1,6 +1,6 @@
 <Alloy>
     <View id="more">
-         <View class="header">
+        <View class="header" platform="ios">
             <Require src="components/menuButton" id="menuButton" />
             <Label class="headerTitle" />
         </View>

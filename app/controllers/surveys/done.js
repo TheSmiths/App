@@ -25,7 +25,7 @@ _.extend($, {
     construct: function(config) {
         require('windowManager').openWinWithBack($.getView());
         // @todo build in auto upload so we don't set the notification unintended.
-        notifications.increase(1);
+        notifications.updateBadge();
         // Lets Update the user
         var activeProfile = survey.getUser();
         profiles.fetch();

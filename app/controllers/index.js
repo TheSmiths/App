@@ -6,6 +6,8 @@
  * @class Controllers.index
  */
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
+
 /**
  * Initializes the controller
  */
@@ -59,7 +61,7 @@ function navigateTo(controllerName) {
     if(OS_IOS) {
         var win = $.UI.create("Window", {});
         win.add(controllerView.getView());
-        require('windowManager').openWinWithBack(win, {animated: false});
+        WM.openWinWithBack(win, {animated: false});
         $.drawer.hideMenuViewController();
     } else {
         $.drawer.setCenterView(controllerView.getView());
@@ -77,7 +79,7 @@ function defineNavigation() {
         drawerClose = function (evt) { dispatcher.trigger('menu:close'); };
 
     if (OS_IOS) {
-        require('windowManager').setActiveNavWindow($.navigationWindow);
+        WM.setActiveNavWindow($.navigationWindow);
 
         $.drawer.open();
         $.drawer.addEventListener('willShowMenuViewController', drawerOpen);

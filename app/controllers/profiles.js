@@ -30,7 +30,7 @@ _.extend($, {
             // Wrap in a window
             var win = $.UI.create("Window", {});
             win.add($.getView());
-            WM.openWinWithBack(win);
+            WM.openWinInNewWindow(win);
         }
 
         profiles.on('add', onAddProfile);

@@ -61,29 +61,18 @@ var WM = module.exports = {
     },
 
     closeWin: function (closeProperties) {
-        if (_navWindows.length) {
-            if (_closableWindows.length) {
-                _.last(_closableWindows).close(closeProperties);
-                _closableWindows.pop();
-            } else {
-                _.last(_navWindows).close(closeProperties);
-                _navWindows.pop();
-            }
+        if (_closableWindows.length) {
+            _.last(_closableWindows).close(closeProperties);
+            _closableWindows.pop();
         }
     },
 
     closeNav: function (closeProperties) {
         if(OS_ANDROID) { return WM.closeWin(closeProperties); }
-
-        if (_navWindows.length > 1) {
-            var nav = _.last(_navWindows);
-            if(_closableWindows.length) {
-                // Forget about insider windows
-                _.each(_closableWindows, function(win) {
-                    nav.closeWindow(win);
-                });
-            }
-            nav.close(closeProperties);
+        if (_navWindows.length) {
+            // Forget about all insider windows
+            _closableWindows = [];
+            _.last(_navWindows).close(closeProperties);
             _navWindows.pop();
         }
     },
@@ -104,16 +93,13 @@ var WM = module.exports = {
  */
 function doOpenWindowWithBack(evt) {
     var win = this;
-
     win.removeEventListener('open', doOpenWindowWithBack);
 
     if(OS_ANDROID) {
         var activity = win.activity;
-
         if (activity.actionBar) {
             activity.actionBar.setDisplayHomeAsUp(true);
         }
-
         activity.actionBar.onHomeIconItemSelected = function() {
             win.close({
                 activityEnterAnimation: Titanium.App.Android.R.anim.slide_in_left,

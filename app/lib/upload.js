@@ -26,7 +26,7 @@ module.exports = function (callback) {
     // Send object through http request
 
     if (!Titanium.Network.online) {
-        callback('NOINTERNET');
+        return callback('NOINTERNET');
     }
 
     // Reset Array
@@ -74,7 +74,7 @@ module.exports = function (callback) {
 
         }, function (err) {
             if( err ) {
-                callback(err);
+                return callback(err);
             }
 
             callback();

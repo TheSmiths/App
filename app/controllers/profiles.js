@@ -23,9 +23,11 @@ _.extend($, {
         // Set state
         STATE = config.flow || STATE;
         if (STATE === 'PRESURVEY') {
-            $.menuButton.hide();
-            $.closeButton.show();
-            $.headerTitle.text = L('profiles.surveyTitle');
+            if (OS_IOS) {
+                $.menuButton.hide();
+                $.closeButton.show();
+                $.headerTitle.text = L('profiles.surveyTitle');
+            } 
             // Wrap in a window
             var win = $.UI.create("Window", {});
             win.add($.getView());

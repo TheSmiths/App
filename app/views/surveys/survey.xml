@@ -1,10 +1,10 @@
 <Alloy>
     <Window id="survey">
         <View class="header">
-            <Require src="components/closeButton" id="closeButton" onClick="onClickCloseButton" />
-            <Label id="headerTitle" class="headerTitle" />
-            <Require src="components/guideButton" id="guideButton" topic="survey" />
-
+            <Require src="components/closeButton" id="closeButton" onClick="onClickCloseButton"
+                platform="ios"/>
+            <Label id="headerTitle" class="headerTitle" platform="ios"/>
+            <Require src="components/guideButton" id="guideButton" topic="survey" platform="ios"/>
             <View class="timerContainer">
                 <Label class="timer" id="surveyTimer" />
                 <Label class="startTime" id="surveyStartTime" />
@@ -21,6 +21,9 @@
             </View>
         </View>
 
+        <Menu platform="android">
+            <Require src="components/guideButton" id="guideButton" topic="survey" />
+        </Menu>
 
 
         <View class="content">

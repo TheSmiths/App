@@ -1,6 +1,6 @@
 <Alloy>
     <View id="surveys">
-        <View class="header">
+        <View class="header" platform="ios">
             <Require src="components/menuButton" id="menuButton" />
             <View id="uploadButtonContainer" onClick="onClickUploadButton">
                 <View id="notificationContainer">
@@ -9,9 +9,21 @@
                 </View>
                 <ImageView class="uploadButton" />
             </View>
-            <Label class="headerWelcomeTitle" />
+            <Label class="headerWelcomeTitle"/>
 
             <Require src="components/button" id="startSurvey" onClick="doClickStartSurvey" />
+        </View>
+
+        <View class="header" platform="android">
+            <Require src="components/button" id="startSurvey" onClick="doClickStartSurvey" />
+        </View>
+
+        <View class="actionBubble" onClick="onClickUploadButton" platform="android">
+            <View id="notificationContainer">
+                <Label id="notificationCount" />
+                <ImageView class="notificationBackground" />
+            </View>
+            <ImageView class="uploadButton" />
         </View>
 
         <View class="content">

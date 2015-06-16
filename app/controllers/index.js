@@ -94,9 +94,10 @@ function defineNavigation() {
             if (activity){
                 var actionBar = activity.getActionBar();
                 if (actionBar){
+                    actionBar.title = L('surveys.welcomeTitle');
                     actionBar.displayHomeAsUp = true;
                     actionBar.onHomeIconItemSelected=function(){
-                      $.drawer.toggleLeftWindow();
+                        $.drawer.toggleLeftWindow();
                     }
                 }
             }
@@ -104,6 +105,11 @@ function defineNavigation() {
         $.navigationWindow.open();
     }
     dispatcher.on("index:navigate", function(name) {
+        if (OS_ANDROID) {
+            var activity = $.navigationWindow.getActivity(),
+                actionBar = activity && activity.getActionBar();
+            actionBar && actionBar.setTitle(L(name === "surveys" && "surveys.welcomeTitle" || "menu." + name));
+        }
         navigateTo(name);
     });
     dispatcher.on("drawer:open", function() {

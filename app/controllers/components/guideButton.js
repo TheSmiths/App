@@ -6,7 +6,9 @@
 var args = arguments[0] || {};
 
 // Pass through all the properties set on the button, except for meta data and text
-$.guideButtonContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
+if (OS_IOS) {
+    $.guideButtonContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
+} 
 
 // Topics correlate to the data/guide content
 var topics = {
@@ -32,9 +34,10 @@ function onClickGuideButton (evt) {
     }
 
     var buttonClick = _.throttle(function buttonClick () {
-        $.guideButtonContainer.opacity = 0.6;
-        setTimeout(function () { $.guideButtonContainer.opacity = 1; }, 350);
-        require('dispatcher').trigger("drawer:open");
+        if (OS_IOS) {
+            $.guideButtonContainer.opacity = 0.6;
+            setTimeout(function () { $.guideButtonContainer.opacity = 1; }, 350);
+        }
         Alloy.createController('guide/guideDetail', { dialog: true, guideIndex: topics[topic] });
     }, 100);
 

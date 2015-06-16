@@ -13,16 +13,20 @@
     top: 0,
     backgroundColor: '#202121'
 }
-// backgroundGradient: {
-//     type: 'linear',
-//     colors: ['#56C2D2', '#45AFBF'],
-//     startPoint: { x: '50%', y: 0 },
-//     endPoint: { x: '50%', y: '100%' },
-//     backFillStart: true
-// },
 
 ".header": {
     height: 70,
     backgroundColor: '#01CBE1',
     top: 0
+}
+
+".actionBubble": {
+    height: 40,
+    width: 40,
+    borderRadius: 6,
+    backgroundColor: "#01CBE1",
+    color: "#FFFFFF",
+    bottom: 10,
+    right: 10,
+    zIndex: 10
 }

@@ -24,7 +24,7 @@ _.extend($, {
         startTime = config.startTime;
         endTime = config.endTime;
         fetchSurveyEvents(config.surveyId);
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveyDetails.title')});
     },
 
     /**

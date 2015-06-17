@@ -26,7 +26,7 @@ _.extend($, {
         // If flow is survey start as standalone navigation group
         if (config.flow === 'PRESURVEY') {
             STATE = config.flow;
-            WM.openWinInNewWindow($.getView());
+            WM.openWinInNewWindow($.getView(), { title: L('profiles.profileDetails.title') } );
             return;
         }
 
@@ -39,7 +39,7 @@ _.extend($, {
             $.boat.value = profileModel.get('boat');
         }
 
-        WM.openModal($.getView());
+        WM.openModal($.getView(), { title: L('profiles.profileDetails.title') });
     },
 
     /**

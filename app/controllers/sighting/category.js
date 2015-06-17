@@ -28,7 +28,7 @@ _.extend($, {
         }
 
         $.grid.setData(data);
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('sighting.category.title')});
     },
 
     /**

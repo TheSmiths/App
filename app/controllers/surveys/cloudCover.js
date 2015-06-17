@@ -15,7 +15,7 @@ _.extend($, {
      */
     construct: function(config) {
         $.grid.setData(require('data/cloudCover'));
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveys.cloudCover.title')});
     },
 
     /**

@@ -17,10 +17,16 @@ _.extend($, {
     construct: function(config) {
         var guideDetailsSourceData = require('data/guide').guideDetails[config.guideIndex];
         buildPage(guideDetailsSourceData);
+        $._guideHeading = guideDetailsSourceData[0].heading;
+
         // Open the window in dialog if the window is requested from other than the guide
         if (config.dialog) {
-            WM.openModal($.getView());
+            WM.openModal($.getView(), { title: $._guideHeading });
         }
+    },
+
+    getGuideHeading: function () {
+        return $._guideHeading;
     },
 
     /**

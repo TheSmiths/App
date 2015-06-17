@@ -24,11 +24,12 @@ var WM = module.exports = {
         }
     },
 
-    openWinInNewWindow: function(win, openProperties) {
+    openWinInNewWindow: function(win, options) {
+        setTitleIfAny(win, options);
         if (OS_IOS) {
-            WM.createNewNavWindow(win).open(openProperties);
+            WM.createNewNavWindow(win).open(options);
         } else {
-            win.open(openProperties);
+            win.open(options);
         }
     },
 
@@ -37,26 +38,28 @@ var WM = module.exports = {
      *
      * @param {Ti.UI.Window} win Window to open in NavigationWindow
      */
-    openWinWithBack: function(win, openProperties) {
+    openWinWithBack: function(win, options) {
+        setTitleIfAny(win, options);
         if(OS_IOS) {
             if (!_navWindows.length) {
-                WM.createNewNavWindow(win).open(openProperties);
+                WM.createNewNavWindow(win).open(options);
             } else {
-                _.last(_navWindows).openWindow(win, openProperties);
+                _.last(_navWindows).openWindow(win, options);
                 _closableWindows.push(win);
             }
         } else {
             win.addEventListener('open', doOpenWindowWithBack);
-            win.open(openProperties || {});
+            win.open(options || {});
         }
     },
 
-    openModal: function(win, openProperties) {
+    openModal: function(win, options) {
+        setTitleIfAny(win, options);
         if (OS_IOS) {
-            openProperties = openProperties || {};
-            win.open(_.extend(openProperties, {modal:true}));
+            options = options || {};
+            win.open(_.extend(options, {modal:true}));
         } else {
-            win.open(openProperties);
+            win.open(options);
         }
     },
 
@@ -106,5 +109,23 @@ function doOpenWindowWithBack(evt) {
                 activityExitAnimation: Titanium.App.Android.R.anim.slide_out_right
             });
         };
+    }
+}
+
+/* Set a title for a window in android if any
+ * 
+ * @param win The targetted window
+ * @param option The window's options, might contain a title field or not.
+ * */
+function setTitleIfAny (win, options) {
+    if (options && options.title) {
+        if (OS_ANDROID) {
+            win.addEventListener('open', (function (_win, _title) {
+                return (function () {
+                    _win.getActivity().getActionBar().setTitle(_title);
+                });
+            })(win, options.title));
+        }
+        delete options.title;
     }
 }

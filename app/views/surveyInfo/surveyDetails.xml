@@ -1,10 +1,16 @@
 <Alloy>
     <Window id="surveyDetails">
         <View class="header">
-            <Require src="components/backButton" id="backButton" onClick="onClickBackButton" />
-            <Label id="headerTitle" class="headerTitle" />
-            <Require src="components/guideButton" id="guideButton" topic="surveyDetail" />
+            <Require src="components/backButton" id="backButton" onClick="onClickBackButton"
+                platform="ios"/>
+            <Label id="headerTitle" class="headerTitle" platform="ios"/>
+            <Require src="components/guideButton" id="guideButton" topic="surveyDetail"
+                platform="ios"/>
         </View>
+
+        <Menu platform="android">
+            <Require src="components/guideButton" id="guideButton" topic="surveyDetail" />
+        </Menu>
 
         <TableView id="surveyTableView" />
     </Window>

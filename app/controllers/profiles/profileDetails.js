@@ -26,7 +26,8 @@ _.extend($, {
         // If flow is survey start as standalone navigation group
         if (config.flow === 'PRESURVEY') {
             STATE = config.flow;
-            WM.openWinInNewWindow($.getView());
+            if(OS_IOS)  WM.openWinInNewWindow($.getView());
+            else        WM.openWinWithBack($.getView());
             return;
         }
 

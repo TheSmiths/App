@@ -28,6 +28,7 @@ var WM = module.exports = {
         if (OS_IOS) {
             WM.createNewNavWindow(win).open(openProperties);
         } else {
+            _closableWindows.push(win);
             win.open(openProperties);
         }
     },
@@ -46,8 +47,10 @@ var WM = module.exports = {
                 _closableWindows.push(win);
             }
         } else {
+            _closableWindows.push(win);
             win.addEventListener('open', doOpenWindowWithBack);
-            win.open(openProperties || {});
+            win.addEventListener('close', doCloseWindowWithBack);
+            win.open(openProperties);
         }
     },
 
@@ -56,19 +59,29 @@ var WM = module.exports = {
             openProperties = openProperties || {};
             win.open(_.extend(openProperties, {modal:true}));
         } else {
-            win.open(openProperties);
+            WM.openWinWithBack(win, openProperties);
         }
     },
 
     closeWin: function (closeProperties) {
         if (_closableWindows.length) {
-            _.last(_closableWindows).close(closeProperties);
+            Ti.API.warn("closeWin >", _closableWindows.length);
+            var win = _.last(_closableWindows);
+            if(OS_ANDROID) {
+                win.removeEventListener('close', doCloseWindowWithBack);
+            }
+            win.close(closeProperties);
             _closableWindows.pop();
         }
     },
 
     closeNav: function (closeProperties) {
-        if(OS_ANDROID) { return WM.closeWin(closeProperties); }
+        if(OS_ANDROID) {
+            Ti.API.warn("CloseNav", _navWindows.length);
+            // Close all windows
+            _(_closableWindows.length).times(function() { WM.closeWin(); });
+            return;
+        }
         if (_navWindows.length) {
             // Forget about all insider windows
             _closableWindows = [];
@@ -101,10 +114,18 @@ function doOpenWindowWithBack(evt) {
             activity.actionBar.setDisplayHomeAsUp(true);
         }
         activity.actionBar.onHomeIconItemSelected = function() {
-            win.close({
+            WM.closeWin({
                 activityEnterAnimation: Titanium.App.Android.R.anim.slide_in_left,
                 activityExitAnimation: Titanium.App.Android.R.anim.slide_out_right
             });
         };
     }
+}
+/**
+ * Will close an Android modal-like window
+ * @method doCloseWindowWithBack
+ * @param {Object} evt Event details
+ */
+function doCloseWindowWithBack(evt) {
+    _closableWindows.pop();
 }

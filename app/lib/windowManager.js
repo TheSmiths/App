@@ -1,6 +1,7 @@
 
-var _navWindows = []; //Array holding all opened NavigationWindows
-var _closableWindows = []; //Array holding all opened Windows
+var _navWindows = [],   // Array holding all opened NavigationWindows
+    _groupWindows = [], // Array holding current group's opened Windows
+    _savedWindows = []; // Array holding array of previous opened groups
 
 var WM = module.exports = {
 
@@ -29,7 +30,10 @@ var WM = module.exports = {
         if (OS_IOS) {
             WM.createNewNavWindow(win).open(options);
         } else {
-            _closableWindows.push(win);
+            // Save previous group's win
+            _savedWindows.push(_groupWindows);
+            // Start with current window
+            _groupWindows = [win];
             win.open(options);
         }
     },
@@ -46,10 +50,10 @@ var WM = module.exports = {
                 WM.createNewNavWindow(win).open(options);
             } else {
                 _.last(_navWindows).openWindow(win, options);
-                _closableWindows.push(win);
+                _groupWindows.push(win);
             }
         } else {
-            _closableWindows.push(win);
+            _groupWindows.push(win);
             win.addEventListener('open', doOpenWindowWithBack);
             win.addEventListener('close', doCloseWindowWithBack);
             win.open(options);
@@ -67,25 +71,26 @@ var WM = module.exports = {
     },
 
     closeWin: function (closeProperties) {
-        if (_closableWindows.length) {
-            var win = _.last(_closableWindows);
+        if (_groupWindows.length) {
+            var win = _.last(_groupWindows);
             if(OS_ANDROID) {
                 win.removeEventListener('close', doCloseWindowWithBack);
             }
             win.close(closeProperties);
-            _closableWindows.pop();
+            _groupWindows.pop();
         }
     },
 
     closeNav: function (closeProperties) {
         if(OS_ANDROID) {
             // Close all windows
-            _(_closableWindows.length).times(function() { WM.closeWin(); });
+            _(_groupWindows.length).times(function() { WM.closeWin(); });
+            _groupWindows = _savedWindows.pop();
             return;
         }
         if (_navWindows.length) {
             // Forget about all insider windows
-            _closableWindows = [];
+            _groupWindows = [];
             _.last(_navWindows).close(closeProperties);
             _navWindows.pop();
         }
@@ -146,5 +151,5 @@ function setTitleIfAny (win, options) {
  * @param {Object} evt Event details
  */
 function doCloseWindowWithBack(evt) {
-    _closableWindows.pop();
+    _groupWindows.pop();
 }

@@ -51,16 +51,15 @@ _.extend($, {
             state = 'ACTIVE';
         } else {
             $.surveyTimer.text = settings.surveyDuration + ':00';
+            WM.closeNav({animated: false});
         }
 
         // open window
         if(OS_ANDROID) {
             $.getView().addEventListener('android:back', onClickCloseButton);
             $.getView().addEventListener('open', doOpen);
-            WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
-        } else {
-            WM.openWinWithBack($.getView());
         }
+        WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
 
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);

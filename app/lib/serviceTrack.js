@@ -54,5 +54,5 @@ function updateTime() {
 }
 
 // Start Tracking
-Ti.API.info('[serviceTrack] Start Tracking gps location in the background');
+Ti.API.info('[serviceTrack] Tracking gps location in the background');
 updateTime();

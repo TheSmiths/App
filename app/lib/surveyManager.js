@@ -56,7 +56,6 @@ var surveyTimer = module.exports = {
             Ti.App.iOS.BackgroundService.unregister();
         } else if (OS_ANDROID && serviceTrack.service) {
             serviceTrack.service.stop();
-            serviceTrack.service = null;
         }
 
         // Stop polling
@@ -212,11 +211,12 @@ function deleteSurveyData (surveyObject) {
  * @todo: Android
  */
 function setLocalNotification (notificationTime) {
+    var notificationCount = notifications.get() ? notifications.get() : 1;
+
     if (OS_IOS) {
         // Update the nr of notifications, but silent (notification will update badge)
         notifications.increase(1, true);
         // Get the new badge count to display on notification
-        var notificationCount = notifications.get() ? notifications.get() : 1;
         // Schedule notification
         serviceTrack.notification = Ti.App.iOS.scheduleLocalNotification({
             alertAction: "continue",
@@ -229,16 +229,17 @@ function setLocalNotification (notificationTime) {
         /* Create the notification to send */
         var intent = Ti.Android.createIntent({
             packageName: Ti.App.id,
-            classname: Ti.App.id + "." + Ti.App.name.substring(0,1).toUpperCase() + Ti.App.name.substring(1) + "Activity",
+            className: Ti.App.id + "." + Ti.App.name.substring(0,1).toUpperCase() + Ti.App.name.substring(1).toLowerCase() + "Activity",
             action: Ti.Android.ACTION_MAIN
         });
-        intent.flags |= Ti.Android.FLAG_ACTIVITY_CLEAR_TOP;
+        intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
+        intent.flags |= Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
 
         serviceTrack.notification = Titanium.Android.createNotification({
-            // TODO icon:
+            icon: Ti.App.Android.R.drawable.notification_icon,
             contentTitle: String.format(L('survey.notification.title'), notificationCount),
             contentText: L('survey.notification.body'),
-            intent: Ti.Android.createPendingIntent({
+            contentIntent: Ti.Android.createPendingIntent({
                 intent: intent,
                 flags: Titanium.Android.FLAG_UPDATE_CURRENT
             })

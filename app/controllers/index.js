@@ -34,7 +34,7 @@ _.extend($, {
         }
 
         // Check if we have an active survey, if so open the app in active survey mode
-        if (require('survey').activeSurvey()) {
+        if (require('surveyManager').activeSurvey()) {
             Alloy.createController('surveys/survey', {startedFromRoot: true});
             return;
         }

@@ -10,7 +10,7 @@
  */
 var log = require('utils/log');
 var notifications = require('notifications');
-var survey = require('survey');
+var libSurvey = require('surveyManager');
 var dispatcher = require('dispatcher');
 var WM = require('windowManager');
 
@@ -37,7 +37,7 @@ _.extend($, {
         activeProfileModel.save();
         dispatcher.trigger('profile:change');
         // Remove any reference to the survey
-        require('survey').destroySurvey();
+        libSurvey.destroySurvey();
         // Trigger a update
         dispatcher.trigger('survey:change');
     },
@@ -74,7 +74,7 @@ function doClickDone () {
     activeProfileModel.save();
     dispatcher.trigger('profile:change');
     // Remove any reference to the survey
-    require('survey').destroySurvey();
+    libSurvey.destroySurvey();
     // Trigger a update
     dispatcher.trigger('survey:change');
     require('flow').done();

@@ -68,7 +68,6 @@ var WM = module.exports = {
 
     closeWin: function (closeProperties) {
         if (_closableWindows.length) {
-            Ti.API.warn("closeWin >", _closableWindows.length);
             var win = _.last(_closableWindows);
             if(OS_ANDROID) {
                 win.removeEventListener('close', doCloseWindowWithBack);
@@ -80,7 +79,6 @@ var WM = module.exports = {
 
     closeNav: function (closeProperties) {
         if(OS_ANDROID) {
-            Ti.API.warn("CloseNav", _navWindows.length);
             // Close all windows
             _(_closableWindows.length).times(function() { WM.closeWin(); });
             return;
@@ -126,8 +124,8 @@ function doOpenWindowWithBack(evt) {
 }
 
 /* Set a title for a window in android if any
- * 
- * @param win The targetted window
+ *
+ * @param win The targeted window
  * @param option The window's options, might contain a title field or not.
  * */
 function setTitleIfAny (win, options) {

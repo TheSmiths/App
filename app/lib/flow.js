@@ -4,7 +4,7 @@
  */
 var log = require('utils/log');
 var events = require('event');
-var survey = require('surveyManager');
+var libSurvey = require('surveyManager');
 var dispatcher = require('dispatcher');
 var WM = require('windowManager');
 

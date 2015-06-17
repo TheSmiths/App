@@ -103,7 +103,8 @@ var surveyTimer = module.exports = {
         } else if (OS_ANDROID) {
             var serviceTrackIntent = Ti.Android.createServiceIntent({url: 'serviceTrack.js'}); 
             serviceTrackIntent.putExtra('interval', 600); // !TODO: Remove hardcoded interval value
-            serviceTrack.service = Ti.Android.startService(serviceTrackIntent);
+            serviceTrack.service = Ti.Android.createService(serviceTrackIntent);
+            serviceTrack.service.start();
         }
         timing = true;
     },
@@ -248,7 +249,7 @@ function setLocalNotification (notificationTime) {
             return _.once(function () {
                 Ti.Android.NotificationManager.notify(1, _notification);
             });
-        })(notification);
+        })(serviceTrack.notification);
 
        serviceTrack.service.addEventListener('stop', onServiceTrackEnd);
        serviceTrack.service.addEventListener('taskremoved', onServiceTrackEnd);

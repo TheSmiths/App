@@ -54,9 +54,9 @@ var surveyTimer = module.exports = {
         // Remove the background service
         if (OS_IOS && Ti.App.iOS.BackgroundService) {
             Ti.App.iOS.BackgroundService.unregister();
-        } else if (OS_ANDROID && serviceTrack) {
-            serviceTrack.stop();
-            serviceTrack = null;
+        } else if (OS_ANDROID && serviceTrack.service) {
+            serviceTrack.service.stop();
+            serviceTrack.service = null;
         }
 
         // Stop polling

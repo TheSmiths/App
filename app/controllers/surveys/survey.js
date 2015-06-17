@@ -8,7 +8,7 @@
  * @uses dispatcher
  */
 var log = require('utils/log');
-var survey = require('survey');
+var libSurvey = require('surveyManager');
 var events = require('event');
 var moment = require('alloy/moment');
 var dispatcher = require('dispatcher');
@@ -47,15 +47,15 @@ _.extend($, {
         // Set state (e.g. started from active or inactive)
         if (config.startedFromRoot) {
             startedFromRoot = true;
-            activateSurvey(survey.activeSurvey());
+            activateSurvey(libSurvey.activeSurvey());
             state = 'ACTIVE';
-        }
-
-        if (!config.startedFromRoot) {
+        } else {
             $.surveyTimer.text = settings.surveyDuration + ':00';
         }
+
         // open window
-        WM.openWinWithBack($.getView(), {title: L('surveys.survey.title')});
+        if(OS_ANDROID) $.getView().addEventListener("open", doOpen);
+        WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
 
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);
@@ -85,6 +85,19 @@ _.extend($, {
 });
 
 /**
+ * Configure window at open
+ * @method doOpen
+ */
+function doOpen() {
+    $.getView().removeEventListener('open', doOpen);
+
+    var activity = $.getView().getActivity();
+    // activity.onResume = continueSurvey;
+    // activity.onPause = pauseSurvey;
+    $.getView().addEventListener('android:back', onClickCloseButton);
+}
+
+/**
  * @method onClickCloseButton
  * Handle `click` on close button
  * @param  {Object} evt
@@ -106,13 +119,11 @@ function onClickCloseButton (evt) {
 
         // Stop survey, stop time, start index again, close this window.
         stopTime();
-
-        require('survey').cancelSurvey();
+        // libSurvey.cancelSurvey();
 
         if (startedFromRoot) {
             Alloy.createController('index');
         }
-
         WM.closeNav({animated: true});
     });
 
@@ -134,7 +145,7 @@ function doClickStartSurvey (evt) {
             return;
         }
         // Start survey
-        var surveyObject = survey.startSurvey();
+        var surveyObject = libSurvey.startSurvey();
         var currentTime = new Date().getTime();
 
         // Move location error to the library
@@ -215,7 +226,7 @@ function activateSurvey(surveyTimeObject) {
 
     state = 'POSTACTIVE';
     updateViewState('POSTACTIVE');
-    survey.stopSurvey();
+    libSurvey.stopSurvey();
 }
 
 
@@ -247,7 +258,7 @@ function updateTime () {
         state = 'POSTACTIVE';
         updateViewState('POSTACTIVE');
         $.surveyTimer.text = '00:00';
-        survey.stopSurvey();
+        libSurvey.stopSurvey();
         Ti.Media.vibrate();
         return;
     }
@@ -258,7 +269,7 @@ function updateTime () {
 
     // Track location
     if (remainingSeconds < TRACKLOCATIONTIME && TRACKLOCATIONTIME > 0) {
-        survey.trackLocation();
+        libSurvey.trackLocation();
         TRACKLOCATIONTIME = TRACKLOCATIONTIME - TRACKTIMEINTERVAL;
         // Update value for background Service.
         setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
@@ -283,7 +294,7 @@ function updateTime () {
 function stopSurvey () {
     stopTime();
     Ti.App.removeEventListener('survey:updated', renderSurveyTimeline);
-    survey.stopSurvey();
+    libSurvey.stopSurvey();
 }
 
 /**
@@ -344,7 +355,7 @@ function updateViewState (state) {
  * Fetch all events from survey, and call render function
  */
 function renderSurveyTimeline () {
-    var surveyId = survey.activeSurvey().surveyId;
+    var surveyId = libSurvey.activeSurvey().surveyId;
     eventCollection.fetch({
         query: 'SELECT * from events where survey_id = "' + surveyId + '"',
         success: function(collection, response, options) {
@@ -383,5 +394,5 @@ function pauseSurvey () {
  * Continue survey
  */
 function continueSurvey () {
-    activateSurvey(survey.activeSurvey());
+    activateSurvey(libSurvey.activeSurvey());
 }

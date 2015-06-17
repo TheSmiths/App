@@ -4,6 +4,10 @@
     statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
 }
 
+"Window[platform=android]": {
+    windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_STATE_HIDDEN
+}
+
 "Window": {
     backgroundColor: "#fff"
 }

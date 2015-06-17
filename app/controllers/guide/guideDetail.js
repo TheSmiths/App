@@ -53,8 +53,10 @@ function onClickBackButton (evt) {
 function buildPage (guideDetailData) {
     _.each(guideDetailData, function (content) {
         var guideDetailType = _.keys(content);
-        if (OS_IOS && guideDetailType[0] === 'heading') {
-            $.headerTitle.text = content[guideDetailType[0]];
+        if (guideDetailType[0] === 'heading') {
+            if (OS_IOS) {
+                $.headerTitle.text = content[guideDetailType[0]];
+            }
             return;
         }
 

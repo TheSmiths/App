@@ -28,11 +28,16 @@ _.extend($, {
                 $.menuButton.hide();
                 $.closeButton.show();
                 $.headerTitle.text = L('profiles.surveyTitle');
-            } 
+            }
             // Wrap in a window
             var win = $.UI.create("Window", {});
             win.add($.getView());
-            WM.openWinInNewWindow(win, { title: L('profiles.surveyTitle') });
+
+            if (OS_IOS) { 
+                WM.openWinInNewWindow(win, { title: L('profiles.surveyTitle') });
+            } else { 
+                WM.openWinWithBack(win, { title: L('profiles.surveyTitle') });
+            }
         }
 
         profiles.on('add', onAddProfile);

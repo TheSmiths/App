@@ -26,7 +26,13 @@ _.extend($, {
         // If flow is survey start as standalone navigation group
         if (config.flow === 'PRESURVEY') {
             STATE = config.flow;
-            WM.openWinInNewWindow($.getView(), { title: L('profiles.profileDetails.title') } );
+
+            if (OS_IOS) {
+                WM.openWinInNewWindow($.getView(), { title: L('profiles.profileDetails.title') });
+            } else { 
+                WM.openWinWithBack($.getView(), { title: L('profiles.profileDetails.title') } ); 
+            }
+
             return;
         }
 

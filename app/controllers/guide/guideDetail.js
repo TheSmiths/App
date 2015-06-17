@@ -17,10 +17,16 @@ _.extend($, {
     construct: function(config) {
         var guideDetailsSourceData = require('data/guide').guideDetails[config.guideIndex];
         buildPage(guideDetailsSourceData);
+        $._guideHeading = guideDetailsSourceData[0].heading;
+
         // Open the window in dialog if the window is requested from other than the guide
         if (config.dialog) {
-            WM.openModal($.getView());
+            WM.openModal($.getView(), { title: $._guideHeading });
         }
+    },
+
+    getGuideHeading: function () {
+        return $._guideHeading;
     },
 
     /**
@@ -47,8 +53,10 @@ function onClickBackButton (evt) {
 function buildPage (guideDetailData) {
     _.each(guideDetailData, function (content) {
         var guideDetailType = _.keys(content);
-        if (OS_IOS && guideDetailType[0] === 'heading') {
-            $.headerTitle.text = content[guideDetailType[0]];
+        if (guideDetailType[0] === 'heading') {
+            if (OS_IOS) {
+                $.headerTitle.text = content[guideDetailType[0]];
+            }
             return;
         }
 

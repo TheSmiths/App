@@ -23,7 +23,7 @@ _.extend($, {
         var settings = Ti.App.Properties.getObject('app-survey-settings');
         var unitType  = settings && settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
         $.grid.setData(require('data/dimension')[unitType]);
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('sighting.dimension.title')});
 
         if (sightingType === "MULTI") {
             $.headerSubTitle.text = L('sighting.dimension.subTitleMulti');

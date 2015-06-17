@@ -17,7 +17,7 @@ _.extend($, {
         // Set data
         $.grid.setData(require('data/windSpeed'));
         // Open
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveys.windspeed.title')});
     },
 
     /**

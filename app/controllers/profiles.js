@@ -32,7 +32,7 @@ _.extend($, {
             // Wrap in a window
             var win = $.UI.create("Window", {});
             win.add($.getView());
-            WM.openWinInNewWindow(win);
+            WM.openWinInNewWindow(win, { title: L('profiles.surveyTitle') });
         }
 
         profiles.on('add', onAddProfile);

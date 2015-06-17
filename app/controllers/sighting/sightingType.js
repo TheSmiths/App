@@ -16,7 +16,7 @@ _.extend($, {
     construct: function(config) {
         //Get category based on material
         $.grid.setData(require('data/sightingType'));
-        WM.openWinInNewWindow($.getView());
+        WM.openWinInNewWindow($.getView(), { title: L('sighting.sightingType.title') });
     },
 
     /**

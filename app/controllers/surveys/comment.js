@@ -25,7 +25,7 @@ _.extend($, {
             $.headerSubTitle.text = 'Provide a description of the group of debris';
         }
 
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveys.comment.title')});
     },
 
     /**

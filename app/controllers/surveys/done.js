@@ -24,7 +24,7 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveys.done.title')});
         // @todo build in auto upload so we don't set the notification unintended.
 
         notifications.updateBadge();

@@ -55,7 +55,7 @@ _.extend($, {
             $.surveyTimer.text = settings.surveyDuration + ':00';
         }
         // open window
-        WM.openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveys.survey.title')});
 
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);

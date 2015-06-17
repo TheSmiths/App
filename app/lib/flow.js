@@ -4,7 +4,7 @@
  */
 var log = require('utils/log');
 var events = require('event');
-var survey = require('survey');
+var survey = require('surveyManager');
 var dispatcher = require('dispatcher');
 var WM = require('windowManager');
 
@@ -45,7 +45,7 @@ var flowLibrary = module.exports = {
         lockFlow();
 
         events.updateSurveyEventData('startSurvey', userData);
-        survey.setUser(userData);
+        libSurvey.setUser(userData);
         Alloy.createController('surveys/windSpeed');
     },
     /**

@@ -29,7 +29,7 @@ _.extend($, {
 
         notifications.updateBadge();
         // Lets Update the user
-        var activeProfile = survey.getUser();
+        var activeProfile = libSurvey.getUser();
         profiles.fetch();
         var activeProfileModel = profiles.get(activeProfile.id);
         var numberOfSurveys = activeProfileModel.get('surveys') + 1;
@@ -66,7 +66,7 @@ function onClickBackButton () {
 function doClickDone () {
     notifications.increase(1);
     // Lets Update the user
-    var activeProfile = survey.getUser();
+    var activeProfile = libSurvey.getUser();
     profiles.fetch();
     var activeProfileModel = profiles.get(activeProfile.id);
     var numberOfSurveys = activeProfileModel.get('surveys') + 1;

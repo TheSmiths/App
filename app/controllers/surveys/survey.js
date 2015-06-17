@@ -54,7 +54,7 @@ _.extend($, {
         }
 
         // open window
-        if(OS_ANDROID) $.getView().addEventListener("open", doOpen);
+        if(OS_ANDROID) $.getView().addEventListener('android:back', onClickCloseButton);
         WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
 
         //Listners
@@ -85,19 +85,6 @@ _.extend($, {
 });
 
 /**
- * Configure window at open
- * @method doOpen
- */
-function doOpen() {
-    $.getView().removeEventListener('open', doOpen);
-
-    var activity = $.getView().getActivity();
-    // activity.onResume = continueSurvey;
-    // activity.onPause = pauseSurvey;
-    $.getView().addEventListener('android:back', onClickCloseButton);
-}
-
-/**
  * @method onClickCloseButton
  * Handle `click` on close button
  * @param  {Object} evt
@@ -119,7 +106,7 @@ function onClickCloseButton (evt) {
 
         // Stop survey, stop time, start index again, close this window.
         stopTime();
-        // libSurvey.cancelSurvey();
+        libSurvey.cancelSurvey();
 
         if (startedFromRoot) {
             Alloy.createController('index');

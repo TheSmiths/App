@@ -54,8 +54,13 @@ _.extend($, {
         }
 
         // open window
-        if(OS_ANDROID) $.getView().addEventListener('android:back', onClickCloseButton);
-        WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
+        if(OS_ANDROID) {
+            $.getView().addEventListener('android:back', onClickCloseButton);
+            $.getView().addEventListener('open', doOpen);
+            WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
+        } else {
+            WM.openWinWithBack($.getView());
+        }
 
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);
@@ -83,6 +88,20 @@ _.extend($, {
         }
     }
 });
+
+/**
+ * Configure window at open
+ * @method doOpen
+ */
+function doOpen() {
+    $.getView().removeEventListener('open', doOpen);
+    // Avoid resume event to be triggered right now
+    _.delay(function() {
+        var activity = $.getView().getActivity();
+        activity.onResume = continueSurvey;
+        activity.onPause = pauseSurvey;
+    }, 800);
+}
 
 /**
  * @method onClickCloseButton

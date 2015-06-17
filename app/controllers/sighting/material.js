@@ -20,7 +20,7 @@ _.extend($, {
      */
     construct: function(config) {
         sightingType = config.sightingType;
-         $.grid.setData(require('data/material'));
+        $.grid.setData(require('data/material'));
         WM.openWinWithBack($.getView(), {title: L('sighting.material.title')});
 
         if (sightingType === "MULTI") {

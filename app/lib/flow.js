@@ -4,11 +4,12 @@
  */
 var log = require('utils/log');
 var events = require('event');
-var survey = require('survey');
+var libSurvey = require('surveyManager');
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
+var libLocation = require('utils/location');
 
 // Internals
-var startedFromRoot = false;
 var lockedFlow = false;
 
 var flowLibrary = module.exports = {
@@ -21,7 +22,13 @@ var flowLibrary = module.exports = {
         if (lockedFlow) { return; }
         lockFlow();
 
-         // Start storing the event
+        // On Android, start looking for a location (can be slow)
+        // We'll make sure to update location after 2 min
+        if(OS_ANDROID) {
+            libLocation.requestCoordinates(null, 120000);
+        }
+
+        // Start storing the event
         events.initSurveyEvent('startSurvey');
         // Check if there are profiles in order to determine which view to open
         Alloy.createCollection('Profile').fetch({
@@ -44,8 +51,8 @@ var flowLibrary = module.exports = {
         lockFlow();
 
         events.updateSurveyEventData('startSurvey', userData);
-        survey.setUser(userData);
-        Alloy.createController('surveys/windspeed');
+        libSurvey.setUser(userData);
+        Alloy.createController('surveys/windSpeed');
     },
     /**
      * @method saveStartSurveyWindSpeed
@@ -135,7 +142,7 @@ var flowLibrary = module.exports = {
 
         if (sightingType === "SINGLE") {
             return saveSighting(function () {
-                return require('windowManager').closeWin({animated: true});
+                return WM.closeNav({animated: true});
             });
         }
 
@@ -150,17 +157,15 @@ var flowLibrary = module.exports = {
         lockFlow();
 
         saveSighting(function () {
-            require('windowManager').closeWin({animated: true});
+            WM.closeNav({animated: true});
         });
     },
     /**
      * @method postSurvey
      */
-    postSurvey: function (startedFromRootBoolean) {
+    postSurvey: function () {
         if (lockedFlow) { return; }
         lockFlow();
-
-        startedFromRoot = startedFromRootBoolean;
         Alloy.createController('surveys/comment');
     },
     /**
@@ -182,11 +187,7 @@ var flowLibrary = module.exports = {
         if (lockedFlow) { return; }
         lockFlow();
 
-        require('windowManager').closeWin({animated: true});
-
-        if (startedFromRoot) {
-            Alloy.createController('index');
-        }
+        WM.closeNav({animated: true});
     }
 };
 
@@ -200,7 +201,7 @@ function saveSighting (callback) {
     // Get current time
     var sightingEndTime = new Date().getTime();
     // Request location from system
-    require('utils/location').getCurrentLatLng(function (error, locationObject) {
+    libLocation.getCurrentLatLng(function (error, locationObject) {
         var dataObject = {};
         // Add time to object
         dataObject.endTime = sightingEndTime;
@@ -225,5 +226,3 @@ function lockFlow () {
         lockedFlow = false;
     }, 300);
 }
-
-

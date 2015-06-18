@@ -8,7 +8,7 @@ _.extend($, {
         var settings = Ti.App.Properties.getObject('app-survey-settings');
         var eventType = config.model.get('type');
         var eventData = JSON.parse(config.model.get('data'));
-        var surveyData = require('survey').activeSurvey();
+        var surveyData = require('surveyManager').activeSurvey();
 
         if (config.startTime && config.endTime ) {
             surveyData = {};
@@ -111,5 +111,6 @@ function displayFinishSurvey (eventData, surveyData) {
  * @return {String} coordinates Readable coordinates string
  */
 function readableCoordinates (coordinates) {
-    return coordinates.substring(0, coordinates.length - 10);
+    var limit = Math.min(5, coordinates.length);
+    return coordinates.substring(0, limit);
 }

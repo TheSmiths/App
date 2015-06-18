@@ -12,6 +12,10 @@
     backgroundColor: '#F0F0F0'
 }
 
+"#content[platform=android]": {
+    top: 0
+}
+
 "#contentContainer": {
     top: 15,
     bottom: 15,
@@ -53,7 +57,7 @@
     height: Ti.UI.SIZE,
     font: {
         fontFamily: 'ProximaNova-Regular',
-         fontSize: 14
+        fontSize: 13
     },
     color: '#333',
     bottom: 10

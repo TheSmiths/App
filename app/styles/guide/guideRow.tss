@@ -1,8 +1,16 @@
 "TableViewRow": {
     height: 60,
     backgroundColor: 'transparent',
+}
+
+"TableViewRow[platform=ios]": {
     selectedBackgroundColor: '#fff'
 }
+
+"TableViewRow[platform=android]": {
+    backgroundSelectedColor: "#FFFFFF"
+}
+
 
 ".guideContainer": {
     top: 5,

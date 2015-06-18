@@ -5,6 +5,7 @@
  * @uses utils.log
  */
 var log = require('utils/log');
+var WM = require('windowManager');
 
 // Internals
 var type = "SURVEY";
@@ -24,7 +25,7 @@ _.extend($, {
             $.headerSubTitle.text = 'Provide a description of the group of debris';
         }
 
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveys.comment.title')});
     },
 
     /**
@@ -40,7 +41,7 @@ _.extend($, {
  * Handle `click` on backButton
  */
 function onClickBackButton () {
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 

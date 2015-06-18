@@ -6,7 +6,7 @@
  * @uses module.statusbar
  */
 var log = require('utils/log');
-
+var dispatcher = require('dispatcher');
 
 // Internal variables
 var activeItem;
@@ -22,6 +22,9 @@ _.extend($, {
         $.versionLabel.text = L('menu.version') +  Ti.App.version;
         activeItem = 'menuItemSurveys';
         activateItem('menuItemSurveys');
+        dispatcher.on("menu:activate", function(name) {
+            activateItem(name);
+        });
     },
 
     /**
@@ -39,9 +42,7 @@ _.extend($, {
  */
 function onClickSurveys (evt) {
     if (activeItem !== 'menuItemSurveys') {
-        var surveys = Alloy.createController('surveys').getView();
-        Alloy.Globals.navigationWindow.openWindow(surveys, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        dispatcher.trigger("index:navigate", 'surveys');
         activateItem('menuItemSurveys');
     }
 }
@@ -53,9 +54,7 @@ function onClickSurveys (evt) {
  */
 function onClickProfiles (evt) {
     if (activeItem !== 'menuItemProfiles') {
-        var profiles = Alloy.createController('profiles', { flow: 'NONE'}).getView();
-        Alloy.Globals.navigationWindow.openWindow(profiles, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        dispatcher.trigger("index:navigate", 'profiles');
         activateItem('menuItemProfiles');
     }
 }
@@ -67,9 +66,7 @@ function onClickProfiles (evt) {
  */
 function onClickGuide (evt) {
     if (activeItem !== 'menuItemGuide') {
-        var guide = Alloy.createController('guide').getView();
-        Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        dispatcher.trigger("index:navigate", 'guide');
         activateItem('menuItemGuide');
     }
 }
@@ -81,9 +78,7 @@ function onClickGuide (evt) {
  */
 function onClickSettings (evt) {
     if (activeItem !== 'menuItemSettings') {
-        var settings = Alloy.createController('settings').getView();
-        Alloy.Globals.navigationWindow.openWindow(settings, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        dispatcher.trigger("index:navigate", 'settings');
         activateItem('menuItemSettings');
     }
 }
@@ -95,9 +90,7 @@ function onClickSettings (evt) {
  */
 function onClickMore (evt) {
     if (activeItem !== 'menuItemMore') {
-        var more = Alloy.createController('more').getView();
-        Alloy.Globals.navigationWindow.openWindow(more, {animated: false});
-        Alloy.Globals.drawer.hideMenuViewController();
+        dispatcher.trigger("index:navigate", 'more');
         activateItem('menuItemMore');
     }
 }
@@ -114,4 +107,4 @@ function activateItem (menuItem) {
 }
 
 // Exports
-exports.activateItem = activateItem;
+exports.getActiveItem = function(){ return activeItem; };

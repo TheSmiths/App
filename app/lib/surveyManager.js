@@ -6,9 +6,9 @@ var events = require('event');
 var notifications = require('notifications');
 
 // Internals
-var timer;
-var timing = false;
-var localNotification;
+var timing = false,
+    serviceTrack = { service: null, notification: null }, 
+    onServiceTrackEnd;  // Only for Android
 
 var surveyTimer = module.exports = {
     /**
@@ -50,10 +50,22 @@ var surveyTimer = module.exports = {
      */
     stopSurvey: function () {
         log.info('[lib/survey] Stop current survey');
+
         // Remove the background service
-        if (Ti.App.iOS.BackgroundService) {
+        if (OS_IOS && Ti.App.iOS.BackgroundService) {
             Ti.App.iOS.BackgroundService.unregister();
+        } else if (OS_ANDROID && serviceTrack.service) {
+            serviceTrack.service.removeEventListener('taskremoved', onServiceTrackEnd);
+            serviceTrack.service.removeEventListener('stop', onServiceTrackEnd);
+            onServiceTrackEnd = null;
+
+            if (!serviceTrack.service.selfStopped) {
+                serviceTrack.service.stop();
+            }
+
+            serviceTrack.service = null;
         }
+
         // Stop polling
         surveyTimer.stopTrackLocation();
     },
@@ -77,7 +89,7 @@ var surveyTimer = module.exports = {
     },
 
     /**
-     * [cancelSurvey description]
+     * cancelSurvey description]
      * @return {[type]} [description]
      */
     cancelSurvey: function () {
@@ -94,7 +106,12 @@ var surveyTimer = module.exports = {
     startTrackingService: function () {
         log.info('[lib/survey] Start running the background service');
         if (OS_IOS) {
-            Ti.App.iOS.registerBackgroundService({url: 'iosTrack.js'});
+            serviceTrack.service = Ti.App.iOS.registerBackgroundService({url: 'serviceTrack.js'});
+        } else if (OS_ANDROID) {
+            var serviceTrackIntent = Ti.Android.createServiceIntent({url: 'serviceTrack.js'}); 
+            serviceTrackIntent.putExtra('interval', 600); // !TODO: Remove hardcoded interval value
+            serviceTrack.service = Ti.Android.createService(serviceTrackIntent);
+            serviceTrack.service.start();
         }
         timing = true;
     },
@@ -152,7 +169,7 @@ function saveSurveyData (surveyObject) {
         "created": new Date().getTime(),
         "startTime": surveyObject.startTime,
         "endTime": surveyObject.endTime,
-        "uploaded": false
+        "uploaded": 0
     });
 
     surveyModel.save();
@@ -202,34 +219,67 @@ function deleteSurveyData (surveyObject) {
  * @todo: Android
  */
 function setLocalNotification (notificationTime) {
+    // Update the nr of notifications, but silent (notification will update badge)
+    notifications.increase(1, true);
+
+    var notificationCount = notifications.get() ? notifications.get() : 1;
     if (OS_IOS) {
-        // Update the nr of notifications, but silent (notification will update badge)
-        notifications.increase(1, true);
         // Get the new badge count to display on notification
-        var notificationCount = notifications.get() ? notifications.get() : 1;
         // Schedule notification
-        localNotification = Ti.App.iOS.scheduleLocalNotification({
+        serviceTrack.notification = Ti.App.iOS.scheduleLocalNotification({
             alertAction: "continue",
             alertBody: L('survey.notification.body'),
             badge: notificationCount,
             date: new Date(notificationTime),
             sound: "/alert.wav",
         });
+    } else if (OS_ANDROID) {
+        /* Create the notification to send */
+        var className = Ti.App.id + "." + Ti.App.name.substring(0,1).toUpperCase() + 
+                Ti.App.name.substring(1).toLowerCase() + "Activity";
+
+        var intent = Ti.Android.createIntent({
+            packageName: Ti.App.id,
+            className: className,
+            action: Ti.Android.ACTION_MAIN
+        });
+        intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
+        intent.flags |= Ti.Android.FLAG_ACTIVITY_REORDER_TO_FRONT;//Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
+
+        serviceTrack.notification = Titanium.Android.createNotification({
+            icon: Ti.App.Android.R.drawable.notification_icon,
+            contentTitle: String.format(L('survey.notification.title'), notificationCount),
+            contentText: L('survey.notification.body'),
+            contentIntent: Ti.Android.createPendingIntent({
+                intent: intent,
+                flags: Titanium.Android.FLAG_UPDATE_CURRENT
+            })
+        });
+
+        /* No scheduler for Android, let's launch the event once the service is over */
+        onServiceTrackEnd = (function (_serviceTrack) {
+            return _.once(function () {
+                Ti.Android.NotificationManager.notify(14, _serviceTrack.notification);
+                _serviceTrack.service.selfStopped = true;
+            });
+        })(serviceTrack);
+
+       serviceTrack.service.addEventListener('stop', onServiceTrackEnd);
+       serviceTrack.service.addEventListener('taskremoved', onServiceTrackEnd);
     }
 }
 
 /**
  * @method cancelLocalNotification
  * Remove the timed local notification if set
- * @todo: Android
  */
 function cancelLocalNotification () {
-    if (OS_IOS) {
-        if (localNotification) {
-            localNotification.cancel();
-            localNotification = null;
-        }
-
-        notifications.decrease(1);
+    if (OS_IOS && serviceTrack.notification) {
+        serviceTrack.notification.cancel();
+    } else if (OS_ANDROID && serviceTrack.notification) {
+       Ti.Android.NotificationManager.cancel(14);
     }
+
+    serviceTrack.notification = null;
+    notifications.decrease(1);
 }

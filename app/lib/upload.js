@@ -26,7 +26,7 @@ module.exports = function (callback) {
     // Send object through http request
 
     if (!Titanium.Network.online) {
-        callback('NOINTERNET');
+        return callback('NOINTERNET');
     }
 
     // Reset Array
@@ -50,7 +50,7 @@ module.exports = function (callback) {
                     log.info('[upload] Successfully uploaded survey');
                     // Get the upload
                     var surveyModel = surveyCollection.get(survey.surveyId);
-                    surveyModel.set('uploaded', true);
+                    surveyModel.set('uploaded', 1);
                     surveyModel.save();
                     // Decrease the nr of notifications
                     notifications.decrease(1);
@@ -74,7 +74,7 @@ module.exports = function (callback) {
 
         }, function (err) {
             if( err ) {
-                callback(err);
+                return callback(err);
             }
 
             callback();

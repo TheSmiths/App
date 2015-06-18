@@ -28,6 +28,10 @@
     backgroundColor: '#F0F0F0'
 }
 
+"#surveyTableView[platform=android]": {
+    top: 0
+}
+
 "#surveyTableView[platform=ios]": {
     separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE,
 }

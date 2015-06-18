@@ -7,6 +7,7 @@
  * @uses flow
  */
 var log = require('utils/log');
+var WM = require('windowManager');
 
 //Internals
 var sightingType;
@@ -19,8 +20,8 @@ _.extend($, {
      */
     construct: function(config) {
         sightingType = config.sightingType;
-         $.grid.setData(require('data/material'));
-        require('windowManager').openWinWithBack($.getView());
+        $.grid.setData(require('data/material'));
+        WM.openWinWithBack($.getView(), {title: L('sighting.material.title')});
 
         if (sightingType === "MULTI") {
             $.headerSubTitle.text = L('sighting.material.subTitleMulti');
@@ -41,7 +42,7 @@ _.extend($, {
  */
 function onClickBackButton (evt) {
     log.info('[sighting/material] Close window');
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 /**

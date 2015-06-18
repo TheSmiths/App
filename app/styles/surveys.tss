@@ -6,6 +6,10 @@
     top: 0
 }
 
+".header[platform=android]": {
+    height: 100
+}
+
 ".headerWelcomeTitle": {
     text: L('surveys.welcomeTitle'),
     top: 35,
@@ -18,52 +22,67 @@
 }
 
 // Header - Upload button
-
 "#uploadButtonContainer": {
+    opacity: 0.3
+}
+
+"#uploadButtonContainer[platform=ios]": {
     top: 20,
     right: 0,
     width: 60,
     height: 40,
-    opacity: 0.3
 }
 
 ".uploadButton": {
+    image: '/images/navigation/upload.png',
     height: 17,
     width: 17,
-    image: '/images/navigation/upload.png',
+}
+
+".uploadButton[platform=ios]": {
     right: 20
 }
 
-"#notificationContainer": {
+"#notificationContainer":{
     width: 17,
     height: 17,
-    top: 2,
-    right: 10,
     zIndex: 10,
     visible: false
 }
 
+"#notificationContainer[platform=ios]": {
+    top: 2,
+    right: 10,
+}
+
+"#notificationContainer[platform=android]": {
+    visible: true,
+    right: 1,
+    bottom: 1
+}
+
+
 "#notificationCount": {
     text: "1",
-    zIndex: 20,
-    width: 16,
-    left: 1,
     height: 17,
+    width: 16,
+    zIndex: 20,
     color: '#fff',
     font: {
         fontSize: 11,
         fontWeight: 'bold'
     },
     textAlign: 'center',
-
+}
+"#notificationCount[platform=ios]": {
+    left: 1,
 }
 
 ".notificationBackground": {
-
+    image: '/images/notifications/notification.png',
     width: 17,
     height: 17,
-    image: '/images/notifications/notification.png'
-}
+} 
 
 
 // Buttons
@@ -84,9 +103,17 @@
     }
 }
 
+"#startSurvey[platform=android]": {
+    top: 20
+}
+
 ".content": {
     top: 150,
     backgroundColor: '#F0F0F0'
+}
+
+".content[platform=android]": {
+    top: 100
 }
 
 "#emptyView": {

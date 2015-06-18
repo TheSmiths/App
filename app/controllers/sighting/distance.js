@@ -8,7 +8,7 @@
  * @uses dispatcher
  */
 var log = require('utils/log');
-
+var WM = require('windowManager');
 //Internals
 var sightingType;
 
@@ -23,7 +23,7 @@ _.extend($, {
         var settings = Ti.App.Properties.getObject('app-survey-settings');
         var unitType  = settings && settings.unit === 'IMPERIAL' ? 'IMPERIAL' : 'METRIC';
         $.grid.setData(require('data/distance')[unitType]);
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('sighting.distance.title')});
 
         if (sightingType === "MULTI") {
             $.headerSubTitle.text = L('sighting.distance.subTitleMulti');
@@ -44,7 +44,7 @@ _.extend($, {
  */
 function onClickBackButton () {
     log.info('[sighting/distance] Close window');
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 /**

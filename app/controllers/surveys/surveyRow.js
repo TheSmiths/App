@@ -111,5 +111,6 @@ function displayFinishSurvey (eventData, surveyData) {
  * @return {String} coordinates Readable coordinates string
  */
 function readableCoordinates (coordinates) {
-    return coordinates.substring(0, coordinates.length - 10);
+    var limit = Math.min(5, coordinates.length);
+    return coordinates.substring(0, limit);
 }

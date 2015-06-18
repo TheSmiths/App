@@ -10,7 +10,6 @@ var WM = require('windowManager');
 var libLocation = require('utils/location');
 
 // Internals
-var startedFromRoot = false;
 var lockedFlow = false;
 
 var flowLibrary = module.exports = {
@@ -164,11 +163,9 @@ var flowLibrary = module.exports = {
     /**
      * @method postSurvey
      */
-    postSurvey: function (startedFromRootBoolean) {
+    postSurvey: function () {
         if (lockedFlow) { return; }
         lockFlow();
-
-        startedFromRoot = startedFromRootBoolean;
         Alloy.createController('surveys/comment');
     },
     /**
@@ -191,10 +188,6 @@ var flowLibrary = module.exports = {
         lockFlow();
 
         WM.closeNav({animated: true});
-
-        if (startedFromRoot) {
-            Alloy.createController('index');
-        }
     }
 };
 

@@ -50,7 +50,7 @@ module.exports = function (callback) {
                     log.info('[upload] Successfully uploaded survey');
                     // Get the upload
                     var surveyModel = surveyCollection.get(survey.surveyId);
-                    surveyModel.set('uploaded', true);
+                    surveyModel.set('uploaded', 1);
                     surveyModel.save();
                     // Decrease the nr of notifications
                     notifications.decrease(1);

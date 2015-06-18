@@ -169,7 +169,7 @@ function saveSurveyData (surveyObject) {
         "created": new Date().getTime(),
         "startTime": surveyObject.startTime,
         "endTime": surveyObject.endTime,
-        "uploaded": false
+        "uploaded": 0
     });
 
     surveyModel.save();
@@ -219,11 +219,11 @@ function deleteSurveyData (surveyObject) {
  * @todo: Android
  */
 function setLocalNotification (notificationTime) {
-    var notificationCount = notifications.get() ? notifications.get() : 1;
+    // Update the nr of notifications, but silent (notification will update badge)
+    notifications.increase(1, true);
 
+    var notificationCount = notifications.get() ? notifications.get() : 1;
     if (OS_IOS) {
-        // Update the nr of notifications, but silent (notification will update badge)
-        notifications.increase(1, true);
         // Get the new badge count to display on notification
         // Schedule notification
         serviceTrack.notification = Ti.App.iOS.scheduleLocalNotification({

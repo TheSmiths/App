@@ -6,10 +6,12 @@
         <NavigationWindow id="navigationWindow" role="contentView">
             <Window>
                 <Require src="surveys" />
+                <View id="loading" />
             </Window>
         </NavigationWindow>
     </Widget>
     <Window id="navigationWindow" platform="android">
         <Module id="drawer" module="com.tripvi.drawerlayout" method="createDrawer"/>
+        <View id="loading" />
     </Window>
 </Alloy>

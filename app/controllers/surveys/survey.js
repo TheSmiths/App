@@ -28,7 +28,6 @@ var endTime;
 var timer;
 var active = false;
 var state = 'PREACTIVE';
-var startedFromRoot = false;
 
 // constants
 var TRACKTIMEINTERVAL = settings.trackingInterval * 60;
@@ -46,7 +45,6 @@ _.extend($, {
     construct: function(config) {
         // Set state (e.g. started from active or inactive)
         if (config.startedFromRoot) {
-            startedFromRoot = true;
             activateSurvey(libSurvey.activeSurvey());
             state = 'ACTIVE';
         } else {
@@ -103,8 +101,10 @@ function onClickCloseButton (evt) {
         stopTime();
         libSurvey.cancelSurvey();
 
-        if (startedFromRoot) {
-            Alloy.createController('index');
+        // Stop listening for events
+        if (OS_IOS) {
+            Ti.App.removeEventListener('pause', pauseSurvey);
+            Ti.App.removeEventListener('resume', continueSurvey);
         }
         WM.closeNav({animated: true});
     });
@@ -175,7 +175,7 @@ function doClickAddSighting (evt) {
 function doClickFinishSurvey (evt) {
     events.initSurveyEvent('finishSurvey');
     log.info('[surveys/survey] Finished survey');
-    require('flow').postSurvey(startedFromRoot);
+    require('flow').postSurvey();
 }
 
 /**

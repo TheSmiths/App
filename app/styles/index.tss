@@ -2,6 +2,15 @@
     backgroundColor: 'white'
 }
 
+"#loading": {
+    height:Ti.UI.FILL,
+    width:Ti.UI.FILL,
+    backgroundColor: '#000',
+    opacity: 0.3,
+    visible: false,
+    zIndex: 100
+}
+
 "#drawer[platform=android]": {
     leftDrawerWidth: "240",
     width: Ti.UI.FILL,

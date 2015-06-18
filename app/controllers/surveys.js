@@ -29,6 +29,7 @@ _.extend($, {
         dispatcher.on('survey:change', addedSurvey);
         // Check if there are any surveys
         fetchSurveys();
+        _.defer(updateNotificationBadge);
     },
 
     /**

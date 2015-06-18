@@ -7,6 +7,7 @@ var events = require('event');
 var libSurvey = require('surveyManager');
 var dispatcher = require('dispatcher');
 var WM = require('windowManager');
+var libLocation = require('utils/location');
 
 // Internals
 var startedFromRoot = false;
@@ -22,7 +23,13 @@ var flowLibrary = module.exports = {
         if (lockedFlow) { return; }
         lockFlow();
 
-         // Start storing the event
+        // On Android, start looking for a location (can be slow)
+        // We'll make sure to update location after 2 min
+        if(OS_ANDROID) {
+            libLocation.requestCoordinates(null, 120000);
+        }
+
+        // Start storing the event
         events.initSurveyEvent('startSurvey');
         // Check if there are profiles in order to determine which view to open
         Alloy.createCollection('Profile').fetch({
@@ -201,7 +208,7 @@ function saveSighting (callback) {
     // Get current time
     var sightingEndTime = new Date().getTime();
     // Request location from system
-    require('utils/location').getCurrentLatLng(function (error, locationObject) {
+    libLocation.getCurrentLatLng(function (error, locationObject) {
         var dataObject = {};
         // Add time to object
         dataObject.endTime = sightingEndTime;

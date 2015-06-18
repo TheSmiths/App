@@ -33,14 +33,18 @@ _.extend($, {
             });
         }
 
-        // Check if we have an active survey, if so open the app in active survey mode
-        if (require('surveyManager').activeSurvey()) {
-            Alloy.createController('surveys/survey', {startedFromRoot: true});
-            return;
-        }
-
         // Take care of platform navigation
         defineNavigation();
+
+        // Check if we have an active survey, if so open the app in active survey mode
+        if (require('surveyManager').activeSurvey()) {
+            $.loading.show();
+            // Wait for controller to be ready, then resume survey
+            _.delay(function(){
+                Alloy.createController('surveys/survey', {startedFromRoot: true});
+                $.loading.hide();
+            }, 300);
+        }
     },
 
     /**

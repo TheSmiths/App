@@ -85,9 +85,10 @@ var WM = module.exports = {
         if(OS_ANDROID) {
             // Close all windows
             _(_groupWindows.length).times(function() { WM.closeWin(); });
-            _groupWindows = _savedWindows.pop();
+            _groupWindows = _savedWindows.pop() || [];
             return;
         }
+        // IOS
         if (_navWindows.length) {
             // Forget about all insider windows
             _groupWindows = [];

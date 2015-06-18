@@ -55,10 +55,7 @@ _.extend($, {
         }
 
         // open window
-        if(OS_ANDROID) {
-            $.getView().addEventListener('android:back', onClickCloseButton);
-            $.getView().addEventListener('open', doOpen);
-        }
+        if(OS_ANDROID) $.getView().addEventListener('android:back', onClickCloseButton);
         WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
 
         //Listners
@@ -66,12 +63,6 @@ _.extend($, {
 
         var TRACKLOCATIONTIME = settings.surveyDuration * 60 - settings.trackingInterval * 60;
         setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
-
-        // Listen to event
-        if (OS_IOS) {
-            Ti.App.addEventListener('pause', pauseSurvey);
-            Ti.App.addEventListener('resume', continueSurvey);
-        }
     },
 
     /**
@@ -87,20 +78,6 @@ _.extend($, {
         }
     }
 });
-
-/**
- * Configure window at open
- * @method doOpen
- */
-function doOpen() {
-    $.getView().removeEventListener('open', doOpen);
-    // Avoid resume event to be triggered right now
-    _.delay(function() {
-        var activity = $.getView().getActivity();
-        activity.onResume = continueSurvey;
-        activity.onPause = pauseSurvey;
-    }, 800);
-}
 
 /**
  * @method onClickCloseButton
@@ -156,6 +133,16 @@ function doClickStartSurvey (evt) {
         // Move location error to the library
         events.saveSurveyEvent('startSurvey', {startingTime: currentTime, startLocation: currentLocation});
         activateSurvey(surveyObject);
+
+        // Listen to event
+        if (OS_IOS) {
+            Ti.App.addEventListener('pause', pauseSurvey);
+            Ti.App.addEventListener('resume', continueSurvey);
+        } else {
+            var activity = $.getView().getActivity();
+            activity.onResume = continueSurvey;
+            activity.onPause = pauseSurvey;
+        }
     });
 }
 

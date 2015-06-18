@@ -244,7 +244,7 @@ function setLocalNotification (notificationTime) {
             action: Ti.Android.ACTION_MAIN
         });
         intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
-        intent.flags |= Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
+        intent.flags |= Ti.Android.FLAG_ACTIVITY_REORDER_TO_FRONT;//Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
 
         serviceTrack.notification = Titanium.Android.createNotification({
             icon: Ti.App.Android.R.drawable.notification_icon,

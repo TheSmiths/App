@@ -55,7 +55,15 @@ var surveyTimer = module.exports = {
         if (OS_IOS && Ti.App.iOS.BackgroundService) {
             Ti.App.iOS.BackgroundService.unregister();
         } else if (OS_ANDROID && serviceTrack.service) {
-            serviceTrack.service.stop();
+            serviceTrack.service.removeEventListener('taskremoved', onServiceTrackEnd);
+            serviceTrack.service.removeEventListener('stop', onServiceTrackEnd);
+            onServiceTrackEnd = null;
+
+            if (!serviceTrack.service.selfStopped) {
+                serviceTrack.service.stop();
+            }
+
+            serviceTrack.service = null;
         }
 
         // Stop polling
@@ -246,11 +254,12 @@ function setLocalNotification (notificationTime) {
         });
 
         /* No scheduler for Android, let's launch the event once the service is over */
-        onServiceTrackEnd = (function (_notification) {
+        onServiceTrackEnd = (function (_serviceTrack) {
             return _.once(function () {
-                Ti.Android.NotificationManager.notify(1, _notification);
+                Ti.Android.NotificationManager.notify(14, _serviceTrack.notification);
+                _serviceTrack.service.selfStopped = true;
             });
-        })(serviceTrack.notification);
+        })(serviceTrack);
 
        serviceTrack.service.addEventListener('stop', onServiceTrackEnd);
        serviceTrack.service.addEventListener('taskremoved', onServiceTrackEnd);
@@ -265,10 +274,9 @@ function cancelLocalNotification () {
     if (OS_IOS && serviceTrack.notification) {
         serviceTrack.notification.cancel();
     } else if (OS_ANDROID && serviceTrack.notification) {
-        serviceTrack.service.removeEventListener('stop', onServiceTrackEnd);
-        serviceTrack.service.removeEventListener('taskremoved', onServiceTrackEnd);
+       Ti.Android.NotificationManager.cancel(14);
     }
 
-    serviceTrack.notification = serviceTrack.service = null;
+    serviceTrack.notification = null;
     notifications.decrease(1);
 }

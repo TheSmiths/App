@@ -16,6 +16,7 @@ _.extend($, {
     construct: function(config) {
         //Get category based on material
         $.grid.setData(require('data/sightingType'));
+        if(OS_ANDROID) $.getView().addEventListener('android:back', closeWindow);
         WM.openWinInNewWindow($.getView(), { title: L('sighting.sightingType.title') });
     },
 

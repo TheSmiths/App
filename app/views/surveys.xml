@@ -18,7 +18,7 @@
             <Require src="components/button" id="startSurvey" onClick="doClickStartSurvey" />
         </View>
 
-        <View class="actionBubble" onClick="onClickUploadButton" platform="android">
+        <View id="uploadButtonContainer" class="actionBubble" onClick="onClickUploadButton" platform="android">
             <View id="notificationContainer">
                 <Label id="notificationCount" />
                 <ImageView class="notificationBackground" />

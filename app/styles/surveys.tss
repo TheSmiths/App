@@ -22,46 +22,50 @@
 }
 
 // Header - Upload button
-
 "#uploadButtonContainer": {
+    opacity: 0.3
+}
+
+"#uploadButtonContainer[platform=ios]": {
     top: 20,
     right: 0,
     width: 60,
     height: 40,
-    opacity: 0.3
 }
 
 ".uploadButton": {
     image: '/images/navigation/upload.png',
+    height: 17,
+    width: 17,
 }
 
 ".uploadButton[platform=ios]": {
-    height: 17,
-    width: 17,
     right: 20
 }
 
-"#notificationContainer[platform=ios]": {
+"#notificationContainer":{
     width: 17,
     height: 17,
-    top: 2,
-    right: 10,
     zIndex: 10,
     visible: false
 }
 
+"#notificationContainer[platform=ios]": {
+    top: 2,
+    right: 10,
+}
+
 "#notificationContainer[platform=android]": {
-    width: Ti.UI.FILL,
-    height: Ti.UI.FILL,
-    visible: false,
-    zIndex: 10
+    visible: true,
+    right: 1,
+    bottom: 1
 }
 
 
 "#notificationCount": {
     text: "1",
-    height: Ti.UI.FILL,
-    width: Ti.UI.FILL,
+    height: 17,
+    width: 16,
     zIndex: 20,
     color: '#fff',
     font: {
@@ -71,21 +75,14 @@
     textAlign: 'center',
 }
 "#notificationCount[platform=ios]": {
-    width: 16,
     left: 1,
-    height: 17,
 }
 
 ".notificationBackground": {
     image: '/images/notifications/notification.png',
-    width: Ti.UI.FILL,
-    height: Ti.UI.FILL
-} 
-".notificationBackground[platform=ios]": {
     width: 17,
     height: 17,
-}
-
+} 
 
 
 // Buttons

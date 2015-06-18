@@ -195,11 +195,8 @@ function addedSurvey () {
  */
 function addUploadSurvey (surveyId) {
     remainingUploads.push(surveyId);
-
-    if (OS_IOS) {
-        $.uploadButtonContainer.opacity = 1;
-        updateNotificationBadge();
-    }
+    $.uploadButtonContainer.opacity = 1;
+    updateNotificationBadge();
 }
 
 /**
@@ -210,10 +207,8 @@ function addUploadSurvey (surveyId) {
 function removeUploadSurvey (surveyId) {
     remainingUploads = _.reject(remainingUploads, function (id) { return id === surveyId; } );
 
-    if (OS_IOS) {
-        $.uploadButtonContainer.opacity = 0.3;
-        updateNotificationBadge();
-    }
+    $.uploadButtonContainer.opacity = 0.3;
+    updateNotificationBadge();
 }
 
 /**

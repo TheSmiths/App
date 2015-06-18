@@ -47,6 +47,7 @@ _.extend($, {
         if (config.startedFromRoot) {
             activateSurvey(libSurvey.activeSurvey());
             state = 'ACTIVE';
+            $.preSurvey.hide();
         } else {
             $.surveyTimer.text = settings.surveyDuration + ':00';
             WM.closeNav({animated: false});

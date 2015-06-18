@@ -11,6 +11,7 @@ Resources
 /docs/documentation/**
 /dist
 /app/assets/iphone/fonts/
+/app/assets/android/fonts/
 
 ### Vim ###
 [._]*.s[a-w][a-z]

@@ -195,7 +195,9 @@ function addedSurvey () {
  * @param {String} surveyId
  */
 function addUploadSurvey (surveyId) {
-    remainingUploads.push(surveyId);
+    if (remainingUploads.indexOf(surveyId) === -1) {
+        remainingUploads.push(surveyId);
+    }
     $.uploadButtonContainer.opacity = 1;
     updateNotificationBadge();
 }

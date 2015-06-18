@@ -29,6 +29,7 @@ _.extend($, {
         dispatcher.on('survey:change', addedSurvey);
         // Check if there are any surveys
         fetchSurveys();
+        _.defer(updateNotificationBadge);
     },
 
     /**
@@ -194,7 +195,9 @@ function addedSurvey () {
  * @param {String} surveyId
  */
 function addUploadSurvey (surveyId) {
-    remainingUploads.push(surveyId);
+    if (remainingUploads.indexOf(surveyId) === -1) {
+        remainingUploads.push(surveyId);
+    }
     $.uploadButtonContainer.opacity = 1;
     updateNotificationBadge();
 }

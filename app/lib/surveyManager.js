@@ -89,7 +89,7 @@ var surveyTimer = module.exports = {
     },
 
     /**
-     * [cancelSurvey description]
+     * cancelSurvey description]
      * @return {[type]} [description]
      */
     cancelSurvey: function () {
@@ -235,13 +235,16 @@ function setLocalNotification (notificationTime) {
         });
     } else if (OS_ANDROID) {
         /* Create the notification to send */
+        var className = Ti.App.id + "." + Ti.App.name.substring(0,1).toUpperCase() + 
+                Ti.App.name.substring(1).toLowerCase() + "Activity";
+
         var intent = Ti.Android.createIntent({
             packageName: Ti.App.id,
-            className: Ti.App.id + "." + Ti.App.name.substring(0,1).toUpperCase() + Ti.App.name.substring(1).toLowerCase() + "Activity",
+            className: className,
             action: Ti.Android.ACTION_MAIN
         });
         intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
-        intent.flags |= Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
+        intent.flags |= Ti.Android.FLAG_ACTIVITY_REORDER_TO_FRONT;//Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
 
         serviceTrack.notification = Titanium.Android.createNotification({
             icon: Ti.App.Android.R.drawable.notification_icon,

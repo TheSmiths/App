@@ -64,3 +64,35 @@
     textAlign: 'center',
     bottom: 15
 }
+
+"#fakeSurvey": {
+    height: 40,
+    visible: false,
+    backgroundColor: '#95a5a6',
+    borderRadius: 2,
+    left: 15, right: 15,
+    top: 15
+}
+
+"#fakeSwitch": {
+    left: 5, right: 5,
+    top: 5, bottom: 5,
+    width: 50, height: Ti.UI.FILL
+}
+"#fakeSwitch[platform=android]": {
+    title: '',
+    style: Ti.UI.Android.SWITCH_STYLE_TOGGLEBUTTON
+}
+
+"#fakeLabel": {
+    color: '#fff',
+    textAlign: 'center',
+    text: L('surveys.comment.fakeSurvey'),
+    font: {
+        fontSize: 14,
+        fontWeight: "normal",
+        fontFamily: 'ProximaNova-Semibold',
+    },
+    left: 65, right: 15,
+    width: Ti.UI.FILL
+}

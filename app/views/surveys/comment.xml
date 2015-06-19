@@ -14,6 +14,10 @@
         <ScrollView class="content">
             <View class="commentContainer">
                 <TextArea id="commentTextArea" />
+                <View id="fakeSurvey" onClick="doClickFakeSurvey">
+                    <Switch id="fakeSwitch" value="false" />
+                    <Label id="fakeLabel" />
+                </View>
                 <Require src="components/button" id="postComment" onClick="doClickPostComment" />
             </View>
         </ScrollView>

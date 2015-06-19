@@ -39,6 +39,8 @@
     <string name="surveys.comment.subTitle">Share any remarks about your survey</string>
     <string name="surveys.comment.title">Special Remarks</string>
     <string name="surveys.comment.postComment">Continue</string>
+    <string name="surveys.comment.fakeComment">[FAKE SURVEY]</string>
+    <string name="surveys.comment.fakeSurvey">This is a fake survey!</string>
     <string name="surveys.comment.commentHintText"></string>
     <!-- Done -->
     <string name="surveys.done.subTitle">Successfully saved survey</string>

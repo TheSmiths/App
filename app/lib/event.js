@@ -93,7 +93,7 @@ var eventObject = module.exports = {
      * @param  {Object]} eventData Data object containing the data
      */
     storeSurveyEvent: function (eventType, eventData) {
-        var activeSurveyObject = require('survey').activeSurvey();
+        var activeSurveyObject = require('surveyManager').activeSurvey();
         // Check if we have an active survey
         if (!activeSurveyObject) {
             return log.error('[lib/survey] No active survey, cannot store data');

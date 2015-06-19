@@ -40,7 +40,7 @@ module.exports = {
 
                     // Call desruct()
                     if (controller.destruct && _.isFunction(controller.destruct)) {
-                        log.info('destruct() called');
+                        log.info('destruct() called on ' + (controller.getView() && controller.getView().id));
                         controller.destruct.call(controller, evt);
                     } else
                         log.warn('destruct() NOT called');

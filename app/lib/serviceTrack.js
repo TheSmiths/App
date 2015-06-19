@@ -1,10 +1,12 @@
 /**
- * Start tracking GPS coordinates for iOS
+ * Start tracking GPS coordinates
  *
  * - Create an interval every x minutes
  * - On interval get the current GPS location and store it as an event
  * - Stop the service once you are done
  */
+Alloy = require('alloy');
+_ = Alloy._
 
 var events = require('event');
 // Get data
@@ -20,12 +22,20 @@ var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.in
  * @return {[type]} [description]
  */
 function updateTime() {
-    Ti.API.info('[iosTrack] Check remaining time and track if needed.');
+    Ti.API.info('[serviceTrack] Check remaining time and track if needed.');
     var remainder = ( currentSurvey.endTime - new Date().getTime() ) / 1000;
 
     if (remainder <= 0) {
+        Ti.API.info('[serviceTrack] Stop tracking gps in background');
+
+        /* Stop the service */
+        if (OS_IOS) {
+            Ti.App.currentService.unregister();
+        } else if (OS_ANDROID) {
+            Ti.Android.currentService.stop();
+        }
+
         Ti.Media.vibrate();
-        Ti.App.currentService.unregister();
         return;
     }
 
@@ -40,9 +50,11 @@ function updateTime() {
         Ti.App.Properties.setString('app-survey-trackLocationTime', TRACKLOCATIONTIME);
     }
 
-    timer = setTimeout(function () { updateTime(); }, 600);
+    if (OS_IOS) {
+        setTimeout(function () { updateTime(); }, 600);
+    }
 }
 
 // Start Tracking
-Ti.API.info('[iosTrack] Start Tracking gps location in the background');
+Ti.API.info('[serviceTrack] Tracking gps location in the background');
 updateTime();

@@ -5,6 +5,7 @@
  * @uses utils.log
  */
 var log = require('utils/log');
+var WM = require('windowManager');
 
 _.extend($, {
     /**
@@ -14,9 +15,9 @@ _.extend($, {
      */
     construct: function(config) {
         // Set data
-        $.grid.setData(require('data/windspeed'));
+        $.grid.setData(require('data/windSpeed'));
         // Open
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveys.windspeed.title')});
     },
 
     /**
@@ -33,7 +34,7 @@ _.extend($, {
  */
 function onClickBackButton () {
     log.info('[windspeed] Close window');
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 /**

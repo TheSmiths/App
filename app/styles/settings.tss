@@ -13,6 +13,10 @@
     backgroundColor: '#F0F0F0'
 }
 
+".content[platform=android]": {
+    top: 0
+}
+
 ".contentContainer": {
     backgroundColor: '#fff',
     top: 15,

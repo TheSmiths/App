@@ -19,9 +19,7 @@ var notifications = module.exports = {
         var currentBadgeCount = notifications.get();
         var newBadgeCount = currentBadgeCount + increase;
         Ti.App.Properties.setInt('app-badge-count', newBadgeCount);
-        if (!silent) {
-            setBadge(newBadgeCount);
-        }
+        !silent && notifications.updateBadge();
     },
     /**
      * @method decrease
@@ -34,9 +32,7 @@ var notifications = module.exports = {
         var newBadgeCount = currentBadgeCount - decrease >= 0 ? currentBadgeCount - decrease : 0;
         log.info('[lib/notifications] Decrease badge count - ', decrease, newBadgeCount);
         Ti.App.Properties.setInt('app-badge-count', newBadgeCount);
-        if (!silent) {
-            setBadge(newBadgeCount);
-        }
+        !silent && notifications.updateBadge();
     },
     /**
      * @method set
@@ -47,9 +43,7 @@ var notifications = module.exports = {
     set: function (badgeCount, silent) {
         log.info('[lib/notifications] Set badge count to ', badgeCount);
         Ti.App.Properties.setInt('app-badge-count', badgeCount);
-        if (!silent) {
-            setBadge(badgeCount);
-        }
+        !silent && notifications.updateBadge();
     },
     /**
      * @method get
@@ -64,17 +58,16 @@ var notifications = module.exports = {
      */
     reset: function () {
         Ti.App.Properties.setInt('app-badge-count', 0);
-        setBadge(0);
-    }
-};
+        notifications.updateBadge();
+    },
 
-/**
- * @method setBadge
- * Update iOS badge count
- * @param {Int} badgeCount
- */
-function setBadge (badgeCount) {
-    if (OS_IOS) {
-        Titanium.UI.iPhone.setAppBadge(badgeCount);
-    }
-}
+    /**
+     * @method updateBadge
+     * Update iOS badge count
+     */
+    updateBadge: function () {
+        if (OS_IOS) {
+            Titanium.UI.iPhone.setAppBadge(notifications.get());
+        }
+    },
+};

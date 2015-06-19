@@ -5,6 +5,7 @@
  * @uses utils.log
  */
 var log = require('utils/log');
+var WM = require('windowManager');
 
 //Internals
 var sightingType;
@@ -27,7 +28,7 @@ _.extend($, {
         }
 
         $.grid.setData(data);
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('sighting.category.title')});
     },
 
     /**
@@ -44,7 +45,7 @@ _.extend($, {
  */
 function onClickBackButton () {
     log.info('[sighting/category] Close window');
-    $.getView().close({animated: true});
+    WM.closeWin({ animated : true });
 }
 
 /**

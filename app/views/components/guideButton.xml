@@ -1,5 +1,7 @@
 <Alloy>
-    <View class="guideButtonContainer" id="guideButtonContainer" onClick="onClickGuideButton">
+    <View platform="ios" class="guideButtonContainer" id="guideButtonContainer" onClick="onClickGuideButton">
         <ImageView class="guideButton" />
     </View>
+
+    <MenuItem class="guideButton" platform="android" onClick="onClickGuideButton" />
 </Alloy>

@@ -6,7 +6,7 @@ exports.definition = {
             "created": "TEXT",
             "startTime": "TEXT",
             "endTime": "TEXT",
-            "uploaded": "BOOL"
+            "uploaded": "INTEGER"
         },
         adapter: {
             type: "sql",

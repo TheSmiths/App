@@ -8,6 +8,7 @@ var log = require('utils/log');
 
 // Collections
 var eventCollection = Alloy.createCollection('Event');
+var WM = require('windowManager');
 
 // Internals
 var startTime;
@@ -23,7 +24,7 @@ _.extend($, {
         startTime = config.startTime;
         endTime = config.endTime;
         fetchSurveyEvents(config.surveyId);
-        require('windowManager').openWinWithBack($.getView());
+        WM.openWinWithBack($.getView(), {title: L('surveyDetails.title')});
     },
 
     /**
@@ -40,7 +41,7 @@ _.extend($, {
  * Handle `click` on backButton
  */
 function onClickBackButton () {
-    require('windowManager').closeWin({animated: true});
+    WM.closeWin({animated: true});
 }
 
 /**

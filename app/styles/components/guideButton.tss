@@ -5,9 +5,14 @@
     height: 40
 }
 
-".guideButton": {
+".guideButton[platform=ios]": {
     height: 17,
     width: 17,
     image: 'images/navigation/guide.png',
     right: 10
+}
+
+".guideButton[platform=android]": {
+    showAsAction: Ti.Android.SHOW_AS_ACTION_ALWAYS,
+    icon: "images/actionBar/guide.png",
 }

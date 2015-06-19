@@ -27,6 +27,15 @@
     backgroundColor: '#EDEDED'
 }
 
+".headerSubTitle[platform=android]": {
+    top: 10
+}
+
+".content[platform=android]": {
+    top: 35
+}
+
+
 ".gridContainer": {
     top: 0,
     bottom: 0,

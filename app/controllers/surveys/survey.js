@@ -8,13 +8,19 @@
  * @uses dispatcher
  */
 var log = require('utils/log');
-var survey = require('survey');
+var libSurvey = require('surveyManager');
 var events = require('event');
 var moment = require('alloy/moment');
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
 
 // Settings
-var settings = Ti.App.Properties.getObject('app-survey-settings');
+var settings = Ti.App.Properties.getObject('app-survey-settings') || {
+    trackingInterval: Alloy.CFG.intervalDuration,
+    surveyDuration: Alloy.CFG.surveyDuration,
+    unit: 'METRIC'
+};
+
 
 // Internals
 var startTime;
@@ -22,10 +28,9 @@ var endTime;
 var timer;
 var active = false;
 var state = 'PREACTIVE';
-var startedFromRoot = false;
 
 // constants
-var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.intervalDuration * 60;
+var TRACKTIMEINTERVAL = settings.trackingInterval * 60;
 
 // Collections
 var eventCollection = Alloy.createCollection('Event');
@@ -40,29 +45,23 @@ _.extend($, {
     construct: function(config) {
         // Set state (e.g. started from active or inactive)
         if (config.startedFromRoot) {
-            startedFromRoot = true;
-            activateSurvey(survey.activeSurvey());
+            activateSurvey(libSurvey.activeSurvey());
             state = 'ACTIVE';
+            $.preSurvey.hide();
+        } else {
+            $.surveyTimer.text = settings.surveyDuration + ':00';
+            WM.closeNav({animated: false});
         }
 
-        if (!config.startedFromRoot) {
-            var totalTime = settings ? settings.surveyDuration : Alloy.CFG.surveyDuration;
-            $.surveyTimer.text = totalTime + ':00';
-        }
         // open window
-        require('windowManager').openWinWithBack($.getView());
+        if(OS_ANDROID) $.getView().addEventListener('android:back', onClickCloseButton);
+        WM.openWinInNewWindow($.getView(), {title: L('surveys.survey.title')});
 
         //Listners
         dispatcher.on('surveyUpdate', renderSurveyTimeline);
 
-        var TRACKLOCATIONTIME = settings ? ( settings.surveyDuration * 60 -  settings.trackingInterval * 60 ) : (Alloy.CFG.surveyDuration * 60 - Alloy.CFG.intervalDuration * 60);
+        var TRACKLOCATIONTIME = settings.surveyDuration * 60 - settings.trackingInterval * 60;
         setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
-
-        // Listen to event
-        if (OS_IOS) {
-            Ti.App.addEventListener('pause', pauseSurvey);
-            Ti.App.addEventListener('resume', continueSurvey);
-        }
     },
 
     /**
@@ -101,14 +100,14 @@ function onClickCloseButton (evt) {
 
         // Stop survey, stop time, start index again, close this window.
         stopTime();
+        libSurvey.cancelSurvey();
 
-        require('survey').cancelSurvey();
-
-        if (startedFromRoot) {
-            Alloy.createController('index');
+        // Stop listening for events
+        if (OS_IOS) {
+            Ti.App.removeEventListener('pause', pauseSurvey);
+            Ti.App.removeEventListener('resume', continueSurvey);
         }
-
-        require('windowManager').closeWin({animated: true});
+        WM.closeNav({animated: true});
     });
 
     dialog.show();
@@ -129,12 +128,22 @@ function doClickStartSurvey (evt) {
             return;
         }
         // Start survey
-        var surveyObject = survey.startSurvey();
+        var surveyObject = libSurvey.startSurvey();
         var currentTime = new Date().getTime();
 
         // Move location error to the library
         events.saveSurveyEvent('startSurvey', {startingTime: currentTime, startLocation: currentLocation});
         activateSurvey(surveyObject);
+
+        // Listen to event
+        if (OS_IOS) {
+            Ti.App.addEventListener('pause', pauseSurvey);
+            Ti.App.addEventListener('resume', continueSurvey);
+        } else {
+            var activity = $.getView().getActivity();
+            activity.onResume = continueSurvey;
+            activity.onPause = pauseSurvey;
+        }
     });
 }
 
@@ -167,7 +176,7 @@ function doClickAddSighting (evt) {
 function doClickFinishSurvey (evt) {
     events.initSurveyEvent('finishSurvey');
     log.info('[surveys/survey] Finished survey');
-    require('flow').postSurvey(startedFromRoot);
+    require('flow').postSurvey();
 }
 
 /**
@@ -210,7 +219,7 @@ function activateSurvey(surveyTimeObject) {
 
     state = 'POSTACTIVE';
     updateViewState('POSTACTIVE');
-    survey.stopSurvey();
+    libSurvey.stopSurvey();
 }
 
 
@@ -242,7 +251,7 @@ function updateTime () {
         state = 'POSTACTIVE';
         updateViewState('POSTACTIVE');
         $.surveyTimer.text = '00:00';
-        survey.stopSurvey();
+        libSurvey.stopSurvey();
         Ti.Media.vibrate();
         return;
     }
@@ -253,7 +262,7 @@ function updateTime () {
 
     // Track location
     if (remainingSeconds < TRACKLOCATIONTIME && TRACKLOCATIONTIME > 0) {
-        survey.trackLocation();
+        libSurvey.trackLocation();
         TRACKLOCATIONTIME = TRACKLOCATIONTIME - TRACKTIMEINTERVAL;
         // Update value for background Service.
         setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
@@ -278,7 +287,7 @@ function updateTime () {
 function stopSurvey () {
     stopTime();
     Ti.App.removeEventListener('survey:updated', renderSurveyTimeline);
-    survey.stopSurvey();
+    libSurvey.stopSurvey();
 }
 
 /**
@@ -339,7 +348,7 @@ function updateViewState (state) {
  * Fetch all events from survey, and call render function
  */
 function renderSurveyTimeline () {
-    var surveyId = survey.activeSurvey().surveyId;
+    var surveyId = libSurvey.activeSurvey().surveyId;
     eventCollection.fetch({
         query: 'SELECT * from events where survey_id = "' + surveyId + '"',
         success: function(collection, response, options) {
@@ -378,5 +387,5 @@ function pauseSurvey () {
  * Continue survey
  */
 function continueSurvey () {
-    activateSurvey(survey.activeSurvey());
+    activateSurvey(libSurvey.activeSurvey());
 }

@@ -1,10 +1,10 @@
 <Alloy>
-    <Window id="guide">
-         <View class="header">
+    <View id="guide">
+         <View class="header" platform="ios">
             <Require src="components/menuButton" id="menuButton" />
             <Label class="headerTitle" />
         </View>
 
         <TableView id="guideTableView" onClick="onClickTableView" />
-    </Window>
+    </View>
 </Alloy>

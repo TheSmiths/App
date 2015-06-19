@@ -30,6 +30,10 @@
     layout: 'vertical',
 }
 
+"ScrollView[platform=android]": {
+    top: 0,
+}
+
 ".formRow": {
     height: 80,
     left: 15,

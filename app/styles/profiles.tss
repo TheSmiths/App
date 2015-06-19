@@ -1,5 +1,3 @@
-
-
 ".headerTitle": {
     text: L('profiles.title'),
     top: 35,
@@ -18,7 +16,12 @@
     textAlign: 'right'
 }
 
-"#newProfile": {
+"#newProfile[platform=android]": {
+    title: "+",
+    font: { fontSize: 22 }
+}
+
+"#newProfile[platform=ios]": {
     color: Alloy.CFG.design.header.fontColor,
     text: L('profiles.newProfile'),
     font: {
@@ -31,6 +34,9 @@
 ".content": {
     top: 70,
     backgroundColor: '#F0F0F0'
+}
+".content[platform=android]":{
+    top: 0
 }
 
 "#emptyView": {

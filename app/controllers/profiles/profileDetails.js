@@ -8,6 +8,8 @@
  */
 var log = require('utils/log');
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
+
 
 
 // Internal
@@ -24,8 +26,14 @@ _.extend($, {
     construct: function(config) {
         // If flow is survey start as standalone navigation group
         if (config.flow === 'PRESURVEY') {
-            STATE = 'PRESURVEY';
-            require('windowManager').openWinWithBack($.getView());
+            STATE = config.flow;
+
+            if (OS_IOS) {
+                WM.openWinInNewWindow($.getView(), { title: L('profiles.profileDetails.title') });
+            } else { 
+                WM.openWinWithBack($.getView(), { title: L('profiles.profileDetails.title') } ); 
+            }
+
             return;
         }
 
@@ -38,7 +46,7 @@ _.extend($, {
             $.boat.value = profileModel.get('boat');
         }
 
-        $.getView().open({modal:true});
+        WM.openModal($.getView(), { title: L('profiles.profileDetails.title') });
     },
 
     /**
@@ -55,10 +63,11 @@ _.extend($, {
  */
 function closeWindow (evt) {
     if (STATE === 'PRESURVEY') {
-        require('windowManager').closeWin({animated: true});
+        WM.closeNav({animated: true});
+        return;
     }
-
-    $.getView().close();
+    // Modal
+    $.getView().close({ animated : true });
 }
 
 /**
@@ -133,7 +142,7 @@ function saveProfile (evt) {
  */
 function closeViewWithUpdate () {
     dispatcher.trigger('profile:change');
-    $.getView().close();
+    WM.closeWin();
 }
 
 /**

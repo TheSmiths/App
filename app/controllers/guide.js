@@ -46,7 +46,6 @@ _.extend($, {
  * @param  {Object} evt
  */
 function onClickTableView (evt) {
-    var guide = Alloy.createController('guide/guideDetail', { guideIndex: evt.index }).getView();
-    Alloy.Globals.navigationWindow.openWindow(guide);
+    var guide = Alloy.createController('guide/guideDetail', { guideIndex: evt.index });
+    require('windowManager').openModal(guide.getView(), {animated: false, title: guide.getGuideHeading()});
 }
-

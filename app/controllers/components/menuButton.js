@@ -40,7 +40,7 @@ function doClickMenu (evt) {
     var buttonClick = _.throttle(function buttonClick () {
         $.menuIcon.opacity = 0.6;
         setTimeout(function () { $.menuIcon.opacity = 1; }, 350);
-        Alloy.Globals.drawer.presentLeftMenuViewController();
+        dispatcher.trigger('drawer:open');
         $.trigger('click');
     }, 100);
 
@@ -77,6 +77,3 @@ function hide () {
 
 // Export fetchProfiles
 exports.hide = hide;
-
-
-

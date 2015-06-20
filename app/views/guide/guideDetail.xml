@@ -1,6 +1,6 @@
 <Alloy>
     <Window id="more">
-         <View class="header">
+         <View class="header" platform="ios">
             <Label class="headerTitle" id="headerTitle" />
             <Require src="components/backButton" id="backButton" onClick="onClickBackButton" />
         </View>

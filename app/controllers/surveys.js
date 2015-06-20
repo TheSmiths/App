@@ -29,6 +29,7 @@ _.extend($, {
         dispatcher.on('survey:change', addedSurvey);
         // Check if there are any surveys
         fetchSurveys();
+        _.defer(updateNotificationBadge);
     },
 
     /**
@@ -56,9 +57,8 @@ function doClickStartSurvey () {
  * Handle `click` on startGuide button, create guide controller
  */
 function doClickStartGuide () {
-    var guide = Alloy.createController('guide').getView();
-    Alloy.Globals.navigationWindow.openWindow(guide, {animated: false});
-    Alloy.Globals.menu.activateItem('menuItemGuide');
+    dispatcher.trigger('index:navigate', 'guide');
+    dispatcher.trigger('menu:activate', 'menuItemGuide');
 }
 
 /**
@@ -197,26 +197,23 @@ function addedSurvey () {
  * @param {String} surveyId
  */
 function addUploadSurvey (surveyId) {
-    remainingUploads.push(surveyId);
-
-    if (OS_IOS) {
-        $.uploadButtonContainer.opacity = 1;
-        updateNotificationBadge();
+    if (remainingUploads.indexOf(surveyId) === -1) {
+        remainingUploads.push(surveyId);
     }
+    $.uploadButtonContainer.opacity = 1;
+    updateNotificationBadge();
 }
 
 /**
  * @method removeUploadSurvey
- * Remove upload survye from the list as it has been uploaded, in order to keep track of remaining uploads
+ * Remove upload survey from the list as it has been uploaded, in order to keep track of remaining uploads
  * @param {String} surveyId
  */
 function removeUploadSurvey (surveyId) {
     remainingUploads = _.reject(remainingUploads, function (id) { return id === surveyId; } );
 
-    if (OS_IOS) {
-        updateNotificationBadge();
-        $.uploadButtonContainer.opacity = 0.3;
-    }
+    $.uploadButtonContainer.opacity = 0.3;
+    updateNotificationBadge();
 }
 
 /**

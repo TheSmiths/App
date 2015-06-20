@@ -23,6 +23,10 @@
     backgroundColor: '#EDEDED'
 }
 
+".content[platform=android]": {
+    top: 0
+}
+
 ".contentContainer": {
     left: 15,
     right: 15,

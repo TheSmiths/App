@@ -1,6 +1,6 @@
 <Alloy>
-    <Window id="profiles">
-        <View class="header">
+    <View id="profiles">
+        <View class="header" platform="ios">
             <Require src="components/menuButton" id="menuButton" />
             <Require src="components/closeButton" id="closeButton" onClick="closeWindow" />
             <Label id="headerTitle" class="headerTitle" />
@@ -8,6 +8,9 @@
                 <Label id="newProfile" />
             </View>
         </View>
+
+        <Button id="newProfile" platform="android" onClick="doClickNewProfile"
+            class="actionBubble" />
 
         <View class="content">
             <View id="emptyView">
@@ -17,5 +20,5 @@
 
             <TableView id="profilesTableView" onClick="doClickProfilesTableView" />
         </View>
-    </Window>
+    </View>
 </Alloy>

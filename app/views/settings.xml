@@ -1,6 +1,6 @@
  <Alloy>
-    <Window id="settings">
-         <View class="header">
+    <View id="settings">
+        <View class="header" platform="ios">
               <Require src="components/menuButton" id="menuButton" />
             <Label class="headerTitle" />
         </View>
@@ -44,5 +44,5 @@
                  </View>
             </View>
         </ScrollView>
-    </Window>
+    </View>
 </Alloy>

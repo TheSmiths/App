@@ -2,7 +2,14 @@
     height: 70,
     hasChild: false,
     backgroundColor: 'transparent',
+}
+
+"TableViewRow[platform=ios]": {
     selectedBackgroundColor: '#fff'
+}
+
+"TableViewRow[platform=android]": {
+    backgroundSelectedColor: "#FFFFFF"
 }
 
 ".profileContainer": {

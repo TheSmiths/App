@@ -1,8 +1,9 @@
 
-var _navWindows = []; //Array holding all opened NavigationWindows
+var _navWindows = [],   // Array holding all opened NavigationWindows
+    _groupWindows = [], // Array holding current group's opened Windows
+    _savedWindows = []; // Array holding array of previous opened groups
 
 var WM = module.exports = {
-    closableWindows: [],
 
     /**
      * Opens given Window in a new Ti.UI.iOS.NavigationWindow on iOS and returns the new NavWindow. Does nothing on other platforms
@@ -19,17 +20,22 @@ var WM = module.exports = {
                 fullscreen: true,
                 window: win
             });
-
-            navWindow.id = 'navWindow_' + _.uniqueId();
-
             _navWindows.push(navWindow);
-
-            // Store reference in the root Window to the NavigationWindow
-            win.navWin = navWindow;
-
             return navWindow;
-        } else
-            return win;
+        }
+    },
+
+    openWinInNewWindow: function(win, options) {
+        setTitleIfAny(win, options);
+        if (OS_IOS) {
+            WM.createNewNavWindow(win).open(options);
+        } else {
+            // Save previous group's win
+            _savedWindows.push(_groupWindows);
+            // Start with current window
+            _groupWindows = [win];
+            win.open(options);
+        }
     },
 
     /**
@@ -37,41 +43,62 @@ var WM = module.exports = {
      *
      * @param {Ti.UI.Window} win Window to open in NavigationWindow
      */
-    openWinInActiveNavWindow: function(win, openProperties) {
-        if (OS_IOS) {
+    openWinWithBack: function(win, options) {
+        setTitleIfAny(win, options);
+        if(OS_IOS) {
             if (!_navWindows.length) {
-                WM.createNewNavWindow(win).open(openProperties);
+                WM.createNewNavWindow(win).open(options);
             } else {
-                _.last(_navWindows).openWindow(win, openProperties);
+                _.last(_navWindows).openWindow(win, options);
+                _groupWindows.push(win);
             }
         } else {
-            win.open();
-        }
-    },
-
-    openWinInNewWindow: function(win, openProperties) {
-        if (OS_IOS) {
-            WM.createNewNavWindow(win).open(openProperties);
-        } else {
-            win.open();
-        }
-    },
-
-    openWinWithBack: function(win, openProperties) {
-        if(OS_ANDROID) {
+            _groupWindows.push(win);
             win.addEventListener('open', doOpenWindowWithBack);
-            win.open(openProperties || {});
+            win.addEventListener('close', doCloseWindowWithBack);
+            win.open(options);
         }
-        else {
-            WM.openWinInActiveNavWindow(win, openProperties);
+    },
+
+    openModal: function(win, options) {
+        setTitleIfAny(win, options);
+        if (OS_IOS) {
+            options = options || {};
+            win.open(_.extend(options, {modal:true}));
+        } else {
+            WM.openWinWithBack(win, options);
         }
     },
 
     closeWin: function (closeProperties) {
-        if (_navWindows.length) {
-             _.last(_navWindows).close(closeProperties);
-             _navWindows.pop();
+        if (_groupWindows.length) {
+            var win = _.last(_groupWindows);
+            if(OS_ANDROID) {
+                win.removeEventListener('close', doCloseWindowWithBack);
+            }
+            win.close(closeProperties);
+            _groupWindows.pop();
         }
+    },
+
+    closeNav: function (closeProperties) {
+        if(OS_ANDROID) {
+            // Close all windows
+            _(_groupWindows.length).times(function() { WM.closeWin(); });
+            _groupWindows = _savedWindows.pop() || [];
+            return;
+        }
+        // IOS
+        if (_navWindows.length) {
+            // Forget about all insider windows
+            _groupWindows = [];
+            _.last(_navWindows).close(closeProperties);
+            _navWindows.pop();
+        }
+    },
+
+    setActiveNavWindow: function(activeWin) {
+        _navWindows.push(activeWin);
     }
 };
 
@@ -86,21 +113,44 @@ var WM = module.exports = {
  */
 function doOpenWindowWithBack(evt) {
     var win = this;
-
     win.removeEventListener('open', doOpenWindowWithBack);
 
     if(OS_ANDROID) {
         var activity = win.activity;
-
         if (activity.actionBar) {
             activity.actionBar.setDisplayHomeAsUp(true);
         }
-
         activity.actionBar.onHomeIconItemSelected = function() {
-            win.close({
+            WM.closeWin({
                 activityEnterAnimation: Titanium.App.Android.R.anim.slide_in_left,
                 activityExitAnimation: Titanium.App.Android.R.anim.slide_out_right
             });
         };
     }
+}
+
+/* Set a title for a window in android if any
+ *
+ * @param win The targeted window
+ * @param option The window's options, might contain a title field or not.
+ * */
+function setTitleIfAny (win, options) {
+    if (options && options.title) {
+        if (OS_ANDROID) {
+            win.addEventListener('open', (function (_win, _title) {
+                return (function () {
+                    _win.getActivity().getActionBar().setTitle(_title);
+                });
+            })(win, options.title));
+        }
+        delete options.title;
+    }
+}
+/**
+ * Will close an Android modal-like window
+ * @method doCloseWindowWithBack
+ * @param {Object} evt Event details
+ */
+function doCloseWindowWithBack(evt) {
+    _groupWindows.pop();
 }

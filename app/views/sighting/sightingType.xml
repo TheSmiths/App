@@ -1,11 +1,15 @@
 <Alloy>
     <Window id="sightingType">
         <View class="header">
-            <Require src="components/closeButton" onClick="closeWindow" />
-            <Label id="headerTitle" class="headerTitle" />
+            <Require src="components/closeButton" onClick="closeWindow" platform="ios"/>
+            <Label id="headerTitle" class="headerTitle" platform="ios"/>
             <Label id="headerSubTitle" class="headerSubTitle" />
-            <Require src="components/guideButton" id="guideButton" topic="material" />
+            <Require src="components/guideButton" id="guideButton" topic="material" platform="ios"/>
         </View>
+
+        <Menu platform="android">
+            <Require src="components/guideButton" id="guideButton" topic="material" />
+        </Menu>
 
         <ScrollView class="content">
             <View class="gridContainer">

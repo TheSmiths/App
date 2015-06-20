@@ -12,6 +12,7 @@ var toast = require('toast');
 var profiles = Alloy.createCollection('Profile');
 var STATE = 'PROFILE';
 var dispatcher = require('dispatcher');
+var WM = require('windowManager');
 
 _.extend($, {
     /**
@@ -23,10 +24,20 @@ _.extend($, {
         // Set state
         STATE = config.flow || STATE;
         if (STATE === 'PRESURVEY') {
-            $.menuButton.hide();
-            $.closeButton.show();
-            $.headerTitle.text = L('profiles.surveyTitle');
-            require('windowManager').openWinWithBack($.getView());
+            if (OS_IOS) {
+                $.menuButton.hide();
+                $.closeButton.show();
+                $.headerTitle.text = L('profiles.surveyTitle');
+            }
+            // Wrap in a window
+            var win = $.UI.create("Window", {});
+            win.add($.getView());
+
+            if (OS_IOS) { 
+                WM.openWinInNewWindow(win, { title: L('profiles.surveyTitle') });
+            } else { 
+                WM.openWinWithBack(win, { title: L('profiles.surveyTitle') });
+            }
         }
 
         profiles.on('add', onAddProfile);
@@ -64,8 +75,10 @@ _.extend($, {
  */
 function closeWindow (evt) {
     if (STATE === 'PRESURVEY') {
-        require('windowManager').closeWin({animated: true});
+        WM.closeNav({animated: true});
+        return;
     }
+    WM.closeWin();
 }
 
 /**
@@ -105,7 +118,7 @@ function doClickNewProfile (evt) {
     // Throttle the button press to prevent multiple clicks
     setNewProfileOpacity(0.4);
     _.delay(_.partial(setNewProfileOpacity, 1), 150);
-    Alloy.createController('profiles/profileDetails', { parent: $, flow: STATE });
+    Alloy.createController('profiles/profileDetails', { flow: STATE });
 }
 
 /**
@@ -124,7 +137,7 @@ function setNewProfileOpacity (opacity) {
  * @return {[type]}       [description]
  */
 function doClickProfilesTableView (model) {
-    var profile = profiles.get(model.rowData.modelId);
+    var profile = profiles.get(model[OS_IOS?'rowData':'row'].modelId);
     // If state is selection continue flow
     if (STATE === 'PRESURVEY') {
         require('flow').saveProfile({'observerName': profile.get('name'), 'platformHeight': profile.get('height'), 'id': profile.id});

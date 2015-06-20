@@ -2,13 +2,13 @@ var windspeedData = module.exports = [
     {
         id: 0,
         icon: '/images/icons/windspeed/windspeed0.png',
-        valueLabel: '0 - 1',
+        valueLabel: '< 1',
         captionLabel: 'Knots'
     },
     {
         id: 1,
         icon: '/images/icons/windspeed/windspeed2.png',
-        valueLabel: '2 - 3',
+        valueLabel: '1 - 3',
         captionLabel: 'Knots'
     },
     {

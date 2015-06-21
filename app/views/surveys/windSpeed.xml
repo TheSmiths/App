@@ -1,5 +1,5 @@
   <Alloy>
-    <Window id="windspeed">
+    <Window id="windSpeed">
         <View class="header">
             <Require src="components/backButton" id="backButton" onClick="onClickBackButton"
                 platform="ios"/>

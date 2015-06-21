@@ -73,7 +73,8 @@
 "#profilesTableView": {
     visible: false,
     top: 0,
-    backgroundColor: 'transparent'
+    backgroundColor: '#F0F0F0',
+    separatorColor: '#F0F0F0'
 }
 
 "#profilesTableView[platform=ios]": {

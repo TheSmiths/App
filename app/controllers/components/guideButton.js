@@ -8,18 +8,18 @@ var args = arguments[0] || {};
 // Pass through all the properties set on the button, except for meta data and text
 if (OS_IOS) {
     $.guideButtonContainer.applyProperties(_.omit(args, 'id', '__parentSymbol', '__itemTemplate', '$model'));
-} 
+}
 
 // Topics correlate to the data/guide content
 var topics = {
-    'windspeed': 0,
-    'cloudCover': 0,
+    'windspeed': 1,
+    'cloudCover': 1,
     'survey': 1,
-    'material': 0,
-    'category': 0,
-    'dimension': 0,
-    'distance': 0,
-    'profile': 2
+    'material': 2,
+    'category': 2,
+    'dimension': 2,
+    'distance': 2,
+    'profile': 4
 };
 
 /**

@@ -149,7 +149,8 @@
 "#surveyTableView": {
     top: 10,
     visible: false,
-    backgroundColor: 'transparent'
+    backgroundColor: '#F0F0F0',
+    separatorColor: '#F0F0F0'
 }
 
 "#surveyTableView[platform=ios]": {

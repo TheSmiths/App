@@ -25,12 +25,12 @@
 }
 
 ".actionBubble": {
-    height: 40,
-    width: 40,
-    borderRadius: 6,
+    height: 50,
+    width: 50,
+    borderRadius: 3,
     backgroundColor: "#01CBE1",
     color: "#FFFFFF",
-    bottom: 10,
-    right: 10,
+    bottom: 15,
+    right: 15,
     zIndex: 10
 }

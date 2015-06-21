@@ -9,8 +9,9 @@
 }
 
 "TableViewRow[platform=android]": {
-    backgroundSelectedColor: "#FFFFFF"
+    backgroundSelectedColor: "#fff"
 }
+
 ".eventContainer": {
     top: 5,
     height: 45,

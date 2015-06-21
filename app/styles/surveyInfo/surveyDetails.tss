@@ -25,7 +25,8 @@
 
 "#surveyTableView": {
     top: 70,
-    backgroundColor: '#F0F0F0'
+    backgroundColor: '#F0F0F0',
+    separatorColor: '#F0F0F0'
 }
 
 "#surveyTableView[platform=android]": {

@@ -22,10 +22,9 @@
     height: Ti.UI.SIZE
 }
 
-".timerContainer[platform=android]" {
-    top: 15
+".timerContainer[platform=android]": {
+    top: 5
 }
-
 
 ".timer": {
     font: {
@@ -60,6 +59,18 @@
     top: 136,
     visible: false,
     height: 0
+}
+
+"#startSurveyContainer[platform=android]": {
+    top: 80,
+}
+
+"#sightingContainer[platform=android]": {
+    top: 80,
+}
+
+"#finishSurveyContainer[platform=android]": {
+    top: 80,
 }
 
 "#startSurvey": {
@@ -114,6 +125,10 @@
     top: 210,
     height: Ti.UI.FILL,
     backgroundColor: '#F0F0F0'
+}
+
+".content[platform=android]": {
+    top: 140
 }
 
 

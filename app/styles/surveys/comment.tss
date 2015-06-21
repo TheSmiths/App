@@ -66,12 +66,12 @@
 }
 
 "#fakeSurvey": {
-    height: 40,
+    height: 0,
     visible: false,
     backgroundColor: '#95a5a6',
     borderRadius: 2,
     left: 15, right: 15,
-    top: 15
+    top: 0
 }
 
 "#fakeSwitch": {
@@ -93,6 +93,5 @@
         fontWeight: "normal",
         fontFamily: 'ProximaNova-Semibold',
     },
-    left: 65, right: 15,
     width: Ti.UI.FILL
 }

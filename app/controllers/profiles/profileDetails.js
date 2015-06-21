@@ -30,7 +30,7 @@ _.extend($, {
 
             if (OS_IOS) {
                 WM.openWinInNewWindow($.getView(), { title: L('profiles.profileDetails.title') });
-            } else { 
+            } else {
                 WM.openWinWithBack($.getView(), { title: L('profiles.profileDetails.title') } ); 
             }
 

@@ -6,7 +6,7 @@
  * - Stop the service once you are done
  */
 Alloy = require('alloy');
-_ = Alloy._
+_ = Alloy._;
 
 var events = require('event');
 // Get data
@@ -27,6 +27,11 @@ function updateTime() {
 
     if (remainder <= 0) {
         Ti.API.info('[serviceTrack] Stop tracking gps in background');
+
+        // Save one more time, so we have the last location data available
+        require('utils/location').getCurrentLatLng(function (err, locationData) {
+            events.saveSurveyTrackEvent({location: locationData});
+        });
 
         /* Stop the service */
         if (OS_IOS) {

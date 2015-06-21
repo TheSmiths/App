@@ -10,6 +10,7 @@ var notifications = require('notifications');
 // Collections
 var surveyCollection = Alloy.createCollection('Survey');
 var eventCollection = Alloy.createCollection('Event');
+var profiles = Alloy.createCollection('Profile');
 
 // Configuration
 var config = require('config');
@@ -116,6 +117,15 @@ function fetchEventsPerSurvey (callback) {
             created: new Date(Math.floor(model.get('created'))),
             events: []
         };
+
+        // Get profile information, lets find a shorthand
+        profiles.fetch({
+            silent: false,
+            success: function(collection, response, options) {},
+            error: function(collection, response, options) {}
+        });
+
+        surveyObject.observerData = profiles.get(model.get('observer_id'));
 
         eventCollection.fetch({
             query: 'SELECT * from events where survey_id = "' + surveyId + '"',

@@ -82,8 +82,7 @@
     image: '/images/notifications/notification.png',
     width: 17,
     height: 17,
-} 
-
+}
 
 // Buttons
 
@@ -104,7 +103,7 @@
 }
 
 "#startSurvey[platform=android]": {
-    top: 20
+    top: 25
 }
 
 ".content": {
@@ -150,7 +149,8 @@
 "#surveyTableView": {
     top: 10,
     visible: false,
-    backgroundColor: 'transparent'
+    backgroundColor: '#F0F0F0',
+    separatorColor: '#F0F0F0'
 }
 
 "#surveyTableView[platform=ios]": {

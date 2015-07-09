@@ -39,14 +39,14 @@
     <string name="surveys.comment.subTitle">Share any remarks about your survey</string>
     <string name="surveys.comment.title">Special Remarks</string>
     <string name="surveys.comment.postComment">Continue</string>
-    <string name="surveys.comment.fakeComment">[FAKE SURVEY]</string>
-    <string name="surveys.comment.fakeSurvey">This is a fake survey!</string>
+    <string name="surveys.comment.fakeComment">[TEST SURVEY]</string>
+    <string name="surveys.comment.fakeSurvey">Save survey as test</string>
     <string name="surveys.comment.commentHintText"></string>
     <!-- Done -->
     <string name="surveys.done.subTitle">Successfully saved survey</string>
     <string name="surveys.done.title">Saved survey</string>
     <string name="surveys.done.paragraphTitle">Successfully saved survey</string>
-    <string name="surveys.done.paragraph"> Thank you for your contribution towards cleaner oceans. Make sure you remember to upload your results!</string>
+    <string name="surveys.done.paragraph">Thank you for your contribution towards cleaner oceans. Make sure you remember to upload your results!</string>
     <string name="surveys.done.continue">Back to overview</string>
 
     <!-- Local notification -->
@@ -163,8 +163,8 @@
     <string name="sighting.dimension.subTitleMulti">What is the common debris length?</string>
     <!-- Sighting - Distance -->
     <string name="sighting.distance.title">Distance</string>
-    <string name="sighting.distance.subTitle">Distance between the debris and the vessel track-line?</string>
-    <string name="sighting.distance.subTitleMulti">Select average distance from vessel track line</string>
+    <string name="sighting.distance.subTitle">Distance between debris and track-line?</string>
+    <string name="sighting.distance.subTitleMulti">Average distance from track line?</string>
 
     <string name="surveyDetails.title">Survey details</string>
 

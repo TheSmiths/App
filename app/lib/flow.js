@@ -27,7 +27,6 @@ var flowLibrary = module.exports = {
         // Edit: ios is slow too.
         libLocation.requestCoordinates(null, 120000);
 
-
         // Start storing the event
         events.initSurveyEvent('startSurvey');
         // Check if there are profiles in order to determine which view to open
@@ -107,6 +106,7 @@ var flowLibrary = module.exports = {
         if (sightingType === "SINGLE") {
             if (lockedFlow) { return; }
             lockFlow();
+
             return Alloy.createController('sighting/category', {material: material, sightingType: sightingType});
         }
 
@@ -116,9 +116,11 @@ var flowLibrary = module.exports = {
      * @method category
      * Flow after finishing category
      */
-    category: function (sightingType) {
-        if (lockedFlow) { return; }
-        lockFlow();
+    category: function (sightingType, ignoreLocked) {
+        if (!ignoreLocked) {
+            if (lockedFlow) { return; }
+            lockFlow();
+        }
 
         Alloy.createController('sighting/dimension', {sightingType: sightingType});
     },

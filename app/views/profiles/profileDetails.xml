@@ -7,7 +7,7 @@
         </View>
 
         <Menu platform="android">
-            <Require src="components/guideButton" id="guideButton" topic="profile" /> 
+            <Require src="components/guideButton" id="guideButton" topic="profile" />
         </Menu>
 
         <ScrollView>

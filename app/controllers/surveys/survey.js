@@ -248,6 +248,8 @@ function updateTime () {
 
     // Stop the clock once its done
     if (remainder <= 0) {
+        // Final tracking
+        libSurvey.trackLocation();
         state = 'POSTACTIVE';
         updateViewState('POSTACTIVE');
         $.surveyTimer.text = '00:00';
@@ -276,9 +278,6 @@ function updateTime () {
     $.surveyTimer.text = minutes + ':' + seconds;
     timer = setTimeout(function () { updateTime(); }, 50);
 }
-
-
-
 
 /**
  * @method stopSurvey

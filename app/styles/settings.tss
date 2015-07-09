@@ -98,6 +98,10 @@
     color: '#000'
 }
 
+"#surveyUnitMetricSetting[platform=android]": {
+    top: 6
+}
+
 "#surveyUnitMetricCaptionSetting": {
     text: L('settings.unitMetricCaption'),
     textAlign: 'center',
@@ -119,6 +123,10 @@
     height: Ti.UI.SIZE,
     top: 12,
     color: '#000'
+}
+
+"#surveyUnitImperialSetting[platform=android]": {
+    top: 6
 }
 
 "#surveyUnitImperialCaptionSetting": {

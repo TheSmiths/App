@@ -33,9 +33,9 @@ _.extend($, {
             var win = $.UI.create("Window", {});
             win.add($.getView());
 
-            if (OS_IOS) { 
+            if (OS_IOS) {
                 WM.openWinInNewWindow(win, { title: L('profiles.surveyTitle') });
-            } else { 
+            } else {
                 WM.openWinWithBack(win, { title: L('profiles.surveyTitle') });
             }
         }

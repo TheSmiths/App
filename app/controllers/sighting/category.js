@@ -23,7 +23,7 @@ _.extend($, {
 
         // Skip other
         if (data.length <= 1) {
-            onClickGrid({source: { componentId: 0}});
+            onClickGrid({source: { componentId: 0}}, true);
             return;
         }
 
@@ -53,9 +53,9 @@ function onClickBackButton () {
  * Handle `click` on grid
  * @param  {Object} evt
  */
-function onClickGrid (evt) {
+function onClickGrid (evt, ignoreLocked) {
     log.info('[sighting/category] Click on grid', evt);
     var category = evt.source.componentId;
     require('event').updateSurveyEventData('sighting', { category: category});
-    require('flow').category(sightingType);
+    require('flow').category(sightingType, ignoreLocked);
 }

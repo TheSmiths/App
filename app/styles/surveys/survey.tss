@@ -3,6 +3,10 @@
     top: 0
 }
 
+".header[platform=android]": {
+    height: 140
+}
+
 ".headerTitle": {
     text: L('surveys.survey.title'),
     top: 31,
@@ -16,6 +20,10 @@
 ".timerContainer": {
     top: 48,
     height: Ti.UI.SIZE
+}
+
+".timerContainer[platform=android]": {
+    top: 5
 }
 
 ".timer": {
@@ -51,6 +59,18 @@
     top: 136,
     visible: false,
     height: 0
+}
+
+"#startSurveyContainer[platform=android]": {
+    top: 80,
+}
+
+"#sightingContainer[platform=android]": {
+    top: 80,
+}
+
+"#finishSurveyContainer[platform=android]": {
+    top: 80,
 }
 
 "#startSurvey": {
@@ -107,14 +127,19 @@
     backgroundColor: '#F0F0F0'
 }
 
+".content[platform=android]": {
+    top: 140
+}
+
 
 // Tableview
 
 "#surveyTableView": {
     visible: false,
     top: 0,
-    backgroundColor: 'transparent',
-    height: Ti.UI.SIZE
+    backgroundColor: '#F0F0F0',
+    height: Ti.UI.SIZE,
+    separatorColor: '#F0F0F0'
 }
 
 "#surveyTableView[platform=ios]": {

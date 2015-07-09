@@ -9,6 +9,8 @@ var WM = require('windowManager');
 
 // Internals
 var type = "SURVEY";
+var savedText = "";
+var activated = false;
 
 _.extend($, {
     /**
@@ -25,6 +27,8 @@ _.extend($, {
             $.headerSubTitle.text = 'Provide a description of the group of debris';
         } else {
             // Show fake survey option
+            $.fakeSurvey.height = 40;
+            $.fakeSurvey.bottom = 15;
             $.fakeSurvey.show();
         }
 
@@ -76,24 +80,22 @@ function doClickPostComment () {
     });
 }
 
-// local variables
-var savedText = "",
-    activated = false;
-
-/**
+ /**
  * @method doClickfake
  * Handle `click` on fake button
  */
 function doClickFakeSurvey () {
     $.fakeSwitch.value = !activated;
+
     if(!activated) {
         savedText = $.commentTextArea.value.trim();
         $.commentTextArea.editable = false;
-        $.commentTextArea.value = L('surveys.comment.fakeComment');
+        $.commentTextArea.setValue(L('surveys.comment.fakeComment'));
     } else {
         $.commentTextArea.editable = true;
         $.commentTextArea.value = savedText;
         savedText = "";
     }
+
     activated = !activated;
 }

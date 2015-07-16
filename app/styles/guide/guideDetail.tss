@@ -16,6 +16,10 @@
     top: 0
 }
 
+"#closeButton": {
+    visible: false
+}
+
 "#contentContainer": {
     top: 15,
     bottom: 15,
@@ -42,7 +46,7 @@
 ".title": {
     font: {
         fontFamily: 'ProximaNova-Semibold',
-        fontSize: 14,
+        fontSize: 16,
     },
     left: 15,
     height: Ti.UI.SIZE,
@@ -57,7 +61,7 @@
     height: Ti.UI.SIZE,
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 13
+        fontSize: 15
     },
     color: '#333',
     bottom: 10

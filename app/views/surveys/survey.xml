@@ -33,5 +33,7 @@
 
             <TableView id="surveyTableView" />
         </View>
+
+        <Require src="components/locationIndicator" id="locationIndicator" direct="true" />
     </Window>
 </Alloy>

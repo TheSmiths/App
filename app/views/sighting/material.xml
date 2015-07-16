@@ -7,7 +7,7 @@
             <Label id="headerSubTitle" class="headerSubTitle" />
             <Require src="components/guideButton" id="guideButton" topic="material" platform="ios"/>
         </View>
-            
+
         <Menu platform="android">
             <Require src="components/guideButton" id="guideButton" topic="material" />
         </Menu>

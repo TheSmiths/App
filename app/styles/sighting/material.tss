@@ -7,7 +7,7 @@
     top: 26,
     font: {
         fontFamily: 'ProximaNova-Semibold',
-        fontSize: 15
+        fontSize: 17 // was 15 unlike in all other ones. If this change breaks it put it back :D / Bart
     },
     color: Alloy.CFG.design.header.fontColor
 }
@@ -17,8 +17,10 @@
     top: 45,
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 11,
-        fontWeight: 'bold'
+        fontSize: 15,
+        //fontWeight: 'bold'
+        // fontSize was 11 instead of 12, instead fontWeight was bold. Unsure why. Also .headerTitle font
+        // fontSize is  15 instead of 17.  /Bart
     },
     color: Alloy.CFG.design.header.fontColor,
 }
@@ -28,12 +30,16 @@
     backgroundColor: '#EDEDED'
 }
 
+".headerSubTitle[platform=ios]": {
+    top: 48
+}
+
 ".headerSubTitle[platform=android]": {
     top: 10
 }
 
 ".content[platform=android]": {
-    top: 35
+    top: 40
 }
 
 ".gridContainer": {

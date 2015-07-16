@@ -1,6 +1,6 @@
 <Alloy>
     <TableViewRow id="surveysRow">
-        <View class="surveyContainer" onClick="onClickSurvey">
+        <View class="surveyContainer" id="surveyContainer" onClick="onClickSurvey">
             <Label id="surveyDate" />
             <Label id="userInfo" />
             <Label id="uploaded" />

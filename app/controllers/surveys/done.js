@@ -53,12 +53,14 @@ function doClickDone () {
     notifications.increase(1);
     // Lets Update the user
     var activeProfile = libSurvey.getUser();
-    profiles.fetch();
-    var activeProfileModel = profiles.get(activeProfile.id);
-    var numberOfSurveys = activeProfileModel.get('surveys') + 1;
-    activeProfileModel.set('surveys', numberOfSurveys);
-    activeProfileModel.save();
-    dispatcher.trigger('profile:change');
+    profiles.fetch({silent: true});
+    // Update an user if there is one (Bug on on Android sometimes where activeProfile is undefined?!)
+    if (activeProfile && activeProfile.id) {
+        var activeProfileModel = profiles.get(activeProfile.id);
+        var numberOfSurveys = activeProfileModel.get('surveys') + 1;
+        activeProfileModel.set('surveys', numberOfSurveys);
+        activeProfileModel.save();
+    }
     // Remove any reference to the survey
     libSurvey.destroySurvey();
     // Trigger a update

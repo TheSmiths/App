@@ -1,0 +1,5 @@
+<Alloy>
+    <View class="locationContainer" id="locationContainer" onClick="doClickGPS">
+        <Label class="location" />
+    </View>
+</Alloy>

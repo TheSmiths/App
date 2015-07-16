@@ -17,7 +17,7 @@
     top: 45,
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 12
+        fontSize: 15
     },
     color: Alloy.CFG.design.header.fontColor,
 }
@@ -27,12 +27,16 @@
     backgroundColor: '#EDEDED'
 }
 
+".headerSubTitle[platform=ios]": {
+    top: 48
+}
+
 ".headerSubTitle[platform=android]": {
     top: 10
 }
 
 ".content[platform=android]": {
-    top: 35
+    top: 40
 }
 
 ".gridContainer": {

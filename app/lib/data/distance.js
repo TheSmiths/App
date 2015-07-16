@@ -49,14 +49,14 @@ var distanceData = module.exports =  {
             id: 2,
             icon: '/images/icons/material/glass.png',
             valueLabel: '164 - 328',
-            captionLabel: 'Yards',
+            captionLabel: 'Feet',
             type: 'large'
         },
         {
             id: 3,
             icon: '/images/icons/material/metal.png',
             valueLabel: '328+',
-            captionLabel: 'Yards',
+            captionLabel: 'Feet',
             type: 'large'
         }
     ],

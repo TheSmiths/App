@@ -21,6 +21,10 @@ _.extend($, {
 
         // Open the window in dialog if the window is requested from other than the guide
         if (config.dialog) {
+            if (OS_IOS) {
+                $.backButton.hide();
+                $.closeButton.show();
+            }
             WM.openModal($.getView(), { title: $._guideHeading });
         }
     },
@@ -52,6 +56,22 @@ function onClickBackButton (evt) {
 function buildPage (guideDetailData) {
     _.each(guideDetailData, function (content) {
         var guideDetailType = _.keys(content);
+        if (guideDetailType[0] === 'video') {
+            var videoPlayer = Titanium.Media.createVideoPlayer({
+                url: content[guideDetailType[0]],
+                autoplay : false,
+                height : 200,
+                top: 10,
+                bottom: 10,
+                mediaControlStyle : Titanium.Media.VIDEO_CONTROL_DEFAULT,
+                scalingMode : Titanium.Media.VIDEO_SCALING_ASPECT_FIT
+            });
+
+            $.paddingContainer.add(videoPlayer);
+            return;
+        }
+
+
         if (guideDetailType[0] === 'heading') {
             if (OS_IOS) {
                 $.headerTitle.text = content[guideDetailType[0]];

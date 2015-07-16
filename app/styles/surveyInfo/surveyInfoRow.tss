@@ -5,11 +5,11 @@
 }
 
 "TableViewRow[platform=ios]": {
-    selectedBackgroundColor: '#fff'
+    selectedBackgroundColor: 'transparent'
 }
 
 "TableViewRow[platform=android]": {
-    backgroundSelectedColor: "#FFFFFF"
+    backgroundSelectedColor: "transparent"
 }
 
 ".surveyContainer": {
@@ -27,7 +27,7 @@
     color: "#262626",
     font: {
         fontFamily: 'ProximaNova-Semibold',
-        fontSize: 11
+        fontSize: 14
     }
 }
 
@@ -37,7 +37,7 @@
     color: '#000',
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 11
+        fontSize: 12
     }
 }
 
@@ -47,6 +47,6 @@
     color: '#000',
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 11
+        fontSize: 12
     }
 }

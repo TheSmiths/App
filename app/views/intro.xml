@@ -1,0 +1,8 @@
+<Alloy>
+    <Window id="intro">
+        <VideoPlayer id="videoPlayer" ns="Ti.Media" url="/intro.mp4" autoplay="true" />
+        <View class="continueButtonContainer">
+            <Require src="components/button" id="continueButton" onClick="doClickContinue" />
+        </View>
+    </Window>
+</Alloy>

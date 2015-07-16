@@ -231,4 +231,7 @@ function updateNotificationBadge () {
 
     $.notificationCount.text = notificationCount;
     $.notificationContainer.setVisible(true);
+
+    // Also update the badge number to correspond
+    require('notifications').set(remainingUploads.length);
 }

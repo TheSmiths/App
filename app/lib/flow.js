@@ -25,7 +25,12 @@ var flowLibrary = module.exports = {
         // On Android, start looking for a location (can be slow)
         // We'll make sure to update location after 2 min
         // Edit: ios is slow too.
-        libLocation.requestCoordinates(null, 120000);
+
+        libLocation.checkLocation();
+
+        if (OS_ANDROID) {
+            libLocation.requestCoordinates(null, 120000);
+        }
 
         // Start storing the event
         events.initSurveyEvent('startSurvey');

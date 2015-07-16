@@ -4,10 +4,11 @@
 var log = require('utils/log');
 var events = require('event');
 var notifications = require('notifications');
+var dispatcher = require('dispatcher');
 
 // Internals
 var timing = false,
-    serviceTrack = { service: null, notification: null }, 
+    serviceTrack = { service: null, notification: null },
     onServiceTrackEnd;  // Only for Android
 
 var surveyTimer = module.exports = {
@@ -108,7 +109,7 @@ var surveyTimer = module.exports = {
         if (OS_IOS) {
             serviceTrack.service = Ti.App.iOS.registerBackgroundService({url: 'serviceTrack.js'});
         } else if (OS_ANDROID) {
-            var serviceTrackIntent = Ti.Android.createServiceIntent({url: 'serviceTrack.js'}); 
+            var serviceTrackIntent = Ti.Android.createServiceIntent({url: 'serviceTrack.js'});
             serviceTrackIntent.putExtra('interval', 600); // !TODO: Remove hardcoded interval value
             serviceTrack.service = Ti.Android.createService(serviceTrackIntent);
             serviceTrack.service.start();
@@ -235,7 +236,7 @@ function setLocalNotification (notificationTime) {
         });
     } else if (OS_ANDROID) {
         /* Create the notification to send */
-        var className = Ti.App.id + "." + Ti.App.name.substring(0,1).toUpperCase() + 
+        var className = Ti.App.id + "." + Ti.App.name.substring(0,1).toUpperCase() +
                 Ti.App.name.substring(1).toLowerCase() + "Activity";
 
         var intent = Ti.Android.createIntent({
@@ -244,10 +245,10 @@ function setLocalNotification (notificationTime) {
             action: Ti.Android.ACTION_MAIN
         });
         intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
-        intent.flags |= Ti.Android.FLAG_ACTIVITY_REORDER_TO_FRONT;//Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
+        intent.flags = Ti.Android.FLAG_ACTIVITY_REORDER_TO_FRONT;//Ti.Android.FLAG_ACTIVITY_CLEAR_TOP | Ti.Android.FLAG_ACTIVITY_NEW_TASK;
 
         serviceTrack.notification = Titanium.Android.createNotification({
-            icon: Ti.App.Android.R.drawable.notification_icon,
+            //icon: Ti.App.Android.R.drawable.notification_icon,
             contentTitle: String.format(L('survey.notification.title'), notificationCount),
             contentText: L('survey.notification.body'),
             contentIntent: Ti.Android.createPendingIntent({
@@ -281,5 +282,4 @@ function cancelLocalNotification () {
     }
 
     serviceTrack.notification = null;
-    notifications.decrease(1);
 }

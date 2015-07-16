@@ -12,6 +12,8 @@ var events = require('event');
 // Get data
 var settings = Ti.App.Properties.getObject('app-survey-settings');
 var currentSurvey = Ti.App.Properties.getObject('app-survey');
+var vibrations = 20;
+
 // Set interval data
 var TRACKLOCATIONTIME = Ti.App.Properties.getString('app-survey-trackLocationTime');
 var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.intervalDuration * 60;
@@ -23,9 +25,14 @@ var TRACKTIMEINTERVAL = settings ? settings.trackingInterval * 60 : Alloy.CFG.in
  */
 function updateTime() {
     Ti.API.info('[serviceTrack] Check remaining time and track if needed.');
+    // If our survey stopped
+    if (!currentSurvey) {
+        return;
+    }
+
     var remainder = ( currentSurvey.endTime - new Date().getTime() ) / 1000;
 
-    if (remainder <= 0) {
+    if (remainder <= 0 && remainder > -10) {
         Ti.API.info('[serviceTrack] Stop tracking gps in background');
 
         // Save one more time, so we have the last location data available
@@ -33,14 +40,23 @@ function updateTime() {
             events.saveSurveyTrackEvent({location: locationData});
         });
 
-        /* Stop the service */
+        Ti.API.info('[serviceTrack] Vibrate phone');
+
         if (OS_IOS) {
-            Ti.App.currentService.unregister();
-        } else if (OS_ANDROID) {
-            Ti.Android.currentService.stop();
+            vibratePhone();
         }
 
-        Ti.Media.vibrate();
+        if (OS_ANDROID) {
+            require('dispatcher').trigger('vibrate');
+            Ti.API.info('[serviceTrack] Stop service');
+
+            try {
+                Ti.Android.currentService.stop();
+            } catch (e) {
+                Ti.API.info('[serviceTrack] Failed to stop service');
+            }
+        }
+
         return;
     }
 
@@ -58,6 +74,27 @@ function updateTime() {
     if (OS_IOS) {
         setTimeout(function () { updateTime(); }, 600);
     }
+}
+
+function vibratePhone () {
+    if (vibrations > 0) {
+        Ti.Media.vibrate();
+        vibrations = vibrations - 1;
+        _.delay(function () {
+            vibratePhone();
+        }, 2000);
+        return;
+    }
+
+    /* Stop the service */
+    if (OS_IOS) {
+        Ti.App.currentService.unregister();
+    }
+}
+
+if (!currentSurvey && OS_IOS) {
+    Ti.App.currentService.stop();
+    Ti.App.currentService.unregister();
 }
 
 // Start Tracking

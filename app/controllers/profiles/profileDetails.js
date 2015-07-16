@@ -9,8 +9,7 @@
 var log = require('utils/log');
 var dispatcher = require('dispatcher');
 var WM = require('windowManager');
-
-
+var toast = require('toast');
 
 // Internal
 var navWindow;
@@ -31,7 +30,7 @@ _.extend($, {
             if (OS_IOS) {
                 WM.openWinInNewWindow($.getView(), { title: L('profiles.profileDetails.title') });
             } else {
-                WM.openWinWithBack($.getView(), { title: L('profiles.profileDetails.title') } ); 
+                WM.openWinWithBack($.getView(), { title: L('profiles.profileDetails.title') } );
             }
 
             return;
@@ -42,6 +41,7 @@ _.extend($, {
             $.deleteProfile.setVisible(true);
             $.saveProfile.setText(L('profiles.profileDetails.edit'));
             $.spotter.value = profileModel.get('name');
+            $.email.value = profileModel.get('email');
             $.platformHeight.value = profileModel.get('height');
             $.boat.value = profileModel.get('boat');
         }
@@ -89,6 +89,7 @@ function saveProfile (evt) {
     var profileName = $.spotter.value.trim();
     var platformHeight = Math.floor($.platformHeight.value) || 0;
     var boat = $.boat.value.trim();
+    var email = $.email.value.trim();
 
     // Reset validation
     hideErrors();
@@ -104,26 +105,35 @@ function saveProfile (evt) {
         return;
     }
 
+    if (!validateEmail(email) || email.length < 2) {
+        showError('email');
+        return;
+    }
+
     // If edit
     if (profileModel) {
         profileModel.set('name', profileName);
         profileModel.set('height', platformHeight);
+        profileModel.set('email', email);
         profileModel.set('boat', boat);
         profileModel.save();
         closeViewWithUpdate();
         // Show message to user
         dispatcher.trigger('profile:update');
+        toast.showToastMessage($, 'profile', L("profile.updated"), true);
         return;
     }
 
-    // Else new
+    // New user model
     var currentTime = new Date().getTime();
     var model = Alloy.createModel('Profile', {
         "name": profileName,
         "height": platformHeight,
+        "email": email,
         "boat": boat,
         "created": currentTime
     });
+    toast.showToastMessage($, 'profile', L("profile.saved"), true);
     model.save();
 
     if (STATE === 'PRESURVEY') {
@@ -142,7 +152,7 @@ function saveProfile (evt) {
  */
 function closeViewWithUpdate () {
     dispatcher.trigger('profile:change');
-    WM.closeWin();
+    $.getView().close({ animated : true });
 }
 
 /**
@@ -186,6 +196,7 @@ function deleteProfile (evt) {
 function hideErrors () {
     $.spotterErrorContainer.visible = false;
     $.boatErrorContainer.visible = false;
+    $.emailErrorContainer.visible = false;
 }
 
 /**
@@ -198,5 +209,23 @@ function showError (errorType) {
         return $.spotterErrorContainer.visible = true;
     }
 
+    if (errorType === 'email') {
+        return $.emailErrorContainer.visible = true;
+    }
+
     $.boatErrorContainer.visible = true;
+}
+
+/**
+ * @method validateEmail
+ * Check if a given string is a valid email
+ * @param  {String} email
+ * @return {Boolean} Valid email
+ */
+function validateEmail(email) {
+    if (email.length <= 0) {
+        return false;
+    }
+    var emailPattern = /\S+@\S+\.\S+/;
+    return emailPattern.test(email);
 }

@@ -43,6 +43,10 @@ _.extend($, {
  * @param  {Object} evt Event information
  */
 function onClickProfileRow (evt) {
+    $.profileRow.opacity = 0.6;
+    _.delay(function () {
+         $.profileRow.opacity = 1;
+    }, 400);
     evt.model = model;
     $.trigger('click', evt);
 }

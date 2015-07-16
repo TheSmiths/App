@@ -25,5 +25,14 @@ function onClickCloseButton () {
  */
 exports.show = function () {
     $.closeButtonContainer.visible = true;
-}
+};
+
+/**
+ * @method hide
+ * @public
+ * Allow dynamic visibilty change on runtime
+ */
+exports.hide = function () {
+    $.closeButtonContainer.visible = false;
+};
 

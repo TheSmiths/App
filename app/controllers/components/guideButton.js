@@ -12,14 +12,19 @@ if (OS_IOS) {
 
 // Topics correlate to the data/guide content
 var topics = {
-    'windspeed': 1,
-    'cloudCover': 1,
-    'survey': 1,
-    'material': 2,
-    'category': 2,
-    'dimension': 2,
-    'distance': 2,
-    'profile': 4
+    'preparing': 1,
+    'gps': 2,
+    'profile': 3,
+    'windspeed': 8,
+    'cloudCover': 9,
+    'survey': 5,
+    'amount': 10,
+    'material': 11,
+    'category': 12,
+    'dimension': 13,
+    'distance': 14,
+    'sightingRemarks': 15,
+    'surveyRemarks': 16
 };
 
 /**
@@ -43,3 +48,11 @@ function onClickGuideButton (evt) {
 
     buttonClick();
 }
+
+/**
+ * @method setTopic
+ * Set topic
+ */
+exports.setTopic = function (topic) {
+    args.topic = topic;
+};

@@ -17,7 +17,7 @@
     top: 45,
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 12,
+        fontSize: 15,
     },
     color: Alloy.CFG.design.header.fontColor,
 }
@@ -25,6 +25,10 @@
 ".content": {
     top: 70,
     backgroundColor: '#EDEDED'
+}
+
+".headerSubTitle[platform=ios]": {
+    top: 48
 }
 
 ".content[platform=android]": {
@@ -47,12 +51,13 @@
     paddingLeft: 10,
     font: {
         fontFamily: 'ProximaNova-Regular',
-        fontSize: 12,
+        fontSize: 14,
     },
     left: 15,
     right: 15,
     top: 15,
-    height: 200
+    height: 100,
+    color: '#000'
 }
 
 "#postComment": {

@@ -48,3 +48,17 @@ _.extend($, {
 function onClickGrid (evt) {
     $.trigger('click', evt);
 }
+
+exports.setActive = function () {
+    $.gridIconContainer.backgroundColor = '#01CBE1';
+    $.value.color = '#fff';
+    $.caption.color = '#fff';
+};
+
+exports.setInactive = function () {
+    $.gridIconContainer.backgroundColor = 'transparent';
+    $.value.color = '#333';
+    $.caption.color = '#333';
+};
+
+

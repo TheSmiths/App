@@ -1,3 +1,9 @@
+var dispatcher = require('dispatcher');
+var log = require('utils/log');
+
+// Internals
+var model;
+
 _.extend($, {
     /**
      * @constructor
@@ -9,6 +15,7 @@ _.extend($, {
         var eventType = config.model.get('type');
         var eventData = JSON.parse(config.model.get('data'));
         var surveyData = require('surveyManager').activeSurvey();
+        model = config.model;
 
         if (config.startTime && config.endTime ) {
             surveyData = {};
@@ -44,7 +51,10 @@ _.extend($, {
 function displayStartSurvey (eventData, surveyData) {
     $.eventTime.text = '0'; //always 0
     $.eventInformationTitle.text = 'Started Survey';
-    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.startLocation.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.startLocation.longitude.toString());;
+
+    if (eventData.startLocation) {
+        $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.startLocation.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.startLocation.longitude.toString());;
+    }
 }
 
 /**
@@ -56,7 +66,11 @@ function displayStartSurvey (eventData, surveyData) {
 function displayTrack (eventData, surveyData) {
     $.eventTime.text = ((eventData.eventTime - surveyData.startTime) / 60000).toFixed(1) ;
     $.eventInformationTitle.text = L('surveys.survey.event.trackTitle');
-    $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.location.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.location.longitude.toString());
+    if (eventData.location) {
+        $.eventInformationMessage.text = 'Latitude: ' + readableCoordinates(eventData.location.latitude.toString()) + ', Longitude: ' + readableCoordinates(eventData.location.longitude.toString());
+    } else {
+        $.eventInformationMessage.text = L('surveys.survey.event.noLocation');
+    }
 }
 
 /**
@@ -81,9 +95,32 @@ function displaySighting (eventData, surveyData) {
     $.eventInformation.height = 55;
 
     if (eventData.sightingType === 0) {
-        // Retreive sighting text
-        var categoryText = require('data/category')[eventData.material][eventData.category].valueLabel;
-        $.eventInformationMessage.text = materialText + " " + categoryText + " of " + dimensionText.valueLabel + " " + dimensionText.captionLabel + " located " + distanceText.valueLabel + " " + distanceText.captionLabel + " from boat.";
+        /*
+        *    Retreive sighting category
+        */
+
+        // bart edit
+        var bcat = require("data/category")[eventData.material];
+        for (i = 0; i < bcat.length; i++) {
+            if (bcat[i].id === eventData.category){
+                var categoryText = bcat[i].valueLabel;
+            }
+        }
+        // end bart edit. Original code:
+        //var categoryText = require('data/category')[eventData.material][eventData.category].valueLabel;
+
+        /*
+        *    Make all sighting text
+        */
+
+        // Bart edit starts here
+        var textString = materialText;
+        if (bcat.length > 1){
+            textString = textString + " " + categoryText;
+        }
+        $.eventInformationMessage.text = textString + " of " + dimensionText.valueLabel + " " + dimensionText.captionLabel + " located " + distanceText.valueLabel + " " + distanceText.captionLabel + " from boat.";
+        // End bart edit. Original code:
+        //$.eventInformationMessage.text = materialText + " " + categoryText + " of " + dimensionText.valueLabel + " " + dimensionText.captionLabel + " located " + distanceText.valueLabel + " " + distanceText.captionLabel + " from boat.";
         return;
     }
 
@@ -113,4 +150,50 @@ function displayFinishSurvey (eventData, surveyData) {
 function readableCoordinates (coordinates) {
     var limit = Math.min(5, coordinates.length);
     return coordinates.substring(0, limit);
+}
+
+/**
+ * @method doClickSurveyRow
+ * Handle click on survey row, and show delete if right type
+ * @param  {Object} evt
+ * @return {[type]}     [description]
+ */
+function doClickSurveyRow (evt) {
+    // Check if we have an actual profile
+    if (!model) {
+        log.error('[surveys/surveyRow] Unable to find model')
+        alert(L('surveys.errorDeletingSighting'));
+        return;
+    }
+
+    if (model.get('type') !== 'sighting') {
+        log.info('[surveys/surveyRow] Type is not equal to sighting, return.');
+        return;
+    }
+
+    $.eventRow.opacity = 0.6;
+    _.delay(function () {
+         $.eventRow.opacity = 1;
+    }, 400);
+
+    // Create dialog to confirm delete
+    var dialog = Ti.UI.createAlertDialog({
+        cancel: 1,
+        buttonNames: [L('surveys.deleteSighting'), L('surveys.deleteSightingCancel')],
+        message: L('surveys.deleteSightingMessage'),
+        title:  L('surveys.deleteSightingTitle')
+    });
+
+    dialog.addEventListener('click', function(evt) {
+        if (evt.index === evt.source.cancel){
+            return;
+        }
+
+        log.info('[surveyRow] Removing model with id ', model.id);
+        model.destroy();
+        // Show message to user
+        dispatcher.trigger('survey:delete');
+    });
+
+    dialog.show();
 }

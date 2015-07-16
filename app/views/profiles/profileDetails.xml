@@ -18,6 +18,13 @@
                 </View>
                 <TextField id="spotter" class="input" />
             </View>
+            <View class="formRow">
+                <Label class="emailLabel" />
+                <View id="emailErrorContainer">
+                    <Label class="emailErrorLabel" />
+                </View>
+                <TextField id="email" class="input" />
+            </View>
             <View class="formRow formRowSlider">
                 <Label class="platformHeightLabel" />
                 <Label id="height" />

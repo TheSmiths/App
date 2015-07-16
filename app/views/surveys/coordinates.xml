@@ -1,0 +1,26 @@
+<Alloy>
+	<Window id="coordinates">
+        <View class="header" platform="ios">
+            <Require src="components/closeButton" onClick="closeWindow" />
+            <Label class="headerTitle" />
+            <Require src="components/guideButton" id="guideButton" topic="gps" platform="ios"/>
+
+        </View>
+
+        <Menu platform="android">
+            <Require src="components/guideButton" id="guideButton" topic="gps" />
+        </Menu>
+
+        <ScrollView class="content">
+            <View class="formRow">
+                <Label class="latitudeLabel" />
+                <TextField id="latitude" class="input" />
+            </View>
+            <View class="formRow">
+                <Label class="longitudeLabel" />
+                <TextField id="longitude" class="input" />
+            </View>
+            <Require src="components/button" id="saveCoordinates" onClick="saveCoordinates" />
+        </ScrollView>
+	</Window>
+</Alloy>

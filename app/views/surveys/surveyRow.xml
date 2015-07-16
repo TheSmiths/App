@@ -1,8 +1,11 @@
 <Alloy>
-    <TableViewRow id="eventRow">
+    <TableViewRow id="eventRow" onClick="doClickSurveyRow">
         <View class="eventContainer" id="eventContainer">
             <View class="eventTimeContainer" id="eventTimeContainer">
-                <Label id="eventTime" />
+                <View class="eventTimeContent">
+                    <Label id="eventTime" />
+                    <Label id="eventTimeLabel" />
+                </View>
             </View>
 
             <View class="eventInformation" id="eventInformation">

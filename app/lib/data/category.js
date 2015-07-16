@@ -35,10 +35,20 @@ var categoryData = module.exports = [
             icon: '/images/icons/default.png',
             valueLabel: 'Crate'
         },
+        { // NEW NEW NEW
+            id: 8,
+            icon: '/images/icons/default.png',
+            valueLabel: 'Bag'
+        },
         {
             id: 7,
             icon: '/images/icons/default.png',
             valueLabel: 'Other'
+        },
+        { // NEW NEW NEW
+            id: 9,
+            icon: '/images/icons/default.png',
+            valueLabel: 'No clue'
         }
     ],
     [
@@ -71,6 +81,11 @@ var categoryData = module.exports = [
             id: 5,
             icon: '/images/icons/default.png',
             valueLabel: 'Other'
+        },
+        { // NEW NEW NEW
+            id: 9,
+            icon: '/images/icons/default.png',
+            valueLabel: 'No clue'
         }
     ],
     [
@@ -93,6 +108,11 @@ var categoryData = module.exports = [
             id: 3,
             icon: '/images/icons/default.png',
             valueLabel: 'Other'
+        },
+        { // NEW NEW NEW
+            id: 9,
+            icon: '/images/icons/default.png',
+            valueLabel: 'No clue'
         }
     ],
     [
@@ -110,6 +130,11 @@ var categoryData = module.exports = [
             id: 2,
             icon: '/images/icons/default.png',
             valueLabel: 'Other'
+        },
+        { // NEW NEW NEW
+            id: 9,
+            icon: '/images/icons/default.png',
+            valueLabel: 'No clue'
         }
     ],
     [
@@ -128,10 +153,20 @@ var categoryData = module.exports = [
             icon: '/images/icons/default.png',
             valueLabel: 'Lumber'
         },
+        { // NEW NEW NEW
+            id: 4,
+            icon: '/images/icons/default.png',
+            valueLabel: 'Pallet'
+        },
         {
             id: 3,
             icon: '/images/icons/default.png',
             valueLabel: 'Other'
+        },
+        { // NEW NEW NEW
+            id: 9,
+            icon: '/images/icons/default.png',
+            valueLabel: 'No clue'
         }
     ],
     [
@@ -139,6 +174,13 @@ var categoryData = module.exports = [
             id: 0,
             icon: '/images/icons/default.png',
             valueLabel: 'Other'
+        }
+    ],
+    [
+        { // NEW NEW NEW
+            id: 9,
+            icon: '/images/icons/default.png',
+            valueLabel: 'No clue'
         }
     ],
 ];

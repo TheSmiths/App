@@ -5,13 +5,13 @@
         "intervalDuration": "5"
     },
     "env:development": {
-        "developmentVersion": false
+        "developmentVersion": true
     },
     "env:test": {
-        "developmentVersion": false
+        "developmentVersion": true
     },
     "env:production": {
-        "developmentVersion": false
+        "developmentVersion": true
     },
   "dependencies": {
     "de.marcelpociot.alloysidemenu": "1.0.2",

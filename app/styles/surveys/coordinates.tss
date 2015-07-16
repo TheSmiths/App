@@ -1,0 +1,86 @@
+".headerTitle": {
+    text: L('coordinates.title'),
+    top: 32,
+    font: {
+        fontSize: 17,
+        fontFamily: 'ProximaNova-Semibold',
+    },
+    color: Alloy.CFG.design.header.fontColor
+}
+
+".content": {
+    top: 70,
+    backgroundColor: '#F0F0F0',
+    layout: 'vertical',
+}
+
+".content[platform=android]": {
+    top: 0
+}
+
+".formRow": {
+    height: 80,
+    left: 15,
+    right: 15,
+    top: 15,
+    bottom: 0
+}
+
+".input": {
+    top: 20,
+    height: 40,
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 14
+    },
+    color: '#000'
+}
+
+".latitudeLabel": {
+    text: L('coordinates.latitude'),
+    top: 3,
+    left: 1,
+    height: Ti.UI.SIZE,
+    font: {
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 13
+    }
+}
+
+"#latitude": {
+    height: Ti.UI.SIZE,
+    top: 30,
+    backgroundColor: '#EAEAEA',
+    width: '100%',
+    height: 40,
+    paddingLeft: 10
+}
+
+".longitudeLabel": {
+    text: L('coordinates.longitude'),
+    top: 3,
+    left: 1,
+    height: Ti.UI.SIZE,
+    font: {
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 13
+    }
+}
+
+"#longitude": {
+    height: Ti.UI.SIZE,
+    top: 30,
+    backgroundColor: '#EAEAEA',
+    width: '100%',
+    height: 40,
+    paddingLeft: 10
+}
+
+"#saveCoordinates": {
+    top: 10,
+    backgroundColor: '#01CBE1',
+    color: '#fff',
+    borderColor: 'transparent',
+    text: L('coordinates.continue'),
+    textAlign: 'center'
+}

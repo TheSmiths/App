@@ -1,5 +1,6 @@
 var args = arguments[0] || {};
-
+var gridComponents = [];
+var lastActiveGridComponent;
 /**
  * @method setData
  * Set data of the grid
@@ -33,9 +34,10 @@ function setData (data) {
             });
 
         }
-        var gridComponent = Alloy.createController('components/gridComponent', {gridComponentData: dataObject}).getView();
-        gridComponent.addEventListener('click', onClickGridComponent);
-        row.add(gridComponent);
+        var gridComponent = Alloy.createController('components/gridComponent', {gridComponentData: dataObject});
+        gridComponent.getView().addEventListener('click', onClickGridComponent);
+        row.add(gridComponent.getView());
+        gridComponents[dataObject.id] = gridComponent;
 
         // Flip mode
         if (dataObject.type === 'large') {
@@ -55,6 +57,13 @@ function setData (data) {
  * @param {Object} evt
  */
 function onClickGridComponent (evt) {
+    if (lastActiveGridComponent) {
+        lastActiveGridComponent.setInactive();
+    }
+
+    gridComponents[evt.source.componentId].setActive();
+    lastActiveGridComponent = gridComponents[evt.source.componentId];
+
     $.trigger('click', evt);
 }
 

@@ -100,6 +100,10 @@
     text: L('more.toc')
 }
 
+"#tocLink": {
+    text: L('more.tocLink')
+}
+
 "#goalTitle": {
     text: L('more.goalTitle')
 }

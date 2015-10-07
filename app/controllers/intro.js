@@ -31,7 +31,12 @@ _.extend($, {
     }
 });
 
-function doClickContinue () {
+/**
+ * @method doClickContinue
+ * Handle `click` on continue
+ * @param  {Object} evt Event object
+ */
+function doClickContinue (evt) {
     $.videoPlayer.stop();
     WM.closeWin();
 }

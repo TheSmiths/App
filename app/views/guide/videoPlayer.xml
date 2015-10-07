@@ -1,5 +1,5 @@
 <Alloy>
     <Window id="intro">
-        <VideoPlayer id="videoPlayer" ns="Ti.Media" autoplay="true" />
+        <VideoPlayer id="videoPlayerMain" ns="Ti.Media" autoplay="true" />
     </Window>
 </Alloy>

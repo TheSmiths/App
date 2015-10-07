@@ -63,19 +63,19 @@ var flowLibrary = module.exports = {
      * @param {String} state State of the flow either PRESURVEY or POSTSURVEY
      * @param {Object} windspeed Windspeed category as int
      */
-    saveWindspeed: function (state, windspeed) {
+    saveWindspeed: function (windspeed) {
         if (lockedFlow) { return; }
         lockFlow();
 
         events.updateSurveyEventData('startSurvey', windspeed);
-        Alloy.createController('surveys/cloudCover', { flow: state} );
+        Alloy.createController('surveys/cloudCover');
     },
     /**
      * @method saveCloudCover
      * @param {String} state State of the flow either PRESURVEY or POSTSURVEY
      * @param {Object} cloudCover cloudCover category as int
      */
-    saveCloudCover: function (state, cloudCover) {
+    saveCloudCover: function (cloudCover) {
         if (lockedFlow) { return; }
         lockFlow();
 

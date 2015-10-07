@@ -194,7 +194,8 @@
     <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."</string>
     <string name="more.motivationAuthor">YURI A. GAGARIN, first man in space.</string>
     <string name="more.tocTitle">The Ocean Cleanup</string>
-    <string name="more.toc">Plastic pollution has become a major hazard to marine life and is also leading to aesthetic degradation, economic losses, and impacts on human health. The Ocean Cleanup aims to mitigate ocean plastic pollution by starting effective at-sea cleanup operations. The Ocean Cleanup’s goal is to fuel the world’s fight against oceanic plastic pollution, by initiating the largest cleanup in history.\n\nhttp://www.theoceancleanup.com</string>
+    <string name="more.toc">Plastic pollution has become a major hazard to marine life and is also leading to aesthetic degradation, economic losses, and impacts on human health. The Ocean Cleanup aims to mitigate ocean plastic pollution by starting effective at-sea cleanup operations. The Ocean Cleanup’s goal is to fuel the world’s fight against oceanic plastic pollution, by initiating the largest cleanup in history.</string>
+    <string name="more.tocLink">http://www.theoceancleanup.com</string>
     <string name="more.goalTitle">Survey App Goal</string>
     <string name="more.goal">By conducting visual surveys the Ocean Cleanup will be able to estimate the amounts and types of objects floating in our oceans. This knowledge is crucial to develop technologies to clean it up. Your help is greatly appreciated!</string>
     <string name="more.teamTitle">Team</string>

@@ -19,7 +19,7 @@ _.extend($, {
      */
     construct: function(config) {
         WM.openWinInNewWindow($.getView(), { title: config.title });
-        $.videoPlayer.addEventListener('complete', completeVideo);
+        $.videoPlayerMain.addEventListener('complete', completeVideo);
     },
 
     /**
@@ -27,10 +27,15 @@ _.extend($, {
      * function executed when closing window
      */
     destruct: function() {
-        $.videoPlayer.removeEventListener('complete', completeVideo);
+        $.videoPlayerMain.removeEventListener('complete', completeVideo);
     }
 });
 
+/*
+ * completeVideo
+ *
+ * Close window after showing video
+ */
 function completeVideo () {
     WM.closeWin();
 }

@@ -14,6 +14,10 @@ The goal of the app is to make visual surveys user-friendlier and reduce adminis
 
 In order to build the project clone the project and read how to get started with Titanium on [http://docs.appcelerator.com/titanium/3.0/#!/guide/Quick_Start](http://docs.appcelerator.com/platform/latest/#!/guide/Quick_Start).
 
+### Testing
+
+You can change the survey duration and tracking interval for testing purposes in the app/config.json. Set developmentVersion to true to enable additional options in the settings menu.
+
 ### Configuration
 
 In order not to spill sensitive information all over the internet the config file is left blank, without it you will not be able to upload any surveys to the server. You can find the [code](https://github.com/TheOceanCleanup/server) for the server in the organisation and run it yourself, or contact any of the contributors of this project with the request for the development and/or production configurations.

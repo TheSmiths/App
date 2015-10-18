@@ -5,10 +5,10 @@
         "intervalDuration": "5"
     },
     "env:development": {
-        "developmentVersion": false
+        "developmentVersion": true
     },
     "env:test": {
-        "developmentVersion": false
+        "developmentVersion": true
     },
     "env:production": {
         "developmentVersion": false

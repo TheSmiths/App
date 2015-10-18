@@ -56,6 +56,19 @@
     right: 15
 }
 
+".link": {
+    font: {
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 14
+    },
+    color: '#01CBE1',
+    height: Ti.UI.SIZE,
+    too: 5,
+    bottom: 10,
+    left: 15,
+    right: 15
+}
+
 ".author": {
     font: {
         fontFamily: 'ProximaNova-Regular',
@@ -112,6 +125,9 @@
     text: L('more.goal')
 }
 
+"#goalLink": {
+    text: L('more.goalLink')
+}
 
 "#teamTitle": {
     text: L('more.teamTitle')

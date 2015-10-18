@@ -198,8 +198,9 @@
     <string name="more.tocLink">http://www.theoceancleanup.com</string>
     <string name="more.goalTitle">Survey App Goal</string>
     <string name="more.goal">By conducting visual surveys the Ocean Cleanup will be able to estimate the amounts and types of objects floating in our oceans. This knowledge is crucial to develop technologies to clean it up. Your help is greatly appreciated!</string>
+    <string name="more.goalLink">app@theoceancleanup.com</string>
     <string name="more.teamTitle">Team</string>
-    <string name="more.team">Julia Reisser (Ocean Research)\nHarrie Pieters (App Developer, UI and UX)\nBart Sturm (UX, Server and Testing)\nThe Smiths (Android development)\nExplainer Heroes (Videos)\nEva Seignette (Testing) \nDaniel Baker (Icons)\n\nContact: app@theoceancleanup.com</string>
+    <string name="more.team">Julia Reisser (Ocean Research)\nHarrie Pieters (App Developer, UI and UX)\nBart Sturm (UX, Server and Testing)\nThe Smiths (Android development)\nExplainer Heroes (Videos)\nEva Seignette (Testing) \nDaniel Baker (Icons)</string>
     <!-- Sighting - Material -->
     <string name="sighting.material.title">Material</string>
     <string name="sighting.material.subTitle">What is it made of?</string>

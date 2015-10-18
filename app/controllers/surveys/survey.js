@@ -108,6 +108,8 @@ function onClickCloseButton (evt) {
         libSurvey.cancelSurvey();
         vibrations = 0;
 
+        dispatcher.trigger('survey:closed');
+
         // Stop listening for events
         if (OS_IOS) {
             Ti.App.removeEventListener('pause', pauseSurvey);

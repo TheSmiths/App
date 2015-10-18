@@ -27,6 +27,7 @@ _.extend($, {
         surveys.on('remove', onRemoveSurvey);
         surveys.on('change', onChangeSurvey);
         dispatcher.on('survey:change', addedSurvey);
+        dispatcher.on('survey:closed', closedSurvey);
         // Check if there are any surveys
         fetchSurveys();
         _.defer(updateNotificationBadge);
@@ -41,6 +42,7 @@ _.extend($, {
         surveys.off('remove', onRemoveSurvey);
         surveys.off('change', onChangeSurvey);
         dispatcher.off('survey:change', addedSurvey);
+        dispatcher.off('survey:closed', closedSurvey);
     }
 });
 
@@ -133,6 +135,7 @@ function onRemoveSurvey (model, collection, options) {
         $.emptyView.visible = true;
     }
     $.profilesTableView.deleteRow(options.index);
+    removeUploadSurvey(model.get('survey_id'));
 }
 
 /**
@@ -217,6 +220,30 @@ function removeUploadSurvey (surveyId) {
 }
 
 /**
+ * @method closedSurvey
+ *
+ * Handle closed survey, fetch all surveys and update badge
+ */
+function closedSurvey () {
+    // Fetch surveys
+    fetchSurveys();
+    // Update notifications
+    // Reset (hack)
+    remainingUploads = [];
+    surveys.each(function (survey) {
+        var surveyId = survey.get('survey_id');
+
+        if (survey.get('uploaded') == 0) {
+            addUploadSurvey(surveyId);
+        } else {
+            removeUploadSurvey(surveyId);
+        }
+    });
+    // Set notifcation
+    _.defer(updateNotificationBadge);
+}
+
+/**
  * @method updateNotificationBadge
  * Set the badge on upload button to reflect # of remaining uploads
  * @todo: Animate
@@ -226,6 +253,7 @@ function updateNotificationBadge () {
 
     if (notificationCount === 0) {
         $.notificationContainer.setVisible(false);
+        require('notifications').set(0);
         return;
     }
 

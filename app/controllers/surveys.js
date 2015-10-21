@@ -10,6 +10,7 @@ var log = require('utils/log');
 var date = require('utils/date');
 var dispatcher = require('dispatcher');
 var toast = require('toast');
+var permissions = require('permissions');
 
 // Collections
 var surveys = Alloy.createCollection('Survey');
@@ -28,6 +29,7 @@ _.extend($, {
         surveys.on('change', onChangeSurvey);
         dispatcher.on('survey:change', addedSurvey);
         dispatcher.on('survey:closed', closedSurvey);
+        dispatcher.on('start:permissions', setPermissions);
         // Check if there are any surveys
         fetchSurveys();
         _.defer(updateNotificationBadge);
@@ -43,6 +45,7 @@ _.extend($, {
         surveys.off('change', onChangeSurvey);
         dispatcher.off('survey:change', addedSurvey);
         dispatcher.off('survey:closed', closedSurvey);
+        dispatcher.off('start:permissions', setPermissions);
     }
 });
 
@@ -241,6 +244,16 @@ function closedSurvey () {
     });
     // Set notifcation
     _.defer(updateNotificationBadge);
+}
+
+/**
+ * @method setPermissions
+ *
+ * Call permissions after intro movie to prevent permission alerts in video experience on iOS
+ */
+function setPermissions () {
+    console.log('***** updating permissions');
+    permissions.init();
 }
 
 /**

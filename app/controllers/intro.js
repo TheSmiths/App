@@ -38,5 +38,6 @@ _.extend($, {
  */
 function doClickContinue (evt) {
     $.videoPlayer.stop();
+    dispatcher.trigger('start:permissions');
     WM.closeWin();
 }

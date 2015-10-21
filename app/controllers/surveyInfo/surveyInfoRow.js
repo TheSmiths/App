@@ -54,5 +54,9 @@ _.extend($, {
  * Handle `click` on clickSurvey, create surveyDetails controller
  */
 function onClickSurvey () {
+    $.surveyContainer.opacity = 0.6;
+    _.delay(function () {
+         $.surveyContainer.opacity = 1;
+    }, 400);
     Alloy.createController('surveyInfo/surveyDetails', { surveyId: surveyId, startTime: startTime, endTime: endTime });
 }

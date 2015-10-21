@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- the theme applied to the application or activity -->
-    <style name="Theme.TheOceanCleanup" parent="@style/Theme.AppCompat.Light">
+    <style name="Theme.TheOceanCleanup" parent="@style/Theme.AppCompat">
         <item name="android:actionBarStyle">@style/Theme.TheOceanCleanup.ActionBar</item>
-        <item name="android:actionMenuTextColor">#FFFFFF</item>
+        <item name="actionBarStyle">@style/Theme.TheOceanCleanup.ActionBar</item>
 
         <item name="android:actionBarItemBackground">@drawable/ab_solid_theoceancleanup</item>
         <item name="actionBarItemBackground">@drawable/ab_solid_theoceancleanup</item>

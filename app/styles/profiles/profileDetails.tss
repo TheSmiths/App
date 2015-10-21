@@ -52,7 +52,8 @@
     font: {
         fontFamily: 'ProximaNova-Regular',
         fontSize: 14
-    }
+    },
+    color: '#000'
 }
 
 ".spotterLabel": {
@@ -63,7 +64,8 @@
     font: {
         fontFamily: 'ProximaNova-Semibold',
         fontSize: 13
-    }
+    },
+    color: '#333'
 }
 
 "#spotter": {
@@ -108,7 +110,8 @@
     font: {
         fontFamily: 'ProximaNova-Semibold',
         fontSize: 13,
-    }
+    },
+    color: '#333'
 }
 
 "#height": {
@@ -129,6 +132,52 @@
     zIndex: 20
 }
 
+// email
+
+".emailLabel": {
+    text: L('profiles.profileDetails.email'),
+    top: 3,
+    left: 0,
+    height: Ti.UI.SIZE,
+    font: {
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 13,
+    },
+    color: '#333'
+}
+
+"#email": {
+    height: Ti.UI.SIZE,
+    top: 30,
+    backgroundColor: '#EAEAEA',
+    width: '100%',
+    height: 40,
+    paddingLeft: 10
+}
+
+"#emailErrorContainer": {
+    visible: false,
+    backgroundColor: Alloy.CFG.design.colors.error,
+    top: 0,
+    right: 0,
+    width: 190,
+    height: Ti.UI.SIZE
+}
+
+".emailErrorLabel": {
+    top: 3,
+    bottom: 3,
+    left: 3,
+    right: 3,
+    text: L('profiles.profileDetails.emailError'),
+    height: Ti.UI.SIZE,
+    font: {
+        fontSize: 13
+    },
+    color: '#fff',
+    textAlign: 'center'
+}
+
 // Boat
 
 ".boatLabel": {
@@ -139,7 +188,8 @@
     font: {
         fontFamily: 'ProximaNova-Semibold',
         fontSize: 13,
-    }
+    },
+    color: '#333'
 }
 
 "#boat": {

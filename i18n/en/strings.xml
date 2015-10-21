@@ -25,13 +25,19 @@
     <string name="surveys.survey.finishSurvey">Finalize Survey</string>
     <string name="surveys.survey.preSurveyMessage">Start the survey once ready in order to start collecting data.</string>
     <string name="surveys.survey.started">Started on</string>
-    <!-- -->
+    <string name="surveys.errorDeletingSighting">Unable to find sighting, please try again.</string>
+    <string name="surveys.deleteSighting">Delete sighting</string>
+    <string name="surveys.deleteSightingCancel">Cancel</string>
+    <string name="surveys.deleteSightingMessage">Are you sure you want to delete this sighting?</string>
+    <string name="surveys.deleteSightingTitle">Delete sighting?</string>
+    <!-- Multiple items of debris -->
     <string name="sighting.sightingType.title">Amount</string>
     <string name="sighting.sightingType.subTitle">How many items of debris?</string>
     <!-- Survey - Events -->
     <string name="surveys.survey.event.trackTitle">Tracked location</string>
     <string name="surveys.survey.event.sightingTitle">Added single sighting</string>
     <string name="surveys.survey.event.sightingMultiTitle">Added multiple sightings</string>
+    <string name="surveys.survey.event.noLocation">Unable to get geolocation</string>
     <!-- Wind speed -->
     <string name="surveys.windspeed.subTitle">What is the current wind speed?</string>
     <string name="surveys.windspeed.title">Wind Speed</string>
@@ -39,19 +45,19 @@
     <string name="surveys.comment.subTitle">Share any remarks about your survey</string>
     <string name="surveys.comment.title">Special Remarks</string>
     <string name="surveys.comment.postComment">Continue</string>
-    <string name="surveys.comment.fakeComment">[TEST SURVEY]</string>
+    <string name="surveys.comment.fakeComment">[TEST SURVEY]\n\n</string>
     <string name="surveys.comment.fakeSurvey">Save survey as test</string>
     <string name="surveys.comment.commentHintText"></string>
     <!-- Done -->
     <string name="surveys.done.subTitle">Successfully saved survey</string>
     <string name="surveys.done.title">Saved survey</string>
     <string name="surveys.done.paragraphTitle">Successfully saved survey</string>
-    <string name="surveys.done.paragraph">Thank you for your contribution towards cleaner oceans. Make sure you remember to upload your results!</string>
+    <string name="surveys.done.paragraph">Thank you so much for your contribution towards cleaner oceans. Make sure you remember to upload your results!</string>
     <string name="surveys.done.continue">Back to overview</string>
 
     <!-- Local notification -->
-    <string name="survey.notification.title">%s survey(s) achieved!</string>
-    <string name="survey.notification.body">Survey is done! Continue to finalize.</string>
+    <string name="survey.notification.title">Finalize your survey</string>
+    <string name="survey.notification.body">Your survey is done! Continue to finalize.</string>
     <!-- Menu -->
     <string name="menu.surveys">Surveys</string>
     <string name="menu.profiles">Profiles</string>
@@ -62,7 +68,7 @@
     <!-- Profiles -->
     <string name="profiles.title">Profiles</string>
     <string name="profiles.newProfile">New profile</string>
-    <string name="profiles.empty">There are currently no profiles, create a profile using the 'new profile' button.</string>
+    <string name="profiles.empty">There are currently no profiles, create a profile using the 'new profile' or plus botton.</string>
     <string name="profiles.surveyTitle">Select your profile</string>
     <string name="profile.updated">Successfully updated profile</string>
     <string name="profile.saved">Successfully created profile</string>
@@ -71,11 +77,13 @@
     <!-- New Profile -->
     <string name="profiles.profileDetails.title">Create New Profile</string>
     <string name="profiles.profileDetails.spotterError">Please provide your name.</string>
-    <string name="profiles.profileDetails.boatError">Please provide your vessel.</string>
+    <string name="profiles.profileDetails.boatError">Please provide your vessel name.</string>
+    <string name="profiles.profileDetails.emailError">Please provide a valid email.</string>
     <string name="profiles.profileDetails.close">Close</string>
-    <string name="profiles.profileDetails.spotter">Name</string>
+    <string name="profiles.profileDetails.spotter">Full name</string>
     <string name="profiles.profileDetails.platformHeight">Platform height</string>
     <string name="profiles.profileDetails.boat">Vessel</string>
+    <string name="profiles.profileDetails.email">Email</string>
     <string name="profiles.profileDetails.save">Save Profile</string>
     <string name="profiles.profileDetails.edit">Edit Profile</string>
     <string name="profiles.profileDetails.delete">Delete Profile</string>
@@ -93,39 +101,80 @@
     <string name="guide.startingASurvey">Starting a survey</string>
     <string name="guide.duringTheSurvey">During the survey</string>
     <string name="guide.finishTheSurvey">Finishing the survey</string>
-    <string name="guide.enterAnSpotter">Enter a spotter</string>
+    <string name="guide.enterASpotter">Enter a spotter</string>
     <string name="guide.howToReportFeedback">How to report feedback</string>
+    <string name="guide.windspeed">Windspeed</string>
+    <string name="guide.cloudCover">Cloud Coverage</string>
+    <string name="guide.amount">Amount</string>
+    <string name="guide.material">Material</string>
+    <string name="guide.category">Category</string>
+    <string name="guide.dimension">Size</string>
+    <string name="guide.distance">Distance</string>
+    <string name="guide.surveyRemarks">Special Remarks about this survey</string>
+    <string name="guide.sightingRemarks">Special Remarks about this sighting</string>
+    <string name="guide.gps">GPS signal</string>
+
+    <string name="guide.introductionVideo">Introduction video</string>
+
     <!-- Guide Detail -->
     <string name="guide.prepareForSurvey.introduction">Introduction:</string>
+    <string name="guide.prepareForSurvey.introductionVideo">Video:</string>
 
-
-
-
-
+    <!-- Guide Pages -->
     <string name="guide.prepareForSurvey.introductionParagraph">As a ‘debris spotter’ on a moving vessel, you are looking for debris that is floating at sea, and recording what you see in The Ocean Cleanup app.</string>
     <string name="guide.prepareForSurvey.Observer">Debris Spotter:</string>
-    <string name="guide.prepareForSurvey.observerParagraph">Each survey takes 30 minutes and requires your full attention and sufficient battery of your device. Choose the side of the vessel- starboard or port side - that allows you to best see floating debris, given the available sunlight and wind conditions.\n\nYour standing point must remain the same during the entire 30-minutes visual survey.\n\nIf this is your first visual survey using this app, make sure to take some time to have a look at our guide and settings. The settings tab gives you the option to choose between Metric and Imperial systems for the measurements you will have to guess during the survey.</string>
+    <string name="guide.prepareForSurvey.observerParagraph">Each survey takes 30 minutes and requires your full attention and sufficient battery of your device. Choose the side of the vessel- starboard or port side - that allows you to best see floating debris, given the available sunlight and wind conditions.\n\nYour standing point must remain the same during the entire 30-minutes visual survey.\n\nIf this is your first visual survey using this app, make sure to take some time to have a look at our guide and settings. The settings tab gives you the option to choose between Metric and Imperial systems for the measurements you will have to estimate during the survey.\n\nNote that even if you don't spot much or any debris, these data are just as useful and important as when you do.</string>
 
     <string name="guide.startingASurvey.introduction">Starting a survey:</string>
-    <string name="guide.startingASurvey.introductionParagraph">Navigate to the ‘Welcome’ page of The Ocean Cleanup app and press ‘Start a new survey’.\n\nThe app will then give you the opportunity to either select your existing profile or create a new one. Provide your name, boat name, and platform height, which is a guess of the distance between your eyes and the mean water line.\n\nNext, it will ask you the current wind speed (use an anemometer, or guess it) and cloud coverage (guess it).\n\nYou are now ready to get the 30 minutes ocean watch started.</string>
+    <string name="guide.startingASurvey.introductionParagraph">Navigate to the ‘Surveys’ page of The Ocean Cleanup app. If it shows a bar with a 'no GPS found' error to the bottom of that page, click the bar to find ways to solve it. Once you have GPS, press ‘Start a new survey’.\n\nThe app will then give you the opportunity to either select your existing profile or create a new one. Provide your full name and email, the boat name, and platform height, which is an estimate of the distance between your eyes and the mean water line. Your email address is only used in case there are any questions about your survey.\n\nNext, it will ask you the current wind speed (if there's no anemometer, estimate it) and cloud coverage (estimate it).\n\nYou are now ready to get the 30 minutes ocean watch started!</string>
 
     <string name="guide.duringTheSurvey.introduction">During the survey</string>
-    <string name="guide.duringTheSurvey.introductionParagraph">You are now in a screen with a countdown timer that tells you how much time you have left before the 30 minutes survey is over.\n\nYou should focus your attention on looking for debris floating within a 90-degree arc encompassing the area ahead of the ship and one side of the track-line.\n\nYour should be searching for debris in closeby waters - 0 - 10 meters from the boat’s track-line - but debris sighted at any distance can be recorded.\n\nWhen you spot a debris, press ‘New Sighting’. You will then have to log the debris amount, material, type, size, and distance from the vessel track-line.</string>
+    <string name="guide.duringTheSurvey.introductionParagraph">You are now in a screen with a countdown timer that tells you how much time you have left before the 30 minutes survey is over. The app will keep track of your location so that we know which area was surveyed and what your speed was.\n\nYou should focus your attention on looking for debris floating within a 90-degree arc encompassing the area ahead of the ship and one side of the vessel.\n\nYou should be searching for debris in closeby waters - 0 - 10 meters from the boat - but debris sighted at any distance can be recorded. Please ignore items smaller than 1 cm (half an inch, or roughly the width of a pinky nail).\n\nWhen you spot a debris item, press ‘New Sighting’ to log the debris details.\n\nPlease take the time you need to estimate and enter the item's details. You don't need to be looking out for other debris while you log the details.</string>
+
+    <string name="guide.windspeed.introduction">Wind Speed</string>
+    <string name="guide.windspeed.introductionParagraph">What's the true wind speed right now? Check your anemometer (windmeter) if available. Otherwise estimate it yourself or ask your captain.\n\nWind speed affects the visibility of debris.</string>
+
+    <string name="guide.cloudCover.introduction">Cloud Coverage</string>
+    <string name="guide.cloudCover.introductionParagraph">Are there clouds? How much of the sky do they approximately cover? This affects the visibility of debris.</string>
+
+    <string name="guide.amount.introduction">Amount</string>
+    <string name="guide.amount.introductionParagraph">Are you seeing a group of similar items? You can report them at once. You can add remarks to group sighting as well.</string>
+
+    <string name="guide.material.introduction">Material</string>
+    <string name="guide.material.introductionParagraph">What does this item appear to consist of? For a group of items, what do most appear to be made of?</string>
+
+    <string name="guide.category.introduction">Category</string>
+    <string name="guide.category.introductionParagraph">Is it one of these items, per chance? Select your best guess of what the item you're seeing is. You can use "other" if it is a recognizable item that is not listed, or "no clue" if it is a more or less intact item that you do not recognise.</string>
+
+    <string name="guide.dimension.introduction">Size</string>
+    <string name="guide.dimension.introductionParagraph">How long is the object, or most objects in the group? Please ignore items smaller than 1 cm (half an inch, or roughly the width of a pinky nail). Smaller items shouldn't be recorded as these are measured with trawls with nets instead.</string>
+
+    <string name="guide.distance.introduction">Distance</string>
+    <string name="guide.distance.introductionParagraph">How far is it from the vessel right now? Remember to focus your attention on the first 0-10 meters (0-33 feet) from you.</string>
+
+    <!-- note: there is surveyRemarks and sightingRemarks, the latter is for group sightings -->
+    <string name="guide.surveyRemarks.introduction">Special Remarks about this survey</string>
+    <string name="guide.surveyRemarks.introductionParagraph">You're almost finished. Well done! Please use this box to tell us about things like:\n\n- Anything special that happened during the survey. Did you spot dolphins? Fish? Spilled oil?\n- If a second spotter helped you\n- Things that may affect the quality of the survey, e.g. rain, bad visibility or distractions\n- Any feedback you have to improve the app\n\nAlso don't forget to switch on 'Save survey on as test' if this was a test survey.\n\nAnd then you're ready to finalize it! Thanks so much!</string>
+
+    <string name="guide.sightingRemarks.introduction">Special Remarks about this sighting</string>
+    <string name="guide.sightingRemarks.introductionParagraph">What stands out about the group of items you see? Use this box to tell us anything we should know about what you're seeing - e.g. an estimate of the total amount or a guess of the origin of the group of items.</string>
+
+    <string name="guide.gps.introduction">GPS signal</string>
+    <string name="guide.gps.introductionParagraph">Your survey data is most helpful when GPS data from your device is automatically included. Everywhere on earth, your device can detect your location thanks to satellites. If you have no signal, please try these things to fix it:\n\n- Make sure there's nothing above your head (e.g. roof, solar panels...) that may interfere with the signals.\n- Make sure this app has permission to access your location in the settings on your device.\n- Make sure your device is unlocked and flight mode is disabled.\n- Open Google Maps or another maps app and let it determine your location. (It doesn't need internet for this so don't worry if no map shows.)\n- If none of the above helps, reboot your device by turning it off and on again and if necessary, repeat the above steps once.\n\nPhew! This should almost always help your device find the GPS location.\n\nDo none of these help? Is it still not working? You can also add the coordinates manually, at the start and again at the end of your survey. Note that these must be in decimals, not in minutes. Please do try the above steps first as your data will be less useful if the coordinates of every sighting can not be logged.</string>
 
     <string name="guide.finishTheSurvey.introduction">Finishing the survey</string>
-    <string name="guide.finishTheSurvey.introductionParagraph">When the 30 minutes ocean watch is over, your phone will vibrate to let you know that the survey is over.\n\nYou wil then have the opportunity to write down any remarks you may have, such as app improvement suggestions and reports of unusual sightings (e.g. marine life, abrupt weather condition changes).</string>
-
+    <string name="guide.finishTheSurvey.introductionParagraph">When the 30 minutes ocean watch is over, your device will vibrate to let you know that the survey is over.\n\nYou wil then have the opportunity to write down any remarks you may have, such as app improvement suggestions and reports of unusual sightings (e.g. marine life, weather condition changes), as well as whether someone helped you. This is also where you can let us know if this was a test survey rather than real data.\n\nOnce you're back on land, don't forget to upload your data.</string>
 
     <string name="guide.startingASurvey.observer">Spotter:</string>
-    <string name="guide.startingASurvey.observerParagraph">Before you start a new survey, it is important that you have filled in your personal and vessel details. This enables us to link the survey-data to the right vessel and team</string>
+    <string name="guide.startingASurvey.observerParagraph">Before you start a new survey, it is important that you have filled in your personal and vessel details. This enables us to link the survey data to the right vessel and team.</string>
 
-    <string name="guide.enterAnSpotter.info">How to setup your observer profile</string>
-    <string name="guide.enterAnSpotter.infoParagraph">To setup your observer profile, go to the profiles page using the menu or simply press 'start survey'. On the profiles page you will be able to create a new profile using the 'new profile' button.</string>
+    <string name="guide.enterASpotter.info">How to set up your spotter profile</string>
+    <string name="guide.enterASpotter.infoParagraph">To set up your spotter profile, go to the profiles page using the menu or simply press 'start survey'. On the profiles page you will be able to create a new profile with the 'new profile' or plus button. Provide your full name and email, the boat name, and platform height, which is an estimate of the height of your eyes from the mean water line. Your email address is only used in case there are any questions about your survey.</string>
 
     <string name="guide.howToReportFeedback.title">Got Feedback?</string>
-    <string name="guide.howToReportFeedback.paragraph">Is the answer to your question not available in this guide? Do you experience a problem with the use of the app or when conducting a survey? Please don't hesitate to contact us.\n\napp@theoceancleanup.com</string>
+    <string name="guide.howToReportFeedback.paragraph">Is the answer to your question not available in this guide? Do you experience a problem with the use of the app or when conducting a survey? Please don't hesitate to let us know. You may include feedback in your Remarks at the end of your next survey, or email your feedback to app@theoceancleanup.com</string>
     <!-- Settings -->
-    <string name="settings.title">Settings</string>
+    <string name="settings.title">Settings</string> 
     <string name="settings.unitSetting">Measurement settings:</string>
     <string name="settings.highContrast">Switch to high contrast:</string>
     <string name="settings.invert">Switch to invert colors:</string>
@@ -145,11 +194,13 @@
     <string name="more.motivation">"When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. Mankind, let us preserve and increase this beauty and not destroy it."</string>
     <string name="more.motivationAuthor">YURI A. GAGARIN, first man in space.</string>
     <string name="more.tocTitle">The Ocean Cleanup</string>
-    <string name="more.toc">Plastic pollution has become a major hazard to marine life and is also leading to aesthetic degradation, economic losses, and impacts on human health. The Ocean Cleanup aims to mitigate ocean plastic pollution by starting effective at-sea cleanup operations. By developing technologies to extract, prevent, and intercept plastic pollution. The Ocean Cleanup’s goal is to fuel the world’s fight against oceanic plastic pollution, by initiating the largest cleanup in history.\n\nhttp://www.theoceancleanup.com</string>
+    <string name="more.toc">Plastic pollution has become a major hazard to marine life and is also leading to aesthetic degradation, economic losses, and impacts on human health. The Ocean Cleanup aims to mitigate ocean plastic pollution by starting effective at-sea cleanup operations. The Ocean Cleanup’s goal is to fuel the world’s fight against oceanic plastic pollution, by initiating the largest cleanup in history.</string>
+    <string name="more.tocLink">http://www.theoceancleanup.com</string>
     <string name="more.goalTitle">Survey App Goal</string>
     <string name="more.goal">By conducting visual surveys the Ocean Cleanup will be able to estimate the amounts and types of objects floating in our oceans. This knowledge is crucial to develop technologies to clean it up. Your help is greatly appreciated!</string>
+    <string name="more.goalLink">app@theoceancleanup.com</string>
     <string name="more.teamTitle">Team</string>
-    <string name="more.team">Julia Reisser (Ocean Research)\nHarrie Pieters (App Developer, UI and UX)\nBart Sturm (UX, Server and Testing)\nEva Seignette (Testing) \nDaniel Baker (Icons)</string>
+    <string name="more.team">Julia Reisser (Ocean Research)\nHarrie Pieters (App Developer, UI and UX)\nBart Sturm (UX, Server and Testing)\nThe Smiths (Android development)\nExplainer Heroes (Videos)\nEva Seignette (Testing) \nDaniel Baker (Icons)</string>
     <!-- Sighting - Material -->
     <string name="sighting.material.title">Material</string>
     <string name="sighting.material.subTitle">What is it made of?</string>
@@ -163,13 +214,23 @@
     <string name="sighting.dimension.subTitleMulti">What is the common debris length?</string>
     <!-- Sighting - Distance -->
     <string name="sighting.distance.title">Distance</string>
-    <string name="sighting.distance.subTitle">Distance between debris and track-line?</string>
-    <string name="sighting.distance.subTitleMulti">Average distance from track line?</string>
-
+    <string name="sighting.distance.subTitle">Distance between debris and vessel?</string>
+    <string name="sighting.distance.subTitleMulti">Average distance from vessel?</string>
+    <!-- Survey Details -->
     <string name="surveyDetails.title">Survey details</string>
-
+    <!-- Upload -->
     <string name="upload.noInternet">Could not upload surveys because the app is not connected to the internet. Please try again once your connection is established.</string>
     <string name="upload.noUploadableSurveys">No surveys to upload.</string>
     <string name="upload.failed">Failed to upload surveys. Please try again, and if it continues to fail contact The Ocean Cleanup.</string>
     <string name="upload.uploadedSurveys">Uploaded all of your surveys. Great job!</string>
+    <!-- Coordinates -->
+    <string name="coordinates.title">Coordinates (in decimals)</string>
+    <string name="coordinates.latitude">Latitude</string>
+    <string name="coordinates.longitude">Longitude</string>
+    <string name="coordinates.continue">Continue</string>
+    <string name="coordinates.foundGPS">GPS Signal found</string>
+    <!-- Location -->
+    <string name="location.noLocationFound">No GPS signal</string>
+    <!-- Intro -->
+    <string name="intro.continue">Skip</string>
 </resources>

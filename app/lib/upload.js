@@ -42,8 +42,6 @@ module.exports = function (callback) {
             return callback(err);
         }
 
-        //client.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-
         async.each(uploadArray, function (survey, callback) {
             var client = Ti.Network.createHTTPClient({
                  // function called when the response data is available

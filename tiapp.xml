@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.theoceancleanup.surveyapp</id>
-    <name>TheOceanCleanup</name>
-    <version>1.2</version>
+    <name>TheOceanCleanApp</name>
+    <version>1.6</version>
     <publisher>Harrie Pieters</publisher>
     <url>http://www.theoceancleanup.com</url>
     <description/>
@@ -10,7 +10,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>false</analytics>
-    <guid>12978bfa-ffbb-4466-94fe-a702ffa83688</guid>
+    <guid></guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <plist>
@@ -48,7 +48,9 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest>
+        <manifest android:installLocation="auto"
+            android:versionCode="4" android:versionName="1.4"
+            package="com.theoceancleanup.surveyapp" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:theme="@style/Theme.TheOceanCleanup" />
             <uses-permission android:name="android.permission.INTERNET"/>
             <!-- Allows the API to cache data -->
@@ -86,7 +88,7 @@
             <target device="iphone">true</target>
             <target device="mobileweb">false</target>
         </deployment-targets>
-        <sdk-version>3.5.1.GA</sdk-version>
+        <sdk-version>5.0.1.GA</sdk-version>
     <plugins><plugin version="1.5.1">ti.alloy</plugin>
 </plugins>
 </ti:app>

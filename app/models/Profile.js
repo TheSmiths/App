@@ -3,6 +3,7 @@ exports.definition = {
         columns: {
             "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
             "name": "STRING",
+            "email": "STRING",
             "height": "INTEGER",
             "boat": "STRING",
             "surveys": "INTEGER",
@@ -10,6 +11,7 @@ exports.definition = {
         },
         defaults: {
             "name": "",
+            "email": "",
             "height": 0,
             "boat": "",
             "surveys": 0,

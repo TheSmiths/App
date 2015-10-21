@@ -1,0 +1,17 @@
+".locationContainer": {
+    bottom: -60,
+    left: 0,
+    height: 60,
+    zIndex: 20,
+    backgroundColor: '#D8D8D8'
+}
+
+".location": {
+    text: L('location.noLocationFound'),
+    color: '#666',
+    font: {
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 18
+    },
+    top: 20
+}

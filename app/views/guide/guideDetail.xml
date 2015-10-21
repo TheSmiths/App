@@ -2,7 +2,8 @@
     <Window id="more">
          <View class="header" platform="ios">
             <Label class="headerTitle" id="headerTitle" />
-            <Require src="components/backButton" id="backButton" onClick="onClickBackButton" />
+            <Require src="components/backButton" id="backButton" onClick="onClickBackButton" platform="ios" />
+            <Require src="components/closeButton" id="closeButton" onClick="onClickBackButton" platform="ios" />
         </View>
 
         <ScrollView id="content">

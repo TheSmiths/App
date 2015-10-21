@@ -20,3 +20,23 @@ function onClickBackButton () {
 
     buttonClick();
 }
+
+
+/**
+ * @method show
+ * @public
+ * Allow dynamic visibilty change on runtime
+ */
+exports.show = function () {
+    $.backButtonContainer.visible = true;
+};
+
+
+/**
+ * @method hide
+ * @public
+ * Allow dynamic visibilty change on runtime
+ */
+exports.hide = function () {
+    $.backButtonContainer.visible = false;
+};

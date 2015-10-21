@@ -6,11 +6,14 @@
  */
 var log = require('utils/log');
 var WM = require('windowManager');
+var dispatcher = require('dispatcher');
 
 // Internals
 var type = "SURVEY";
 var savedText = "";
 var activated = false;
+var comment;
+var endTime;
 
 _.extend($, {
     /**
@@ -33,6 +36,10 @@ _.extend($, {
         }
 
         WM.openWinWithBack($.getView(), {title: L('surveys.comment.title')});
+
+        if (type !== 'SURVEY' && OS_IOS) {
+            $.guideButton.topic = 'sightingRemarks';
+        }
     },
 
     /**
@@ -57,7 +64,7 @@ function onClickBackButton () {
  * Handle `click` on post comment button, storing the comment and final event.
  */
 function doClickPostComment () {
-    var comment = $.commentTextArea.value.trim();
+    comment = $.commentTextArea.value.trim();
 
     if (type !== "SURVEY") {
         require('event').updateSurveyEventData('sighting', {comment: comment});
@@ -65,19 +72,30 @@ function doClickPostComment () {
         return;
     }
 
-    var endTime = new Date().getTime();
+    endTime = new Date().getTime();
     // Request location from system
     require('utils/location').getCurrentLatLng(function (error, locationObject) {
-        var dataObject = {};
-        // Add time to object
-        dataObject.comment = comment;
-        dataObject.endTime = endTime;
-        dataObject.endLocation = locationObject;
-        // Track event
-        require('event').saveSurveyEvent('finishSurvey', dataObject);
-        // Update the flow
-        require('flow').comment();
+        if (error) {
+            Alloy.createController('surveys/coordinates', { parent: $, state: 'POSTSURVEY' });
+            dispatcher.on('survey:coordinates', finishSurvey);
+            return;
+        }
+
+        finishSurvey(comment, endTime, locationObject);
     });
+}
+
+function finishSurvey (comment, endTime, locationObject) {
+    dispatcher.off('survey:coordinates', finishSurvey);
+    var dataObject = {};
+    // Add time to object
+    dataObject.comment = comment;
+    dataObject.endTime = endTime;
+    dataObject.endLocation = locationObject;
+    // Track event
+    require('event').saveSurveyEvent('finishSurvey', dataObject);
+    // Update the flow
+    require('flow').comment();
 }
 
  /**

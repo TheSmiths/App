@@ -21,20 +21,20 @@ var settings = Ti.App.Properties.getObject('app-survey-settings') || {
     unit: 'METRIC'
 };
 
-
 // Internals
 var startTime;
 var endTime;
 var timer;
 var active = false;
 var state = 'PREACTIVE';
+var vibrations = 20;
+var startedSurvey = false;
 
 // constants
 var TRACKTIMEINTERVAL = settings.trackingInterval * 60;
 
 // Collections
 var eventCollection = Alloy.createCollection('Event');
-var shadowEvents = [];
 
 _.extend($, {
     /**
@@ -62,6 +62,9 @@ _.extend($, {
 
         var TRACKLOCATIONTIME = settings.surveyDuration * 60 - settings.trackingInterval * 60;
         setTrackLocationTimeForBackground(TRACKLOCATIONTIME);
+
+        dispatcher.on('vibrate', vibratePhone);
+        dispatcher.on('survey:delete', renderSurveyTimeline);
     },
 
     /**
@@ -70,6 +73,8 @@ _.extend($, {
      */
     destruct: function() {
         dispatcher.off('surveyUpdate', renderSurveyTimeline);
+        dispatcher.off('survey:delete', renderSurveyTimeline);
+        dispatcher.off('vibrate', vibratePhone);
 
         if (OS_IOS) {
             Ti.App.removeEventListener('pause', pauseSurvey);
@@ -101,6 +106,9 @@ function onClickCloseButton (evt) {
         // Stop survey, stop time, start index again, close this window.
         stopTime();
         libSurvey.cancelSurvey();
+        vibrations = 0;
+
+        dispatcher.trigger('survey:closed');
 
         // Stop listening for events
         if (OS_IOS) {
@@ -121,30 +129,59 @@ function onClickCloseButton (evt) {
 function doClickStartSurvey (evt) {
     log.info('[surveys/survey] Clicked start survey');
 
+    // Check if we have any coordinates
+    if (!require('utils/location').getLocationsCoordinates()) {
+        Alloy.createController('surveys/coordinates');
+        dispatcher.on('survey:coordinates', startSurvey);
+        dispatcher.on('survey:gps', doClickStartSurvey);
+        return;
+    }
+
+    // Get current latitude and longitude from the system
     require('utils/location').getCurrentLatLng(function (err, currentLocation) {
         if (err) {
             log.error('[surveys/survey] Unable to determine location, without location the survey is unable to continue');
-            alert('Unable to determine location, without location the survey is unable to continue');
+            Alloy.createController('surveys/coordinates');
+            dispatcher.on('survey:coordinates', startSurvey);
+            dispatcher.on('survey:gps', doClickStartSurvey);
             return;
         }
         // Start survey
-        var surveyObject = libSurvey.startSurvey();
-        var currentTime = new Date().getTime();
-
-        // Move location error to the library
-        events.saveSurveyEvent('startSurvey', {startingTime: currentTime, startLocation: currentLocation});
-        activateSurvey(surveyObject);
-
-        // Listen to event
-        if (OS_IOS) {
-            Ti.App.addEventListener('pause', pauseSurvey);
-            Ti.App.addEventListener('resume', continueSurvey);
-        } else {
-            var activity = $.getView().getActivity();
-            activity.onResume = continueSurvey;
-            activity.onPause = pauseSurvey;
-        }
+        startSurvey(currentLocation);
     });
+}
+/**
+ * [startSurvey description]
+ * @param  {[type]} currentLocation [description]
+ * @return {[type]}                 [description]
+ */
+function startSurvey (currentLocation) {
+    // Already started ignore new events (@todo use active variable?)
+    if (startedSurvey) {
+        return;
+    }
+    startedSurvey = true;
+    _.delay(function () {
+        startedSurvey = false;
+    }, 100);
+    // Remove any listeners if we have any
+    dispatcher.off('survey:coordinates', startSurvey);
+    dispatcher.off('survey:gps', doClickStartSurvey);
+    var surveyObject = libSurvey.startSurvey();
+    var currentTime = new Date().getTime();
+    // Move location error to the library
+    events.saveSurveyEvent('startSurvey', {startingTime: currentTime, startLocation: currentLocation});
+    activateSurvey(surveyObject);
+
+    // Listen to event
+    if (OS_IOS) {
+        Ti.App.addEventListener('pause', pauseSurvey);
+        Ti.App.addEventListener('resume', continueSurvey);
+    } else {
+        var activity = $.getView().getActivity();
+        activity.onResume = continueSurvey;
+        activity.onPause = pauseSurvey;
+    }
 }
 
 /**
@@ -156,8 +193,14 @@ function doClickAddSighting (evt) {
     log.info('[surveys/survey] Started new sighting');
         // Get current time
     var sightingStartTime = new Date().getTime();
+    var callback = false;
     // Request location from system
     require('utils/location').getCurrentLatLng(function (error, locationObject) {
+        if (callback) {
+            return;
+        }
+
+        callback = true;
         var dataObject = {};
         // Add time to object
         dataObject.startTime = sightingStartTime;
@@ -166,6 +209,19 @@ function doClickAddSighting (evt) {
         events.initSurveyEvent('sighting', dataObject);
         require('flow').sighting();
     });
+
+    _.delay(function () {
+        if (!callback) {
+            callback = true;
+            var dataObject = {};
+            // Add time to object
+            dataObject.startTime = sightingStartTime;
+            dataObject.startLocation = {};
+            // Track event
+            events.initSurveyEvent('sighting', dataObject);
+            require('flow').sighting();
+        }
+    }, 500);
 }
 
 /**
@@ -174,6 +230,7 @@ function doClickAddSighting (evt) {
  * @param  {Object} evt
  */
 function doClickFinishSurvey (evt) {
+    vibrations = 0;
     events.initSurveyEvent('finishSurvey');
     log.info('[surveys/survey] Finished survey');
     require('flow').postSurvey();
@@ -185,17 +242,10 @@ function doClickFinishSurvey (evt) {
  * @param  {Object} model
  */
 function onAddEvent (model) {
-    // Filter out duplicates
-    if (_.contains(shadowEvents, model.get('event_id'))) {
-        return;
-    }
-
     log.info('[surveys/survey] Tracking onAddedEvent', model.attributes);
-
     var eventDataView = Alloy.createController('surveys/surveyRow', {model: model}).getView();
     $.surveyTableView.appendRow(eventDataView);
     $.surveyTableView.height = Ti.UI.FILL;
-    shadowEvents.push(model.get('event_id'));
 }
 
 /**
@@ -254,7 +304,8 @@ function updateTime () {
         updateViewState('POSTACTIVE');
         $.surveyTimer.text = '00:00';
         libSurvey.stopSurvey();
-        Ti.Media.vibrate();
+        vibrations = 20;
+        vibratePhone();
         return;
     }
 
@@ -277,6 +328,16 @@ function updateTime () {
     seconds = seconds < 10 ? '0' + seconds : seconds;
     $.surveyTimer.text = minutes + ':' + seconds;
     timer = setTimeout(function () { updateTime(); }, 50);
+}
+
+function vibratePhone () {
+    if (vibrations > 0) {
+        Ti.Media.vibrate();
+        vibrations = vibrations - 1;
+        _.delay(function () {
+            vibratePhone();
+        }, 2000);
+    }
 }
 
 /**
@@ -347,6 +408,7 @@ function updateViewState (state) {
  * Fetch all events from survey, and call render function
  */
 function renderSurveyTimeline () {
+    $.surveyTableView.data = [];
     var surveyId = libSurvey.activeSurvey().surveyId;
     eventCollection.fetch({
         query: 'SELECT * from events where survey_id = "' + surveyId + '"',

@@ -10,6 +10,7 @@ var log = require('utils/log');
 var date = require('utils/date');
 var dispatcher = require('dispatcher');
 var toast = require('toast');
+var permissions = require('permissions');
 
 // Collections
 var surveys = Alloy.createCollection('Survey');
@@ -27,6 +28,8 @@ _.extend($, {
         surveys.on('remove', onRemoveSurvey);
         surveys.on('change', onChangeSurvey);
         dispatcher.on('survey:change', addedSurvey);
+        dispatcher.on('survey:closed', closedSurvey);
+        dispatcher.on('start:permissions', setPermissions);
         // Check if there are any surveys
         fetchSurveys();
         _.defer(updateNotificationBadge);
@@ -41,6 +44,8 @@ _.extend($, {
         surveys.off('remove', onRemoveSurvey);
         surveys.off('change', onChangeSurvey);
         dispatcher.off('survey:change', addedSurvey);
+        dispatcher.off('survey:closed', closedSurvey);
+        dispatcher.off('start:permissions', setPermissions);
     }
 });
 
@@ -133,6 +138,7 @@ function onRemoveSurvey (model, collection, options) {
         $.emptyView.visible = true;
     }
     $.profilesTableView.deleteRow(options.index);
+    removeUploadSurvey(model.get('survey_id'));
 }
 
 /**
@@ -217,6 +223,40 @@ function removeUploadSurvey (surveyId) {
 }
 
 /**
+ * @method closedSurvey
+ *
+ * Handle closed survey, fetch all surveys and update badge
+ */
+function closedSurvey () {
+    // Fetch surveys
+    fetchSurveys();
+    // Update notifications
+    // Reset (hack)
+    remainingUploads = [];
+    surveys.each(function (survey) {
+        var surveyId = survey.get('survey_id');
+
+        if (survey.get('uploaded') == 0) {
+            addUploadSurvey(surveyId);
+        } else {
+            removeUploadSurvey(surveyId);
+        }
+    });
+    // Set notifcation
+    _.defer(updateNotificationBadge);
+}
+
+/**
+ * @method setPermissions
+ *
+ * Call permissions after intro movie to prevent permission alerts in video experience on iOS
+ */
+function setPermissions () {
+    console.log('***** updating permissions');
+    permissions.init();
+}
+
+/**
  * @method updateNotificationBadge
  * Set the badge on upload button to reflect # of remaining uploads
  * @todo: Animate
@@ -226,9 +266,13 @@ function updateNotificationBadge () {
 
     if (notificationCount === 0) {
         $.notificationContainer.setVisible(false);
+        require('notifications').set(0);
         return;
     }
 
     $.notificationCount.text = notificationCount;
     $.notificationContainer.setVisible(true);
+
+    // Also update the badge number to correspond
+    require('notifications').set(remainingUploads.length);
 }

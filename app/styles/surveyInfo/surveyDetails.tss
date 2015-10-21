@@ -2,6 +2,7 @@
     text: L('surveyDetails.title'),
     top: 35,
     font: {
+        fontSize: 17,
         fontFamily: 'ProximaNova-Semibold',
     },
     color: Alloy.CFG.design.header.fontColor

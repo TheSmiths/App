@@ -1,20 +1,20 @@
 "TableViewRow": {
-    height: 55,
+    height: 65,
     hasChild: false,
     backgroundColor: 'transparent',
 }
 
 "TableViewRow[platform=ios]": {
-    selectedBackgroundColor: '#fff'
+    selectedBackgroundColor: 'transparent'
 }
 
 "TableViewRow[platform=android]": {
-    backgroundSelectedColor: "#fff"
+    backgroundSelectedColor: "transparent"
 }
 
 ".eventContainer": {
     top: 5,
-    height: 45,
+    height: 55,
     bottom: 5,
     right: 15
 }
@@ -22,38 +22,58 @@
 ".eventTimeContainer": {
     width: 40,
     left: 0,
-    height: 45
+    height: 55
+}
+
+".eventTimeContent": {
+    layout: 'vertical',
+    height: Ti.UI.SIZE
 }
 
 "#eventTime": {
-    opacity: 0.5,
+    opacity: 0.7,
+    color: '#333',
+    font: {
+        fontSize: 13,
+        fontWeight: 'bold'
+    }
+}
+
+"#eventTimeLabel": {
+    opacity: 0.7,
+    color: '#333',
     font: {
         fontSize: 11
-    }
+    },
+    text: 'MIN'
 }
 
 ".eventInformation": {
     left: 40,
-    height: 45,
+    height: 55,
     top: 0,
     layout: 'vertical',
     backgroundColor: '#fff'
 }
 
 "#eventInformationTitle": {
-    left: 10,
-    right: 10,
-    top: 6,
+    left: 12,
+    right: 12,
+    top: 8,
     font: {
-        fontWeight: 'bold',
-        fontSize: 12
-    }
+        fontFamily: 'ProximaNova-Semibold',
+        fontSize: 14
+    },
+    color: '#333'
 }
 
 "#eventInformationMessage": {
-    left: 10,
-    right: 10,
+    left: 12,
+    right: 12,
+    top: 3,
     font: {
-        fontSize: 11
-    }
+        fontFamily: 'ProximaNova-Regular',
+        fontSize: 12
+    },
+    color: '#333'
 }

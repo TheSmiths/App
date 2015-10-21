@@ -16,11 +16,13 @@
                 <View class="contentRow">
                     <Label class="title" id="tocTitle" />
                     <Label class="paragraph" id="toc" />
+                    <Label class="link" id="tocLink" onClick="onClickVisitTOC" />
                 </View>
 
                 <View class="contentRow">
                     <Label class="title" id="goalTitle" />
                     <Label class="paragraph" id="goal" />
+                    <Label class="link" id="goalLink" onClick="onClickContactProject" />
                 </View>
 
                 <View class="contentRow">

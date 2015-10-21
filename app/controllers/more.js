@@ -28,19 +28,25 @@ _.extend($, {
 });
 
 /**
- * [onClickContactProject description]
- * @param  {[type]} evt [description]
- * @return {[type]}     [description]
+ * @method onClickContactProject
+ *
+ * Open the email client and allow to send email to app@theoceancleanup.com
+ * @param  {Object evt Event data
  */
 function onClickContactProject (evt) {
-
+    var emailDialog = Ti.UI.createEmailDialog()
+    emailDialog.subject = "Feedback on Survey App";
+    emailDialog.toRecipients = ['app@theoceancleanup.com'];
+    emailDialog.open();
 }
 
 /**
  * @method onClickVisitTOC
+ *
  * Handle `click` on  #visitTOC button
+ *
  * @param  {Object} evt
  */
 function onClickVisitTOC (evt) {
-
+    Titanium.Platform.openURL('http://www.theoceancleanup.com');
 }

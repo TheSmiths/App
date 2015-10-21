@@ -7,6 +7,8 @@
  */
 var dispatcher = require('dispatcher');
 var WM = require('windowManager');
+var log = require('utils/log');
+var permissions = require('permissions');
 
 /**
  * Initializes the controller
@@ -18,23 +20,19 @@ _.extend($, {
      * @param {Object} config Controller configuration
      */
     construct: function(config) {
-        // Reset badge once opening the app to remove local notifications
-        if (!Ti.Geolocation.locationServicesEnabled) {
-            log.error('[surveys] Please enable location services');
-        }
-
-        if (Ti.Platform.name == "iPhone OS" && parseInt(Ti.Platform.version.split(".")[0]) >= 8) {
-            Ti.App.iOS.registerUserNotificationSettings({
-                types: [
-                    Ti.App.iOS.USER_NOTIFICATION_TYPE_ALERT,
-                    Ti.App.iOS.USER_NOTIFICATION_TYPE_SOUND,
-                    Ti.App.iOS.USER_NOTIFICATION_TYPE_BADGE
-                ]
-            });
-        }
-
         // Take care of platform navigation
         defineNavigation();
+
+        if (!Ti.App.Properties.getString('app-watched-intro')) {
+            $.loading.hide();
+            _.delay(function(){
+                Alloy.createController('intro');
+                Ti.App.Properties.setString('app-watched-intro', true);
+            }, 50);
+            return;
+        }
+
+        permissions.init();
 
         // Check if we have an active survey, if so open the app in active survey mode
         if (require('surveyManager').activeSurvey()) {
@@ -43,7 +41,8 @@ _.extend($, {
             _.delay(function(){
                 Alloy.createController('surveys/survey', {startedFromRoot: true});
                 $.loading.hide();
-            }, 300);
+            }, 500);
+            return;
         }
     },
 
@@ -52,6 +51,10 @@ _.extend($, {
      * function executed when closing window
      */
     destruct: function() {
+        if (OS_IOS) {
+            Ti.App.removeEventListener('pause', pauseTracking);
+            Ti.App.removeEventListener('resume', continueTracking);
+        }
     }
 });
 
